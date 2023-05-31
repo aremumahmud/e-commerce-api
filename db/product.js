@@ -1,0 +1,348 @@
+const Color = require('./Models/color.Model')
+const productsModel = require('./Models/products.Model')
+const lockedModel = require('./Models/locked.Model')
+const expiresIn = require('.././config')
+const UserModel = require('./Models/User.Model')
+    //connection plugin
+require('./conn')
+
+//payment init
+const initialize = require('.././controllers/paystack_pay')
+const Paystack = require('../utils/paystack')
+const orderModel = require('./Models/order.Model')
+
+class Db {
+    constructor() {
+
+    }
+
+
+
+    /**
+     * @desc      Create a new Product Parent
+     * @param     { Object } options -options Object
+     * @property   { String } options.product_name - Product name
+     * @property  { String } options.description - Product description
+     * @property  { Number } options.price - Product price
+     * @property  { Number } options.discount - Product discount
+     * @property  { Array } options.colors -  Product variations
+     * @property  { String } options.image - image url
+     * @returns   { Promise } - A JSON object representing the type, message, and the product
+     */
+
+    createProduct(options) {
+        // create color docs then save their ids 
+        return new Promise((resolve, reject) => {
+            Promise.allSettled(options.varieties.map(color => new Color(color).save())).then(resp => {
+                console.log(resp)
+                new productsModel({
+                    name: options.product_name,
+                    mainImage: options.image,
+                    description: options.description,
+                    price: options.price,
+                    priceAfterDiscount: options.price - options.discount,
+                    priceDiscount: options.discount,
+                    varieties: resp.map(res => res.value._id)
+                }).save().then(res => {
+                    resolve(res)
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        })
+
+
+
+        // // the create a production model and pass those varieties to them
+
+
+        // //then return the save method as the promise for the results
+
+        // return product.save()
+    }
+
+    /**
+     * @desc    Lock inventory
+     * @param { String } inventoryId - Product ID
+     * @param { Number } product_quantity - Product Quantity
+     * @param { Boolean } trim -boolean condition to either trim results to ids or not
+     * @returns { Promise } - a promise object resolving these results
+     */
+
+
+    lockInventory(inventoryId, product_quantity, refId, trim = false) {
+
+        return new Promise((resolve, reject) => {
+                Color
+                    .findById(inventoryId) // get the product inventory
+                    .then(doc => {
+                        let { quantity, locked } = doc // get the quantity and the locked products
+
+                        // check if the product is not more than whats in stock
+                        if (quantity < product_quantity) return reject({
+                            error: true,
+                            msg: 'not enough stock in the inventory'
+                        })
+
+                        doc.quantity = quantity - product_quantity // remove the quantity from the product
+                        doc.locked = locked + product_quantity //add ythe quantity to the locked 
+                        doc
+                            .save()
+                            .then(res => {
+                                new lockedModel({ //then we create a lock model for it
+                                        quantity: product_quantity,
+                                        product: doc._id,
+                                        refId,
+                                        expires: (Number(Date.now()) + expiresIn.exp * 60 * 60 * 1000)
+
+                                    })
+                                    .save()
+                                    .then(res => {
+                                        //if the trim variable is true 
+                                        //we want to only return only the ids of the locked inventory
+                                        //else we want to send it along with a message
+                                        trim ? resolve(res._id) : resolve({
+                                            error: false,
+                                            msg: 'successfully locked inventory',
+                                            lockedId: res._id,
+                                            product: {
+                                                product: doc._id,
+                                                quantity: product_quantity
+                                            }
+                                        })
+                                    }).catch(err => {
+                                        console.log(err)
+                                        reject({
+                                            err,
+                                            error: true,
+                                            msg: 'unable to finish operation' //handle error
+                                        })
+                                    })
+                            })
+                            .catch(err => {
+                                reject({
+                                    err,
+                                    error: true,
+                                    msg: 'couldnt lock inventory' //handle error
+                                })
+                            })
+
+                    })
+            })
+            //get the inventory
+
+
+    }
+
+    /**
+     * @desc  remove and validate a locked product quantity
+     * @param { String } lockId - the reference to the locked document
+     * @returns { Promise } - returns
+     * 
+     */
+
+    validateLocked(lockId) {
+        return new Promise((resolve, reject) => {
+            lockedModel
+                .findOneAndDelete({ refId: lockId })
+                .populate('product')
+                .then(doc => {
+                    resolve({ error: false, doc })
+                }).catch(err => {
+                    reject({
+                        error: true,
+                        msg: ''
+                    })
+                })
+
+        })
+    }
+
+
+    getInventory() {
+        return new Promise((resolve, reject) => {
+            productsModel
+                .find()
+                .populate('varieties')
+                .then(res => {
+                    resolve({
+                        data: res
+                    })
+                }).catch(err => {
+                    reject({
+                        error: true
+                    })
+                })
+        })
+
+    }
+
+
+    attachLocked(user, refId, amount, user_data, products) {
+        return new Promise((resolve, reject) => {
+            UserModel
+                .findById(user)
+                .then(res => {
+                    initialize(res.email_address, amount, user).then(body => {
+                        res.locks = refId
+                        res.currentPaymentReference = {
+                            ...user_data,
+                            reference: body.status ? body.data.reference : 'falsey',
+                            products
+                        }
+
+                        res.save().then(res => {
+                            resolve({
+                                error: false,
+                                isRef: body.status ? true : false,
+                                email_address: res.email_address,
+                                payment_uri: body.status ? body.data.authorization_url : null
+                            })
+                        }).catch(err => {
+                            reject({
+                                error: true
+                            })
+                        })
+                    })
+
+                }).catch(err => {
+                    reject({
+                        error: true
+                    })
+                })
+        })
+
+    }
+
+
+    validate_payment(reference) {
+        return new Promise((resolve, reject) => {
+            Paystack.transaction.verify(reference)
+                .then(res => {
+                    console.log(res)
+                    if (res.code === 'ENOTFOUND') return reject({
+                        error: true,
+                        msg: 'technical issues at hand'
+                    })
+                    if (res.status === false) return reject({
+                        error: true,
+                        msg: res.message
+                    })
+                    if (res.data && res.data.status !== 'success') return reject({
+                        error: true,
+                        msg: 'payment failed'
+                    })
+
+                    let userID = res.data.metadata.userId
+                    UserModel.findById(userID)
+                        .then(user => {
+                            if (!user || Object.keys(user).length === 0) return reject({
+                                error: true,
+                                mesage: 'user not found'
+                            })
+                            let order = user.currentPaymentReference
+                            let products = order.products
+                            console.log(order)
+                            let ids = products.map(x => x._id)
+                            Color.find({ '_id': { $in: ids } })
+                                .then(resp => {
+
+                                    //lets create a new order model
+                                    let new_order = {
+                                        ...order,
+                                        products: resp.map((x, i) => {
+                                            return {
+                                                image: x.image,
+                                                id: x._id,
+                                                parent_product: x.parentProduct,
+                                                quantity: products[i].quantity,
+                                                price: x.price
+                                            }
+                                        })
+                                    }
+                                    new orderModel(new_order).save().then(resp1 => {
+                                        let id = resp1._id
+                                        user.orders.push(id)
+                                        user.save().then(r => {
+                                            resolve({
+                                                error: false,
+                                                success: true
+                                            })
+                                        })
+                                    })
+
+                                })
+
+                        })
+                }).catch(err => {
+                    reject(err)
+                })
+
+        })
+
+    }
+
+    fetch_orders(id) {
+        return new Promise((resolve, reject) => {
+            UserModel.findById(id)
+                .populate('orders')
+                .then(res => {
+                    resolve({
+                        success: true,
+                        orders: res.orders
+                    })
+                }).catch(err => {
+                    reject({
+                        error: true,
+                        err
+                    })
+                })
+        })
+    }
+
+}
+
+
+
+module.exports = Db
+
+// Color.find().then(res => {
+//     console.log(res)
+// })
+
+
+// let color = new Color({
+//     image: 'http://jeee.lll',
+//     parentProduct: '644af46e21718d639eb8d342',
+//     inventoryRecord: 10,
+//     quantity: 5,
+//     sold: 0,
+//     locked: 5
+// })
+
+// color.save().then(doc => {
+//     console.log(doc)
+// }).catch(err => {
+//     console.log(err)
+// })
+
+// let Product = new productsModel({
+//     name: 'Air Pods',
+//     mainImage: 'htp://jdmnx.ddd',
+
+//     description: 'a good description off air pieces',
+//     price: 200,
+//     priceAfterDiscount: 150,
+//     priceDiscount: 50
+// })
+
+// Product.save().then(docs => {
+//     console.log(docs)
+// }).catch(err => {
+//     console.log(err.errors.description.properties.message)
+// }).catch(err => {
+//     console.log(err.errors.description.properties.message)
+// })  console.log(err.errors.description.properties.message)
+// })  console.log(err.errors.description.properties.message)
+// })  console.log(err.errors.description.properties.message)
+// })

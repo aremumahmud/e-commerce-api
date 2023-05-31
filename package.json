@@ -1,0 +1,18 @@
+{
+  "name": "inventory",
+  "version": "1.0.0",
+  "description": "Inventory service for an ecommerce website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mahmud Aremu",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "mongoose": "^7.1.0",
+    "paystack": "^2.0.1",
+    "paystack-node": "^0.3.0"
+  }
+}
