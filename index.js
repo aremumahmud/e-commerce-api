@@ -33,9 +33,13 @@ app.use(
         resave: true,
         saveUninitialized: true,
         cookie: {
-
             // secure: true, // Set to true for HTTPS connections
             // sameSite: 'None',
+
+            domain: '.aremzy.repl.co',
+            path: '/',
+            secure: false, // Set to true for HTTPS connections
+            sameSite: 'none',
             httpOnly: false,
             maxAge: 8.64e+7
         }

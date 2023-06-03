@@ -218,13 +218,15 @@ class Db {
 
     validate_payment(reference) {
         return new Promise((resolve, reject) => {
+          console.log(reference)
             Paystack.transaction.verify(reference)
                 .then(res => {
-                    console.log(res)
+                   // console.log(res,'dlkx')
                     if (res.code === 'ENOTFOUND') return reject({
                         error: true,
                         msg: 'technical issues at hand'
                     })
+                 
                     if (res.status === false) return reject({
                         error: true,
                         msg: res.message
