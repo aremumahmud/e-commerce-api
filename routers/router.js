@@ -17,11 +17,10 @@ router
         res.json({
             auth: {
                 user: {
-                    email_address: theUser.email,
+                    email_address: theUser.email_address,
                     username: theUser.username
                 }
-            },
-
+            }
         });
     });
 
