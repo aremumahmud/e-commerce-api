@@ -33,8 +33,7 @@ app.use(
         resave: true,
         saveUninitialized: true,
         cookie: {
-            domain: 'repl.co', // Set the domain attribute
-    path: '/',
+           
             // secure: true, // Set to true for HTTPS connections
             // sameSite: 'None',
             httpOnly: false,
