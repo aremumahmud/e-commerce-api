@@ -7,10 +7,10 @@ function verifyTransaction(req, res) {
     })
     dbInstance.validate_payment(id).then(response => {
         console.log(response, 'll')
-        res.redirect('http://localhost:3000/success')
+        res.redirect('https://e-commerce-ui-ruddy.vercel.app/success')
     }).catch(err => {
         console.log(err, 'lk')
-        res.redirect('http://localhost:3000/home')
+        res.redirect('https://e-commerce-ui-ruddy.vercel.app/home')
     })
 }
 
