@@ -33,6 +33,10 @@ app.use(
         resave: true,
         saveUninitialized: true,
         cookie: {
+            domain: 'repl.co', // Set the domain attribute
+    path: '/',
+            // secure: true, // Set to true for HTTPS connections
+            // sameSite: 'None',
             httpOnly: false,
             maxAge: 8.64e+7
         }
@@ -44,7 +48,7 @@ app.use(passport.session());
 app.use(flash())
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: 'https://e-commerce-ui-ruddy.vercel.app'
 }))
 
 // app.use(function(req, res, next) {
