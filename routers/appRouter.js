@@ -5,6 +5,7 @@ const add_to_cart = require('../controllers/addtocart')
 const LockInventory = require('../controllers/lockInventory')
 const { checkAuthenticated, checkNotAuthenticated } = require("../authentication/utils");
 const get_orders = require('../controllers/fetch_orders')
+const Auth = require('../authentication/jwt_auth')
 const router = express.Router()
 
 router
@@ -22,10 +23,10 @@ router
 
 router
     .route('/lock_inventory')
-    .post(checkAuthenticated, LockInventory)
+    .post(Auth, LockInventory)
 
 router
     .route('/fetch_orders')
-    .post(checkAuthenticated, get_orders)
+    .post(Auth, get_orders)
 
 module.exports = router

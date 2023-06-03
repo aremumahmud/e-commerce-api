@@ -33,7 +33,7 @@ app.use(
         resave: true,
         saveUninitialized: true,
         cookie: {
-           
+
             // secure: true, // Set to true for HTTPS connections
             // sameSite: 'None',
             httpOnly: false,
@@ -47,7 +47,8 @@ app.use(passport.session());
 app.use(flash())
 app.use(cors({
     credentials: true,
-    origin: 'https://e-commerce-ui-ruddy.vercel.app'
+    origin: ['https://e-commerce-ui-ruddy.vercel.app', 'http://localhost:3000']
+
 }))
 
 // app.use(function(req, res, next) {

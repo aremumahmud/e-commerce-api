@@ -1,4 +1,6 @@
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const JWT_PRIVATE_KEY = process.env.JWT_SECRET || 'fjvghbftygbv hb,k kj';
 
 
 module.exports = (req, res, next) => {
@@ -30,7 +32,14 @@ module.exports = (req, res, next) => {
                 errors: false,
                 user: {
                     email_address: theUser.email_address,
-                    username: theUser.username
+                    username: theUser.username,
+                    token: jwt.sign({
+                        expiresIn: '20 days',
+                        username: theUser.username,
+                        email_address: theUser.email_address,
+                        role: 'customer',
+                        id: theUser._id
+                    }, JWT_PRIVATE_KEY)
                 },
             });
         });

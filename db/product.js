@@ -184,6 +184,7 @@ class Db {
                 .findById(user)
                 .then(res => {
                     initialize(res.email_address, amount, user).then(body => {
+                        console.log(body)
                         res.locks = refId
                         res.currentPaymentReference = {
                             ...user_data,

@@ -3,12 +3,13 @@ const express = require("express");
 const loginPostHandler = require("../controllers/loginPostHandler");
 const registerPostHandler = require("../controllers/registerPostHandler");
 const { checkAuthenticated, checkNotAuthenticated } = require("../authentication/utils");
+const Auth = require("../authentication/jwt_auth");
 
 let router = express.Router();
 
 router
     .route("/dashboard")
-    .get(checkAuthenticated, (req, res) => {
+    .get(Auth, (req, res) => {
         let theUser = req.user
             // delete theUser._id
             // delete theUser.password
@@ -26,15 +27,11 @@ router
 
 router
     .route("/login")
-    .get(checkNotAuthenticated, (req, res) => {
-        //send a false message 
-        res.send({ login: false });
-    })
-    .post(checkNotAuthenticated, loginPostHandler);
+    .post(loginPostHandler);
 
 router
     .route("/register")
-    .get(checkNotAuthenticated, (req, res) => {
+    .get((req, res) => {
         let err = req.query.error;
         if (err == "exist") {
             return res.json({ error: "User exists!" });
@@ -43,7 +40,7 @@ router
         }
         return res.json({ error: null });
     })
-    .post(checkNotAuthenticated, registerPostHandler);
+    .post(registerPostHandler);
 
 router.route("/logout").delete((req, res) => {
     req.logOut(() => {});
