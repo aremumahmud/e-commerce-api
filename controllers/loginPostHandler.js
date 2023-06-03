@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
             res.json({
                 errors: false,
                 user: {
-                    email_address: theUser.email,
+                    email_address: theUser.email_address,
                     username: theUser.username
                 },
             });
