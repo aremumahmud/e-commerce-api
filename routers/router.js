@@ -21,7 +21,6 @@ router
                     username: theUser.username
                 }
             },
-            ,
         });
     });
 
