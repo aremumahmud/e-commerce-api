@@ -10,12 +10,18 @@ router
     .route("/dashboard")
     .get(checkAuthenticated, (req, res) => {
         let theUser = req.user
-        delete theUser._id
-        delete theUser.password
-        delete theUser.orders
-        delete theUser.payments
+            // delete theUser._id
+            // delete theUser.password
+            // delete theUser.orders
+            // delete theUser.payments
         res.json({
-            auth: theUser,
+            auth: {
+                user: {
+                    email_address: theUser.email,
+                    username: theUser.username
+                }
+            },
+            ,
         });
     });
 
