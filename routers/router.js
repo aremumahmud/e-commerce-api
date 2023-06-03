@@ -9,8 +9,13 @@ let router = express.Router();
 router
     .route("/dashboard")
     .get(checkAuthenticated, (req, res) => {
+        let theUser = req.user
+        delete theUser._id
+        delete theUser.password
+        delete theUser.orders
+        delete theUser.payments
         res.json({
-            auth: req.user,
+            auth: theUser,
         });
     });
 

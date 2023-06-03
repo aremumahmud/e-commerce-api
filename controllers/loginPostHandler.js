@@ -22,6 +22,10 @@ module.exports = (req, res, next) => {
                 });
             }
             console.log(req.isAuthenticated());
+            delete theUser._id
+            delete theUser.password
+            delete theUser.orders
+            delete theUser.payments
             res.json({
                 errors: false,
                 user: theUser,
