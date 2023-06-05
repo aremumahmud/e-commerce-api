@@ -178,12 +178,12 @@ class Db {
     }
 
 
-    attachLocked(user, refId, amount, user_data, products) {
+    attachLocked(user, refId, amount, user_data, products, currency) {
         return new Promise((resolve, reject) => {
             UserModel
                 .findById(user)
                 .then(res => {
-                    initialize(res.email_address, amount, user).then(body => {
+                    initialize(res.email_address, amount, user, currency).then(body => {
                         console.log(body)
                         res.locks = refId
                         res.currentPaymentReference = {
@@ -218,15 +218,15 @@ class Db {
 
     validate_payment(reference) {
         return new Promise((resolve, reject) => {
-          console.log(reference)
+            console.log(reference)
             Paystack.transaction.verify(reference)
                 .then(res => {
-                   // console.log(res,'dlkx')
+                    // console.log(res,'dlkx')
                     if (res.code === 'ENOTFOUND') return reject({
                         error: true,
                         msg: 'technical issues at hand'
                     })
-                 
+
                     if (res.status === false) return reject({
                         error: true,
                         msg: res.message

@@ -1,9 +1,10 @@
 const Paystack = require('../utils/paystack')
 
-function initialize(email, amount, id) {
+function initialize(email, amount, id, currency) {
     return Paystack.transaction.initialize({
         email,
         amount: (Number(amount) * 100),
+        currency,
         metadata: {
             userId: id ? id : ""
         } // in kobo

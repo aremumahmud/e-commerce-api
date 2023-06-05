@@ -11,7 +11,7 @@ const { v4: uuidV4 } = require("uuid");
 
 function LockInventory(req, res) {
 
-    let { inventory, price, user_data } = req.body
+    let { inventory, price, user_data, currency } = req.body
     let refId = uuidV4()
         // console.log(inventory)
         // return
@@ -43,7 +43,7 @@ function LockInventory(req, res) {
             })
         }
         let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart }))
-        dbInstance.attachLocked(req.user._id, refId, price, user_data, products).then((response) => {
+        dbInstance.attachLocked(req.user._id, refId, price, user_data, products, currency).then((response) => {
             res.status(200).json({
                 error: false,
                 msg: 'inventory has been successfully locked',
