@@ -10,7 +10,7 @@ const dbInstance = require('../db')
 
 function get_products(req, res) {
     // console.log(req.body, req.query)
-    dbInstance.getInventory(req.param.category).then(response => {
+    dbInstance.getInventory(req.params.category).then(response => {
         res.status(200).json({
             success: true,
             data: response
