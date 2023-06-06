@@ -1,9 +1,10 @@
 const Paystack = require('../utils/paystack')
 
 function initialize(email, amount, id, currency) {
+  //console.log((Number(amount) * 100).toFixed(2))
     return Paystack.transaction.initialize({
         email,
-        amount: (Number(amount) * 100),
+        amount: (Number(amount) * 100).toFixed(2),
         currency,
         metadata: {
             userId: id ? id : ""
