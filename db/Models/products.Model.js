@@ -1,6 +1,4 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
-
+const { Schema, default: mongoose } = require("mongoose");
 
 let productSchema = new Schema({
     name: {
@@ -41,6 +39,7 @@ let productSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Color'
     }],
+    category: String
 
 }, {
     timestamps: true,

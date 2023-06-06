@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const { Schema, default: mongoose } = require("mongoose");
 
 let UserModel = new Schema({
     username: {

@@ -10,6 +10,7 @@ require('./conn')
 const initialize = require('.././controllers/paystack_pay')
 const Paystack = require('../utils/paystack')
 const orderModel = require('./Models/order.Model')
+const categoryModel = require('./Models/category.Model')
 
 class Db {
     constructor() {
@@ -42,8 +43,18 @@ class Db {
                     price: options.price,
                     priceAfterDiscount: options.price - options.discount,
                     priceDiscount: options.discount,
-                    varieties: resp.map(res => res.value._id)
+                    varieties: resp.map(res => res.value._id),
+                    category: options.category
                 }).save().then(res => {
+                    categoryModel.findOne().then(res => {
+                        if (res.length == 0 && !res) {
+                            return
+                        }
+                        if (res.categories.indexOf(options.category) == -1) {
+                            res.categories.push(options.category)
+                            res.save()
+                        }
+                    })
                     resolve(res)
                 }).catch(err => {
                     reject(err)
@@ -159,10 +170,11 @@ class Db {
     }
 
 
-    getInventory() {
+    getInventory(category) {
+        //let g = category ? ({ f: 'f' }) : null
         return new Promise((resolve, reject) => {
             productsModel
-                .find()
+                .find(category ? ({ category }) : null)
                 .populate('varieties')
                 .then(res => {
                     resolve({

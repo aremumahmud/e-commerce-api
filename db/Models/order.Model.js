@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const { Schema, default: mongoose } = require("mongoose");
 
 const Order = new Schema({
     reference: String,

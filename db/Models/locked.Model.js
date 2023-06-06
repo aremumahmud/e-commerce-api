@@ -1,6 +1,4 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
-
+const { Schema, default: mongoose } = require("mongoose");
 
 let lockedSchema = new Schema({
 
