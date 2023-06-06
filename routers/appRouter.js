@@ -13,7 +13,7 @@ router
     .post(add_products)
 
 router
-    .route('/get_products')
+    .route('/get_products/:category')
     .get(get_products)
 
 

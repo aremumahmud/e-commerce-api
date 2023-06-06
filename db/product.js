@@ -174,7 +174,7 @@ class Db {
         //let g = category ? ({ f: 'f' }) : null
         return new Promise((resolve, reject) => {
             productsModel
-                .find(category ? ({ category }) : null)
+                .find(category !== 'all' ? ({ category }) : null)
                 .populate('varieties')
                 .then(res => {
                     resolve({
