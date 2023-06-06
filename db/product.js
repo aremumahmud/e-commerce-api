@@ -189,6 +189,22 @@ class Db {
 
     }
 
+    getCategories() {
+        return new Promise((resolve, reject) => {
+            categoryModel
+                .findOne()
+                .then(res => {
+                    resolve({
+                        data: res.categories
+                    })
+                }).catch(err => {
+                    reject({
+                        error: true
+                    })
+                })
+        })
+    }
+
 
     attachLocked(user, refId, amount, user_data, products, currency) {
         return new Promise((resolve, reject) => {
