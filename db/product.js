@@ -174,7 +174,7 @@ class Db {
         //let g = category ? ({ f: 'f' }) : null
         return new Promise((resolve, reject) => {
           let query = category !== 'all'&& category ? ({ category }) : null
-          console.log(query,'k' , category)
+         // console.log(query,'k' , category)
             productsModel
                 .find(query)
                 .populate('varieties')
