@@ -347,7 +347,9 @@ class Db {
                                         user.save().then(r => {
                                             resolve({
                                                 error: false,
-                                                success: true
+                                                success: true,
+                                                id,
+                                                email_address: resp1.email_address
                                             })
                                         })
                                     })
@@ -372,6 +374,23 @@ class Db {
                     resolve({
                         success: true,
                         orders: res.orders
+                    })
+                }).catch(err => {
+                    reject({
+                        error: true,
+                        err
+                    })
+                })
+        })
+    }
+
+    fetch_orders_view(id) {
+        return new Promise((resolve, reject) => {
+            orderModel.findById(id)
+                .then(res => {
+                    resolve({
+                        success: true,
+                        orders: res
                     })
                 }).catch(err => {
                     reject({

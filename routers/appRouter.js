@@ -8,6 +8,7 @@ const get_orders = require('../controllers/fetch_orders')
 const Auth = require('../authentication/jwt_auth')
 const fetch_categories = require('../controllers/getCategories')
 const LockInventoryGuest = require('../controllers/lock_for_guest')
+const get_order_view = require('../controllers/viewOrder')
 const router = express.Router()
 
 router
@@ -38,5 +39,8 @@ router
 router
     .route('/fetch_orders')
     .post(Auth, get_orders)
+router
+    .route('/fetch_order_view')
+    .get(get_order_view)
 
 module.exports = router
