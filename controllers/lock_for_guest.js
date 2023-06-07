@@ -9,7 +9,7 @@ const dbInstance = require("../db")
 const { v4: uuidV4 } = require("uuid");
 //const amqpServer = require('../../amqp')
 
-function LockInventory(req, res) {
+function LockInventoryGuest(req, res) {
 
     let { inventory, price, user_data, currency } = req.body
     let refId = uuidV4()
@@ -43,7 +43,7 @@ function LockInventory(req, res) {
             })
         }
         let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price }))
-        dbInstance.attachLocked(req.user._id, refId, price, user_data, products, currency).then((response) => {
+        dbInstance.attachLockedGuest(refId, price, user_data, products, currency).then((response) => {
             res.status(200).json({
                 error: false,
                 msg: 'inventory has been successfully locked',
@@ -52,6 +52,7 @@ function LockInventory(req, res) {
                 payment_uri: response.payment_uri
             })
         }).catch(err => {
+            console.log(err)
             return res.status(400).json({
                 error: true,
                 msg: 'could not attach inventory id'
@@ -63,4 +64,4 @@ function LockInventory(req, res) {
 
 }
 
-module.exports = LockInventory
+module.exports = LockInventoryGuest

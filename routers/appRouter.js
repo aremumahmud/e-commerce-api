@@ -7,6 +7,7 @@ const { checkAuthenticated, checkNotAuthenticated } = require("../authentication
 const get_orders = require('../controllers/fetch_orders')
 const Auth = require('../authentication/jwt_auth')
 const fetch_categories = require('../controllers/getCategories')
+const LockInventoryGuest = require('../controllers/lock_for_guest')
 const router = express.Router()
 
 router
@@ -29,6 +30,10 @@ router
 router
     .route('/lock_inventory')
     .post(Auth, LockInventory)
+
+router
+    .route('/lock_inventory_guest')
+    .post(LockInventoryGuest)
 
 router
     .route('/fetch_orders')

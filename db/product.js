@@ -11,6 +11,7 @@ const initialize = require('.././controllers/paystack_pay')
 const Paystack = require('../utils/paystack')
 const orderModel = require('./Models/order.Model')
 const categoryModel = require('./Models/category.Model')
+const guestOrderModel = require('./Models/guestOrder.Model')
 
 class Db {
     constructor() {
@@ -173,8 +174,8 @@ class Db {
     getInventory(category) {
         //let g = category ? ({ f: 'f' }) : null
         return new Promise((resolve, reject) => {
-          let query = category !== 'all'&& category ? ({ category }) : null
-         // console.log(query,'k' , category)
+            let query = category !== 'all' && category ? ({ category }) : null
+                // console.log(query,'k' , category)
             productsModel
                 .find(query)
                 .populate('varieties')
@@ -245,6 +246,41 @@ class Db {
 
     }
 
+    attachLockedGuest(refId, amount, user_data, products, currency) {
+        return new Promise((resolve, reject) => {
+            new guestOrderModel({
+                locks: refId,
+                currentPaymentReference: {
+                    ...user_data,
+                    products
+                }
+
+            }).save().then(res => {
+                initialize(user_data.email_address, amount, {
+                    _id: res._id,
+                    role: 'guest'
+                }, currency).then(body => {
+                    console.log(body)
+                    res.currentPaymentReference.reference = body.status ? body.data.reference : 'falsey'
+                        //res.reference = body.status ? body.data.reference : 'falsey'
+                    res.save().catch(err => {
+                        console.log(err)
+                    })
+
+                    resolve({
+                        error: false,
+                        isRef: body.status ? true : false,
+                        email_address: user_data.email_address,
+                        payment_uri: body.status ? body.data.authorization_url : null
+                    })
+
+                })
+            })
+
+        })
+
+    }
+
 
     validate_payment(reference) {
         return new Promise((resolve, reject) => {
@@ -266,8 +302,18 @@ class Db {
                         msg: 'payment failed'
                     })
 
-                    let userID = res.data.metadata.userId
-                    UserModel.findById(userID)
+                    let operation;
+                    if (res.data.metadata.role === 'guest') {
+                        operation = guestOrderModel.findById(res.data.metadata._id)
+                    } else {
+                        //console.log(res.data)
+                        let userID = res.data.metadata.userId
+                        UserModel.findById(userID)
+                    }
+
+
+
+                    operation
                         .then(user => {
                             if (!user || Object.keys(user).length === 0) return reject({
                                 error: true,
@@ -275,7 +321,8 @@ class Db {
                             })
                             let order = user.currentPaymentReference
                             let products = order.products
-                            console.log(order)
+                            order.reference = reference
+                            console.log(products)
                             let ids = products.map(x => x._id)
                             Color.find({ '_id': { $in: ids } })
                                 .then(resp => {
@@ -284,18 +331,19 @@ class Db {
                                     let new_order = {
                                         ...order,
                                         products: resp.map((x, i) => {
+                                            //console.log(x)
                                             return {
                                                 image: x.image,
                                                 id: x._id,
                                                 parent_product: x.parentProduct,
                                                 quantity: products[i].quantity,
-                                                price: x.price
+                                                price: products[i].price
                                             }
                                         })
                                     }
                                     new orderModel(new_order).save().then(resp1 => {
                                         let id = resp1._id
-                                        user.orders.push(id)
+                                        user.orders && user.orders.push(id)
                                         user.save().then(r => {
                                             resolve({
                                                 error: false,
@@ -308,6 +356,7 @@ class Db {
 
                         })
                 }).catch(err => {
+                    console.log(err)
                     reject(err)
                 })
 
