@@ -7,6 +7,7 @@
 
 //database controller
 const dbInstance = require('../db')
+const d = require('../utils/404')
 const generate = require('./generateEmail')
 
 function get_order_view(req, res) {
@@ -26,11 +27,7 @@ function get_order_view(req, res) {
             // })
     }).catch(err => {
         console.log(err)
-        res.status(400).json({
-            message: 'there was an unexpected turn of events',
-            success: false,
-            error: true
-        })
+        res.status(400).send(d)
     })
 }
 
