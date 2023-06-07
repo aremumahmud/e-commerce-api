@@ -24,10 +24,10 @@ let d = `
 <br>
 <br>
 <div class="topic">
-    <p style="font-size:30px">Seems you took a wrong Turn!</p>
+    <p style="font-size:25px">Seems you took a wrong Turn!</p>
 </div>
 <div class="topic">
-    <p>click <a href="https://e-commerce-ui-ruddy.vercel.app/home/">here</a> to go home</p>
+    <p>click <a style="" href="https://e-commerce-ui-ruddy.vercel.app/home/">here</a> to go home</p>
 </div>
 
 <footer>
