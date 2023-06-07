@@ -17,8 +17,9 @@ let d = `
 <div class="logo">
     <p>Glitz<span>abelle</span></p>
 </div>
+
 <div>
-    <img class="img" src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686179615/DEV/iottffmyny60arjkeol5.svg" alt="">
+    <img class="img" src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686180139/DEV/vxsf2gixkf7okjwc5qn8.svg" alt="">
 </div>
 <br>
 <br>

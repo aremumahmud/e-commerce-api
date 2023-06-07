@@ -26,7 +26,7 @@ function get_order_view(req, res) {
             //     data: generate(response.orders)
             // })
     }).catch(err => {
-        console.log(err)
+        // console.log(err)
         res.status(400).send(d)
     })
 }
