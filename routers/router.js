@@ -27,6 +27,11 @@ router
 
 router
     .route("/login")
+    .get((r,res)=>{
+      res.json({
+        success: true
+      })
+    })
     .post(loginPostHandler);
 
 router
