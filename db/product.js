@@ -214,7 +214,7 @@ class Db {
             UserModel
                 .findById(user)
                 .then(res => {
-                    initialize(res.email_address, amount, user, currency).then(body => {
+                    initialize(user_data.email_address, amount, user, currency).then(body => {
                         console.log(body)
                         res.locks = refId
                         res.currentPaymentReference = {

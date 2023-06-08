@@ -54,7 +54,7 @@ function sendmail(email, id, host) {
     var mailOptions = {
         from: 'glitzabellelabel@zohomail.com',
         to: email,
-        subject: 'Welcome email from CryptoCoinSmart !',
+        subject: 'Order Notification From Glitzabellelabel Stores!',
 
         html: html(id, host)
             //    `
