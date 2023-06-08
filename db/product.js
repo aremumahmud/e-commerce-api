@@ -35,7 +35,12 @@ class Db {
     createProduct(options) {
         // create color docs then save their ids 
         return new Promise((resolve, reject) => {
-            Promise.allSettled(options.varieties.map(color => new Color(color).save())).then(resp => {
+            Promise.allSettled(options.varieties.filter(x => {
+                if (color.image) {
+                    return true
+                }
+                return false
+            }).map(color => new Color(color).save())).then(resp => {
                 console.log(resp)
                 new productsModel({
                     name: options.product_name,
@@ -310,7 +315,7 @@ class Db {
                         let userID = res.data.metadata.userId
                         operation = UserModel.findById(userID)
                     }
-                  // console.log(operation , res.data.metadata.role)
+                    // console.log(operation , res.data.metadata.role)
 
 
 

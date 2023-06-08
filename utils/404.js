@@ -15,7 +15,7 @@ let d = `
 <body>
 <div class="container">
 <div class="logo">
-    <p>Glitz<span>abelle</span></p>
+    <p>Glitz<span>abellelabel</span></p>
 </div>
 
 <div>

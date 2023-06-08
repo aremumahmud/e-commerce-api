@@ -78,7 +78,7 @@ let end = data => `
 <footer>
             <hr />
             <div class="logo">
-            <p>Glitz<span>abelle</span></p>
+            <p>Glitz<span>abellelabel</span></p>
         </div>
             <div className="links">
                 <ul style='display:flex;flex-direction:row;flex-wrap:wrap;margin:0;color:black'>
