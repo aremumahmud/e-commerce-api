@@ -308,8 +308,9 @@ class Db {
                     } else {
                         //console.log(res.data)
                         let userID = res.data.metadata.userId
-                        UserModel.findById(userID)
+                        operation = UserModel.findById(userID)
                     }
+                  // console.log(operation , res.data.metadata.role)
 
 
 
