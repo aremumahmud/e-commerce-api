@@ -18,7 +18,8 @@ let UserModel = new Schema({
         ref: 'Order'
     }],
     payments: [],
-    currentPaymentReference: {}
+    currentPaymentReference: {},
+    change_password_token: String
 
 
 })

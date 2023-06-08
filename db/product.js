@@ -3,7 +3,8 @@ const productsModel = require('./Models/products.Model')
 const lockedModel = require('./Models/locked.Model')
 const expiresIn = require('.././config')
 const UserModel = require('./Models/User.Model')
-    //connection plugin
+const bcrypt = require("bcrypt");
+//connection plugin
 require('./conn')
 
 //payment init
@@ -12,6 +13,8 @@ const Paystack = require('../utils/paystack')
 const orderModel = require('./Models/order.Model')
 const categoryModel = require('./Models/category.Model')
 const guestOrderModel = require('./Models/guestOrder.Model')
+const generateAccessCode = require('../utils/generate_acess_code')
+const sendmail_reset = require('../utils/password')
 
 class Db {
     constructor() {
@@ -407,6 +410,72 @@ class Db {
         })
     }
 
+    sendotp(user) {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ email_address: user }).then(res => {
+                if (!res || Object.keys(res).length === 0) return reject({
+                    error: true,
+                    mesage: 'user not found'
+                })
+
+                ;
+                let token = generateAccessCode()
+
+                res.change_password_token = token
+                sendmail_reset(user, token)
+                res.save().then(() => {
+                    resolve({
+                        sucess: true,
+                        error: false
+                    })
+                })
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    }
+
+    verify_otp(email, token) {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ email_address: email, change_password_token: token }).then(res => {
+                if (!res || Object.keys(res).length === 0) return reject({
+                    error: true,
+                    mesage: 'failed validation'
+                })
+
+                resolve({
+                    userID: res._id
+                })
+
+
+            }).catch(err => reject(err))
+        })
+    }
+    changePassword(id, password) {
+        return new Promise((resolve, reject) => {
+            UserModel.findById(id).then(res => {
+                if (!res || Object.keys(res).length === 0) return reject({
+                    error: true,
+                    mesage: 'user not found'
+                })
+
+                bcrypt.hash(password, 10).then(hashed => {
+                    res.password = hashed
+                    console.log(hashed)
+                    res.save().then((f) => {
+                        console.log(f)
+                        resolve({
+                            succes: true,
+                            error: false
+                        })
+
+
+                    }).catch(err => reject(err))
+                })
+
+            }).catch(err => reject(err))
+        })
+    }
 }
 
 
@@ -452,4 +521,6 @@ module.exports = Db
 // })  console.log(err.errors.description.properties.message)
 // })  console.log(err.errors.description.properties.message)
 // })  console.log(err.errors.description.properties.message)
+// }).description.properties.message)
+// }).description.properties.message)
 // })
