@@ -15,14 +15,14 @@ const html = (id, host) => `
 <body>
 <div class="container">
 <div class="logo">
-    <h1>Glitz<span>abellelabel Stores</span></h1>
+    <h1>Glitz<span>abelle Label</span></h1>
 </div>
 <div>
     <img class="img" src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686174910/DEV/qx7bwn5aqo3tqmuulfut.png" alt="">
 </div>
 <br>
 <div class="topic">
-    <h2>You have sucessfuly placed an order at Glitzabelle stores!</h2>
+    <h2>You have sucessfuly placed an order at Glitzabelle Label!</h2>
 </div>
 <br>
 <div>
@@ -54,7 +54,7 @@ function sendmail(email, id, host) {
     var mailOptions = {
         from: 'glitzabellelabel@zohomail.com',
         to: email,
-        subject: 'Order Notification From Glitzabellelabel Stores!',
+        subject: 'Order Notification From Glitzabelle Label!',
 
         html: html(id, host)
             //    `

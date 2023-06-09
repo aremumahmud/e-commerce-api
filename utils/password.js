@@ -26,7 +26,7 @@ function sendmail_reset(email, token) {
     var mailOptions = {
         from: 'glitzabellelabel@zohomail.com',
         to: email,
-        subject: 'Password Reset Notification From Glitzabellelabel Stores!',
+        subject: 'Password Reset Notification From Glitzabelle label!',
 
         html: f(token)
             //    `

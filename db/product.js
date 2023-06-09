@@ -59,7 +59,7 @@ class Db {
                         if (res.length == 0 && !res) {
                             return
                         }
-                        if (res.categories.indexOf(options.category) == -1) {
+                        if (res.categories.indexOf(options.category) === -1) {
                             res.categories.push(options.category)
                             res.save()
                         }
