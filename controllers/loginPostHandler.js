@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
                 });
             }
             console.log(req.isAuthenticated());
-            console.log(req.isAuthenticated());
+            // console.log(req.isAuthenticated());
             // delete theUser._id
             // delete theUser.password
             // delete theUser.orders

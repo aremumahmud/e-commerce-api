@@ -82,11 +82,12 @@ router
     .get((req, res) => {
         let id = req.query.id
         let password = req.query.password
+        let token = req.query.token
         if (!id || !password) return res.send({
             error: true,
             msg: 'no email or token in query'
         })
-        dbInstance.changePassword(id, password).then(resp => {
+        dbInstance.changePassword(id, password, token).then(resp => {
             // console.log(res)
             res.json(resp)
         }).catch(err => {

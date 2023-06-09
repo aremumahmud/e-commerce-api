@@ -39,7 +39,7 @@ class Db {
         // create color docs then save their ids 
         return new Promise((resolve, reject) => {
             Promise.allSettled(options.varieties.filter(x => {
-                if (color.image) {
+                if (x.image) {
                     return true
                 }
                 return false
@@ -451,9 +451,9 @@ class Db {
             }).catch(err => reject(err))
         })
     }
-    changePassword(id, password) {
+    changePassword(id, password, token) {
         return new Promise((resolve, reject) => {
-            UserModel.findById(id).then(res => {
+            UserModel.findOne({ _id: id, change_password_token: token }).then(res => {
                 if (!res || Object.keys(res).length === 0) return reject({
                     error: true,
                     mesage: 'user not found'
@@ -465,7 +465,7 @@ class Db {
                     res.save().then((f) => {
                         console.log(f)
                         resolve({
-                            succes: true,
+                            success: true,
                             error: false
                         })
 
