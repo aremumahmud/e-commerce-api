@@ -96,6 +96,10 @@ class Db {
                 Color
                     .findById(inventoryId) // get the product inventory
                     .then(doc => {
+                      if(!doc) return reject({
+                            error: true,
+                            msg: 'not enough stock in the inventory'
+                        })
                         let { quantity, locked } = doc // get the quantity and the locked products
 
                         // check if the product is not more than whats in stock
