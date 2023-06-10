@@ -44,7 +44,7 @@ let end = data => `
 </div>
 <br />
 <div class="topic2">
-    <p>Here is/are your order's details</p>
+    <p>Here is/are your order details</p>
     <br />
 </div>
 <table style="font-size:12px">

@@ -15,7 +15,7 @@ const html = (id, host) => `
 <body>
 <div class="container">
 <div class="logo">
-    <h1>Glitz<span>abelle Label</span></h1>
+<img src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686347400/DEV/vnfp8ucivmcfyyr8uipo.jpg" alt="" />
 </div>
 <div>
     <img class="img" src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686174910/DEV/qx7bwn5aqo3tqmuulfut.png" alt="">
