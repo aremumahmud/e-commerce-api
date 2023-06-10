@@ -47,5 +47,6 @@ let productSchema = new Schema({
     toObject: { virtuals: true }
 })
 
+productSchema.index({ '$**': 'text' })
 
 module.exports = mongoose.model('Product', productSchema)

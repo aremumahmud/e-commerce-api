@@ -4,9 +4,13 @@ const passport = require("passport");
 const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override")
+
+//
 const router = require('./routers/router')
 const appRouter = require('./routers/appRouter')
 const paystack_router = require('./routers/paystack.router')
+const search_router = require('./routers/search_router')
+    //
 const cors = require('cors')
 const db = require('./db/user')
 
@@ -67,6 +71,7 @@ app.use(methodOverride("_method"));
 app.use("/users", router)
 app.use("/v1/api/", appRouter)
 app.use("/v1/api/pay/", paystack_router)
+app.use('/v1/api/search/', search_router)
 
 app.listen(port, () => {
     console.log('server started at port ' + port)
