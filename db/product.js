@@ -50,10 +50,10 @@ class Db {
                     mainImage: options.image,
                     description: options.description,
                     price: options.price,
-                    priceAfterDiscount: options.price - options.discount,
-                    priceDiscount: options.discount,
+                    // priceAfterDiscount: options.price - options.discount,
+                    // priceDiscount: options.discount,
                     varieties: resp.map(res => res.value._id),
-                    category: options.category
+                    category: options.category.trim()
                 }).save().then(res => {
                     categoryModel.findOne().then(res => {
                         if (res.length == 0 && !res) {
@@ -66,6 +66,7 @@ class Db {
                     })
                     resolve(res)
                 }).catch(err => {
+                    conso.log(err)
                     reject(err)
                 })
             })
@@ -96,7 +97,7 @@ class Db {
                 Color
                     .findById(inventoryId) // get the product inventory
                     .then(doc => {
-                      if(!doc) return reject({
+                        if (!doc) return reject({
                             error: true,
                             msg: 'not enough stock in the inventory'
                         })
