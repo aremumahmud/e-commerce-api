@@ -117,6 +117,7 @@ let product = (x) => `
     <div class="info12">
         <p class='topic1'>${x.parent_product}</p>
         <p>quantity: ${x.quantity}</p>
+        <p>size: ${x.size}</p>
     </div>
 </div>
 <div class='info22'>

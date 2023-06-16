@@ -35,6 +35,7 @@ let productSchema = new Schema({
             message: 'Discount price ({VALUE}) should be below regular price'
         }
     },
+    sizes: [],
     varieties: [{
         type: mongoose.Types.ObjectId,
         ref: 'Color'
