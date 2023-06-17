@@ -93,21 +93,21 @@ class Db {
 
 
     lockInventory(inventoryId, product_quantity, refId, trim = false) {
-
+console.log(inventoryId)
         return new Promise((resolve, reject) => {
                 Color
                     .findById(inventoryId) // get the product inventory
                     .then(doc => {
                         if (!doc) return reject({
                             error: true,
-                            msg: 'not enough stock in the inventory'
+                            msg: 'not enough stock in the inventory3'
                         })
                         let { quantity, locked } = doc // get the quantity and the locked products
 
                         // check if the product is not more than whats in stock
                         if (quantity < product_quantity) return reject({
                             error: true,
-                            msg: 'not enough stock in the inventory'
+                            msg: 'not enough stock in the inventory2'
                         })
 
                         doc.quantity = quantity - product_quantity // remove the quantity from the product
