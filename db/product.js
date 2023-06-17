@@ -93,7 +93,7 @@ class Db {
 
 
     lockInventory(inventoryId, product_quantity, refId, trim = false) {
-console.log(inventoryId)
+        console.log(inventoryId)
         return new Promise((resolve, reject) => {
                 Color
                     .findById(inventoryId) // get the product inventory
@@ -355,15 +355,15 @@ console.log(inventoryId)
                             //lets create a new order model
                             let new_order = {
                                 ...order,
-                                products: resp.map((x, i) => {
+                                products: products.map((x, i) => {
                                     //console.log(x)
                                     return {
-                                        image: products[i].image,
-                                        id: products[i]._id,
-                                        parent_product: products[i].parent_product,
-                                        quantity: products[i].quantity,
-                                        price: products[i].price,
-                                        size: products[i].size
+                                        image: x.image,
+                                        id: x._id,
+                                        parent_product: x.parent_product,
+                                        quantity: x.quantity,
+                                        price: x.price,
+                                        size: x.size
                                     }
                                 })
                             }
