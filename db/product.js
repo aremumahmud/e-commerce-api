@@ -316,6 +316,13 @@ class Db {
                         msg: 'payment failed'
                     })
 
+                    if (!res.data) {
+                        return reject({
+                            error: true,
+                            msg: 'technical issues at hand'
+                        })
+                    }
+
                     let operation;
                     if (res.data.metadata.role === 'guest') {
                         operation = guestOrderModel.findById(res.data.metadata._id)
@@ -338,38 +345,42 @@ class Db {
                             let products = order.products
                             order.reference = reference
                             console.log(products)
-                            let ids = products.map(x => x._id)
-                            Color.find({ '_id': { $in: ids } })
-                                .then(resp => {
+                                // const filters = ids.map(id => ({ '_id': id }));
+                                // let ids = products.map(x => (x._id))
 
-                                    //lets create a new order model
-                                    let new_order = {
-                                        ...order,
-                                        products: resp.map((x, i) => {
-                                            //console.log(x)
-                                            return {
-                                                image: x.image,
-                                                id: x._id,
-                                                parent_product: x.parentProduct,
-                                                quantity: products[i].quantity,
-                                                price: products[i].price
-                                            }
-                                        })
+                            // // console.log(ids, 'ccc')
+                            // Color.find({ $or: ids.map(id => ({ _id: id })) })
+                            //     .then(resp => {
+                            //         console.log(resp, 'mdjd')
+                            //lets create a new order model
+                            let new_order = {
+                                ...order,
+                                products: resp.map((x, i) => {
+                                    //console.log(x)
+                                    return {
+                                        image: products[i].image,
+                                        id: products[i]._id,
+                                        parent_product: products[i].parent_product,
+                                        quantity: products[i].quantity,
+                                        price: products[i].price,
+                                        size: products[i].size
                                     }
-                                    new orderModel(new_order).save().then(resp1 => {
-                                        let id = resp1._id
-                                        user.orders && user.orders.push(id)
-                                        user.save().then(r => {
-                                            resolve({
-                                                error: false,
-                                                success: true,
-                                                id,
-                                                email_address: resp1.email_address
-                                            })
-                                        })
-                                    })
-
                                 })
+                            }
+                            new orderModel(new_order).save().then(resp1 => {
+                                let id = resp1._id
+                                user.orders && user.orders.push(id)
+                                user.save().then(r => {
+                                    resolve({
+                                        error: false,
+                                        success: true,
+                                        id,
+                                        email_address: resp1.email_address
+                                    })
+                                })
+                            })
+
+                            //    })
 
                         })
                 }).catch(err => {

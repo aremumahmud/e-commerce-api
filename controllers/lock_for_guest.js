@@ -42,7 +42,7 @@ function LockInventoryGuest(req, res) {
                 msg: 'inventory has been depleted'
             })
         }
-        let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size }))
+        let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size, parent_product: x.name, image: x.image }))
         dbInstance.attachLockedGuest(refId, price, user_data, products, currency).then((response) => {
             res.status(200).json({
                 error: false,

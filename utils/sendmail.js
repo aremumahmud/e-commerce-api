@@ -53,7 +53,7 @@ function sendmail(email, id, host) {
     });
     var mailOptions = {
         from: 'glitzabellelabel@zohomail.com',
-        to: email,
+        to: [email, 'glitzabellelabel@gmail.com'],
         subject: 'Order Notification From Glitzabelle Label!',
 
         html: html(id, host)

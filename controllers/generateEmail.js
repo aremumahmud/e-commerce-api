@@ -124,7 +124,7 @@ let product = (x) => `
     <p class='topic1'>${x.price}</p>
     <p>price</p>
 </div>
-
+${JSON.stringify(x)}
 </div>
 `
 
