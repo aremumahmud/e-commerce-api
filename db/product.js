@@ -52,7 +52,7 @@ class Db {
                     price: options.price,
                     // priceAfterDiscount: options.price - options.discount,
                     // priceDiscount: options.discount,
-                    sizes: options.sizes,
+                    //sizes: options.sizes,
                     varieties: resp.map(res => res.value._id),
                     category: options.category.trim()
                 }).save().then(res => {

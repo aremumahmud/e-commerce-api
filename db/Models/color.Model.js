@@ -28,7 +28,8 @@ let colorSchema = new Schema({
     locked: {
         type: Number,
         default: 0
-    }
+    },
+    sizes: [],
 
 })
 
@@ -44,4 +45,5 @@ colorSchema.post('save', { document: true, query: false }, (err, doc, next) => {
 })
 
 
+module.exports = mongoose.model('Color', colorSchema)
 module.exports = mongoose.model('Color', colorSchema)
