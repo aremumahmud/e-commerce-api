@@ -29,7 +29,11 @@ let colorSchema = new Schema({
         type: Number,
         default: 0
     },
-    sizes: [],
+    sizes: [{
+        index: Number,
+        size: String,
+        qty: Number
+    }],
 
 })
 

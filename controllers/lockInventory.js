@@ -17,7 +17,7 @@ function LockInventory(req, res) {
         // return
 
     //we then have to lock these inventories in parallel
-    let operation = inventory.map(product => dbInstance.lockInventory(product._id, product.quantity_for_cart, refId, true))
+    let operation = inventory.map(product => dbInstance.lockInventory(product._id, product.quantity_for_cart, product.size, refId, true))
 
     //execute all operations in parralel to optimize and increase operation speeds
 

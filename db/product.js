@@ -92,7 +92,7 @@ class Db {
      */
 
 
-    lockInventory(inventoryId, product_quantity, refId, trim = false) {
+    lockInventory(inventoryId, product_quantity, size, refId, trim = false) {
         console.log(inventoryId)
         return new Promise((resolve, reject) => {
                 Color
@@ -102,9 +102,19 @@ class Db {
                             error: true,
                             msg: 'not enough stock in the inventory3'
                         })
-                        let { quantity, locked } = doc // get the quantity and the locked products
-
-                        // check if the product is not more than whats in stock
+                        let { quantity, locked, sizes } = doc // get the quantity and the locked products
+                        let index;
+                        for (let i = 0; i < sizes.length; i++) {
+                            if (sizes[i].size == size) {
+                                index = i
+                                break
+                            }
+                        }
+                        if (index === null) return reject({
+                                error: true,
+                                msg: 'not enough stock in the inventory2'
+                            })
+                            // check if the product is not more than whats in stock
                         if (quantity < product_quantity) return reject({
                             error: true,
                             msg: 'not enough stock in the inventory2'
@@ -112,6 +122,11 @@ class Db {
 
                         doc.quantity = quantity - product_quantity // remove the quantity from the product
                         doc.locked = locked + product_quantity //add ythe quantity to the locked 
+                        console.log(doc.sizes)
+                        doc.sizes[index].qty = parseInt(doc.sizes[index].qty) - product_quantity;
+                        let sizesd = [...doc.sizes]
+                        console.log(sizesd);
+                        doc.sizes = sizesd;
                         doc
                             .save()
                             .then(res => {
@@ -538,6 +553,8 @@ module.exports = Db
 // })  console.log(err.errors.description.properties.message)
 // })  console.log(err.errors.description.properties.message)
 // })  console.log(err.errors.description.properties.message)
+// }).description.properties.message)
+// }).description.properties.message)
 // }).description.properties.message)
 // }).description.properties.message)
 // })
