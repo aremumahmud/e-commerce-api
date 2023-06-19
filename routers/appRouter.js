@@ -11,6 +11,7 @@ const LockInventoryGuest = require('../controllers/lock_for_guest')
 const get_order_view = require('../controllers/viewOrder')
 const sendmail_reset = require('../utils/password')
 const dbInstance = require('../db')
+const suscribe_user = require('../controllers/suscribeUser')
 const router = express.Router()
 
 router
@@ -94,4 +95,10 @@ router
             res.json(err)
         })
     })
+
+router
+    .route('/suscribe')
+    .get(suscribe_user)
+
+
 module.exports = router

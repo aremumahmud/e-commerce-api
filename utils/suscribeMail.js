@@ -1,24 +1,5 @@
-<!-- <form id="formElem">
-    <input type="text" name="name" value="John">
-    <input type="file" name="picture">
-    <input type="submit">
-</form>
-
-<script>
-    const formElem = document.getElementById('formElem')
-    formElem.onsubmit = async(e) => {
-        e.preventDefault();
-
-        let response = await fetch('http://localhost:2000/', {
-            method: 'POST',
-            body: new FormData(formElem)
-        });
-
-        let result = await response.json();
-
-        console.log(result);
-    };
-</script> -->
+var nodemailer = require('nodemailer');
+const html = (email) => `
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +27,7 @@
         </div>
         <br>
         <div>
-            <p> Dear Mahmud Aremu,</p>
+            <p> Dear ${email},</p>
             <br>
             <p style="font-size: small;">Congratulations! You have successfully joined Glitzabelle Label's mailing list. We are thrilled to have you on board. As a valued subscriber, you will now receive exclusive updates, promotions, and insider news directly to your inbox. Be the
                 first to discover our latest products, fashion trends, and exciting events! Rest assured, your privacy is of utmost importance to us. We will never share your personal information with any third parties. Our emails are carefully crafted
@@ -78,4 +59,49 @@
     </div>
 </body>
 
-</html>
+</html>`
+
+function sendmail_suscribe(email) {
+    var transporter = nodemailer.createTransport({
+        //host: 'smtp-relay.sendinblue.com',
+        host: 'smtp.zoho.com',
+        port: 465,
+        secure: true, // use SSL
+        auth: {
+            user: 'glitzabellelabel@zohomail.com',
+            pass: 'R9wJ9M8Z4uDr'
+        }
+    });
+    transporter.verify((error, success) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Server is ready to take messages');
+        }
+    });
+    var mailOptions = {
+        from: 'glitzabellelabel@zohomail.com',
+        to: email,
+        subject: 'Suscription Notification From Glitzabelle Label!',
+
+        html: html(email.split('@')[0])
+            //    `
+
+        //  <div style='width:100%'>
+        //  <h4 style='text-align:center'>welcome to our wonderful investment platform. <br>Sign in with the button below to get started </h4><br>
+        // <a style='text-align:center;padding:10px;border-radius:10px' href='http://cryptocoinsmart.crypsc.repl.co/pages/login'> Sign in</a> </div>
+        //  `
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+
+module.exports = sendmail_suscribe
+
+//sendmail('aremumahmud2003@gmail.com')
