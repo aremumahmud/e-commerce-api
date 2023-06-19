@@ -115,7 +115,7 @@ class Db {
                                 msg: 'not enough stock in the inventory2'
                             })
                             // check if the product is not more than whats in stock
-                        if (quantity < product_quantity) return reject({
+                        if (parseInt(doc.sizes[index].qty) < product_quantity) return reject({
                             error: true,
                             msg: 'not enough stock in the inventory2'
                         })
