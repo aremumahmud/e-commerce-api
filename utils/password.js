@@ -12,8 +12,8 @@ function sendmail_reset(email, token) {
         port: 465,
         secure: true, // use SSL
         auth: {
-            user: 'glitzabellelabel@zohomail.com',
-            pass: 'R9wJ9M8Z4uDr'
+            user: process.env.SMTP_USER || 'glitzabellelabel@zohomail.com',
+            pass: process.env.SMTP_PASSWORD || 'R9wJ9M8Z4uDr'
         }
     });
     transporter.verify((error, success) => {
@@ -29,7 +29,7 @@ function sendmail_reset(email, token) {
         subject: 'Password Reset Notification From Glitzabelle label!',
 
         html: f(token)
-            //    `
+        //    `
 
         //  <div style='width:100%'>
         //  <h4 style='text-align:center'>welcome to our wonderful investment platform. <br>Sign in with the button below to get started </h4><br>
@@ -37,7 +37,7 @@ function sendmail_reset(email, token) {
         //  `
     };
 
-    transporter.sendMail(mailOptions, function(error, info) {
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
         } else {
