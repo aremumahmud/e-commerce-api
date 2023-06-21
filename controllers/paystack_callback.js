@@ -2,7 +2,9 @@ const dbInstance = require("../db")
 const sendmail = require("../utils/sendmail")
 
 function verifyTransaction(req, res) {
-    let id = req.query.reference
+
+    let id = req.query.transaction_id
+
     if (!id) return res.status(400).json({
         message: 'cannot have an empty [id]'
     })

@@ -15,8 +15,15 @@ function LockInventory(req, res) {
 
     let { inventory, price, user_data, discount } = req.body
     let refId = uuidV4()
-    // return console.log(discount)
-    // return
+        //<<
+        // << << < HEAD
+        // // return console.log(discount)
+        // // return
+        // ===
+        // === =
+        // return console.log(discount)
+        // return
+        // 9b94a92 (added som)
 
     //we then have to lock these inventories in parallel
     let operation = inventory.map(product => dbInstance.lockInventory(product._id, product.quantity_for_cart, product.size, refId, true))
@@ -50,6 +57,19 @@ function LockInventory(req, res) {
             ourPrice += parseInt(element.price)
         });
 
+        // <<
+        // <<
+        // <<
+        // < HEAD
+        //     ===
+        //     ===
+        //     =
+        //     console.log(inventory)
+
+        // >>>
+        // >>>
+        // >
+        // 9 b94a92(added som)
         //get prods
         let products = inventory.map(x => ({
             _id: x._id,

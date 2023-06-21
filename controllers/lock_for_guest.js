@@ -8,7 +8,9 @@
 const dbInstance = require("../db")
 const { v4: uuidV4 } = require("uuid");
 const { invalidate_discount } = require("../db/discount");
-//const amqpServer = require('../../amqp')
+const { currencyTab } = require("../utils/currency copy");
+// >>>
+//require('../../amqp')
 
 function LockInventoryGuest(req, res) {
 
@@ -46,8 +48,19 @@ function LockInventoryGuest(req, res) {
         }
         let ourPrice = 0
         inventory.forEach(element => {
-            ourPrice += parseInt(element.price)
+            if (currency === element.currency) {
+                ourPrice += parseInt(element.price) * parseInt(element.quantity_for_cart)
+            } else if (element.currency === 'NGN' && currency !== 'NGN') {
+                ourPrice += ((parseInt(element.price) * parseInt(element.quantity_for_cart)) / currencyTab[currency].price_in_naira)
+            }
+
         });
+        ourPrice = +ourPrice.toFixed(2)
+        if (ourPrice === 0) return res.status(400).json({
+            error: true,
+            msg: 'try to tampered with system'
+        })
+        console.log(inventory)
         let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size, parent_product: x.name, image: x.image }))
         if (discount.length === 0) {
             dbInstance.attachLockedGuest(refId, ourPrice, user_data, products, currency).then((response) => {
