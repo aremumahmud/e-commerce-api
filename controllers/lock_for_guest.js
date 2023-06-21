@@ -14,9 +14,9 @@ function LockInventoryGuest(req, res) {
 
     let { inventory, price, user_data, currency, discount } = req.body
     let refId = uuidV4()
-    //console.log(inventory)
-    // return
-    //return console.log(discount)
+        //console.log(inventory)
+        // return
+        //return console.log(discount)
 
     //we then have to lock these inventories in parallel
     let operation = inventory.map(product => dbInstance.lockInventory(product._id, product.quantity_for_cart, product.size, refId, true))
@@ -70,6 +70,7 @@ function LockInventoryGuest(req, res) {
                 return results.filter(n => n.status === "fulfilled" ? n.value : false).map(x => x.value.value)
             }).then(res => {
                 console.log(res)
+                if (res.length === 0) return 0
                 return res.reduce((i, n) => {
                     return i + n
                 })
