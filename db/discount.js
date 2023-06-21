@@ -52,7 +52,8 @@ class Discount {
                 res.save().then(() => {
                     resolve({
                         error: false,
-                        success: true
+                        success: true,
+                        value: res.value
                     })
                 })
 

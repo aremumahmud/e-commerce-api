@@ -7,14 +7,16 @@
 
 const dbInstance = require("../db")
 const { v4: uuidV4 } = require("uuid");
+const validateDiscount = require("./validate_discount");
+const { invalidate_discount } = require("../db/discount");
 //const amqpServer = require('../../amqp')
 
 function LockInventory(req, res) {
 
-    let { inventory, price, user_data, currency } = req.body
+    let { inventory, price, user_data, discount } = req.body
     let refId = uuidV4()
-    console.log(inventory)
-        // return
+    // return console.log(discount)
+    // return
 
     //we then have to lock these inventories in parallel
     let operation = inventory.map(product => dbInstance.lockInventory(product._id, product.quantity_for_cart, product.size, refId, true))
@@ -42,22 +44,66 @@ function LockInventory(req, res) {
                 msg: 'inventory has been depleted'
             })
         }
+        //set price
+        let ourPrice = 0
+        inventory.forEach(element => {
+            ourPrice += parseInt(element.price)
+        });
 
-        let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size, parent_product: x.name, image: x.image }))
-        dbInstance.attachLocked(req.user._id, refId, price, user_data, products, currency).then((response) => {
-            res.status(200).json({
-                error: false,
-                msg: 'inventory has been successfully locked',
-                isBinded: response.isRef,
-                email_address: response.email_address,
-                payment_uri: response.payment_uri
+        //get prods
+        let products = inventory.map(x => ({
+            _id: x._id,
+            quantity: x.quantity_for_cart,
+            price: x.price,
+            size: x.size,
+            parent_product: x.name,
+            image: x.image
+        }))
+
+        if (discount.length === 0) {
+            dbInstance.attachLocked(req.user._id, refId, ourPrice, user_data, products, currency).then((response) => {
+                res.status(200).json({
+                    error: false,
+                    msg: 'inventory has been successfully locked',
+                    isBinded: response.isRef,
+                    email_address: response.email_address,
+                    payment_uri: response.payment_uri
+                })
+            }).catch(err => {
+                return res.status(400).json({
+                    error: true,
+                    msg: 'could not attach inventory id'
+                })
             })
-        }).catch(err => {
-            return res.status(400).json({
-                error: true,
-                msg: 'could not attach inventory id'
+        } else {
+            Promise.allSettled(discount.map(x => invalidate_discount(x))).then(results => {
+                return results.filter(n => n.status === "fulfilled" ? n.value : false).map(x => x.value.value)
+            }).then(res => {
+                return res.reduce((i, n) => {
+                    return i + n
+                })
+            }).then(resp => {
+                console.log(res)
+                let updated_price = ourPrice - ((resp * ourPrice) / 100)
+                dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency).then((response) => {
+                    res.status(200).json({
+                        error: false,
+                        msg: 'inventory has been successfully locked',
+                        isBinded: response.isRef,
+                        email_address: response.email_address,
+                        payment_uri: response.payment_uri
+                    })
+                }).catch(err => {
+                    console.log(err)
+                    return res.status(400).json({
+                        error: true,
+                        msg: 'could not attach inventory id'
+                    })
+                })
             })
-        })
+
+        }
+
 
 
     })
