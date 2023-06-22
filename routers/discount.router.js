@@ -1,11 +1,12 @@
 const express = require('express')
 const createDiscount = require('../controllers/discount.Controller')
 const validateDiscount = require('../controllers/validate_discount')
+const Auth_Admin = require('../authentication/jwt_admin_auth')
 const router = express.Router()
 
 router
     .route('/create_discount')
-    .get(createDiscount)
+    .post(Auth_Admin, createDiscount)
 
 
 router

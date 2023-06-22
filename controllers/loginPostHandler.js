@@ -29,6 +29,7 @@ module.exports = (req, res, next) => {
             // delete theUser.password
             // delete theUser.orders
             // delete theUser.payments
+            console.log(theUser)
             res.json({
                 errors: false,
                 user: {
@@ -38,7 +39,7 @@ module.exports = (req, res, next) => {
                         expiresIn: '20 days',
                         username: theUser.username,
                         email_address: theUser.email_address,
-                        role: 'customer',
+                        role: theUser.username === 'admin' ? 'admin' : 'customer',
                         id: theUser._id
                     }, JWT_PRIVATE_KEY)
                 },

@@ -12,7 +12,7 @@ let passAndNext = (req, dec, next) => {
 }
 
 //auth middle ware to validate and authorize requests
-function Auth(req, res, next) {
+function Auth_Admin(req, res, next) {
     //get the token
 
     let token = req.headers.authentication && req.headers.authentication.split(' ')[1]
@@ -20,20 +20,20 @@ function Auth(req, res, next) {
         //then verify
     jwt.verify(token, JWT_PRIVATE_KEY, function(err, decoded) {
 
-        console.log(decoded, err)
-            //if error or decoded is undefined we reject and send an error message
+        //  console.log(decoded, err)
+        //if error or decoded is undefined we reject and send an error message
         err || !decoded ? res.status(400).json({
             error: true,
             login: false,
-            authorized: false,
+            authorized: 'none',
             msg: 'user not authorized to perform this action'
-        }) : (decoded.role === 'customer' || decoded.role === 'admin') ? passAndNext(req, decoded, next) : res.status(400).json({
+        }) : decoded.role === 'admin' ? passAndNext(req, decoded, next) : res.status(400).json({
             error: true,
             login: false,
-            authorized: false,
+            authorized: 'none',
             msg: 'user not authorized to perform this action'
         })
     });
 }
 
-module.exports = Auth
+module.exports = Auth_Admin

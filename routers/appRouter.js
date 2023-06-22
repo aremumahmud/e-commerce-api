@@ -13,6 +13,7 @@ const sendmail_reset = require('../utils/password')
 const dbInstance = require('../db')
 const suscribe_user = require('../controllers/suscribeUser')
 const modify = require('../controllers/modify')
+const Auth_Admin = require('../authentication/jwt_admin_auth')
 const router = express.Router()
 
 router
@@ -103,7 +104,7 @@ router
 
 router
     .route('/modify_product')
-    .post(modify)
+    .post(Auth_Admin, modify)
 
 
 module.exports = router

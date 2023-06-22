@@ -4,7 +4,7 @@ const { create_discount } = require("../db/discount")
 
 function createDiscount(req, res) {
 
-    let value = parseInt(req.query.value)
+    let value = parseInt(req.body.value)
 
     if (!value) return res.status(400).json({
         error: true,
