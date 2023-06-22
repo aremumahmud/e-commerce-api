@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function verifyTransaction1(transactionId) {
     const flutterwaveBaseUrl = 'https://api.flutterwave.com';
-    const flutterwaveSecretKey = 'FLWSECK_TEST-b81ca4ff99a748e2decef914748f98f5-X';
+    const flutterwaveSecretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 
     try {
         const response = await axios.get(

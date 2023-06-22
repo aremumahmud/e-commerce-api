@@ -3,7 +3,7 @@ const generateTransactionReference = require('../utils/generate_tx_ref');
 
 async function generatePaymentLink(amount, currency, customerEmail, customerName, id, role) {
     const flutterwaveBaseUrl = 'https://api.flutterwave.com';
-    const flutterwaveSecretKey = 'FLWSECK_TEST-b81ca4ff99a748e2decef914748f98f5-X';
+    const flutterwaveSecretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 
     try {
         let tx_ref = generateTransactionReference()
