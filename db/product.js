@@ -424,119 +424,117 @@ class Db {
                 });
         })
     }
-});
-})
-}
 
-fetch_orders(id) {
-    return new Promise((resolve, reject) => {
-        UserModel.findById(id)
-            .populate("orders")
-            .then((res) => {
-                resolve({
-                    success: true,
-                    orders: res.orders,
-                });
-            })
-            .catch((err) => {
-                reject({
-                    error: true,
-                    err,
-                });
-            });
-    });
-}
 
-fetch_orders_view(id) {
-    return new Promise((resolve, reject) => {
-        orderModel
-            .findById(id)
-            .then((res) => {
-                resolve({
-                    success: true,
-                    orders: res,
-                });
-            })
-            .catch((err) => {
-                reject({
-                    error: true,
-                    err,
-                });
-            });
-    });
-}
-
-sendotp(user) {
-    return new Promise((resolve, reject) => {
-        UserModel.findOne({ email_address: user })
-            .then((res) => {
-                if (!res || Object.keys(res).length === 0)
-                    return reject({
-                        error: true,
-                        mesage: "user not found",
-                    });
-                let token = generateAccessCode();
-
-                res.change_password_token = token;
-                sendmail_reset(user, token);
-                res.save().then(() => {
+    fetch_orders(id) {
+        return new Promise((resolve, reject) => {
+            UserModel.findById(id)
+                .populate("orders")
+                .then((res) => {
                     resolve({
-                        sucess: true,
-                        error: false,
+                        success: true,
+                        orders: res.orders,
                     });
-                });
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
-}
-
-verify_otp(email, token) {
-    return new Promise((resolve, reject) => {
-        UserModel.findOne({ email_address: email, change_password_token: token })
-            .then((res) => {
-                if (!res || Object.keys(res).length === 0)
-                    return reject({
+                })
+                .catch((err) => {
+                    reject({
                         error: true,
-                        mesage: "failed validation",
+                        err,
                     });
-
-                resolve({
-                    userID: res._id,
                 });
-            })
-            .catch((err) => reject(err));
-    });
-}
-changePassword(id, password, token) {
-    return new Promise((resolve, reject) => {
-        UserModel.findOne({ _id: id, change_password_token: token })
-            .then((res) => {
-                if (!res || Object.keys(res).length === 0)
-                    return reject({
+        });
+    }
+
+    fetch_orders_view(id) {
+        return new Promise((resolve, reject) => {
+            orderModel
+                .findById(id)
+                .then((res) => {
+                    resolve({
+                        success: true,
+                        orders: res,
+                    });
+                })
+                .catch((err) => {
+                    reject({
                         error: true,
-                        mesage: "user not found",
+                        err,
                     });
-
-                bcrypt.hash(password, 10).then((hashed) => {
-                    res.password = hashed;
-                    console.log(hashed);
-                    res
-                        .save()
-                        .then((f) => {
-                            console.log(f);
-                            resolve({
-                                success: true,
-                                error: false,
-                            });
-                        })
-                        .catch((err) => reject(err));
                 });
-            })
-            .catch((err) => reject(err));
-    });
-}
+        });
+    }
+
+    sendotp(user) {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ email_address: user })
+                .then((res) => {
+                    if (!res || Object.keys(res).length === 0)
+                        return reject({
+                            error: true,
+                            mesage: "user not found",
+                        });
+                    let token = generateAccessCode();
+
+                    res.change_password_token = token;
+                    sendmail_reset(user, token);
+                    res.save().then(() => {
+                        resolve({
+                            sucess: true,
+                            error: false,
+                        });
+                    });
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
+    }
+
+    verify_otp(email, token) {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ email_address: email, change_password_token: token })
+                .then((res) => {
+                    if (!res || Object.keys(res).length === 0)
+                        return reject({
+                            error: true,
+                            mesage: "failed validation",
+                        });
+
+                    resolve({
+                        userID: res._id,
+                    });
+                })
+                .catch((err) => reject(err));
+        });
+    }
+    changePassword(id, password, token) {
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({ _id: id, change_password_token: token })
+                .then((res) => {
+                    if (!res || Object.keys(res).length === 0)
+                        return reject({
+                            error: true,
+                            mesage: "user not found",
+                        });
+
+                    bcrypt.hash(password, 10).then((hashed) => {
+                        res.password = hashed;
+                        console.log(hashed);
+                        res
+                            .save()
+                            .then((f) => {
+                                console.log(f);
+                                resolve({
+                                    success: true,
+                                    error: false,
+                                });
+                            })
+                            .catch((err) => reject(err));
+                    });
+                })
+                .catch((err) => reject(err));
+        });
+    }
 }
 
 module.exports = Db;
