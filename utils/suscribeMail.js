@@ -82,10 +82,10 @@ function sendmail_suscribe(email) {
     var mailOptions = {
         from: 'glitzabellelabel@zohomail.com',
         to: email,
-        subject: 'Suscription Notification From Glitzabelle Label!',
+        subject: ` Welcome to Glitzabelle Label's Mailing List!`,
 
         html: html(email.split('@')[0])
-        //    `
+            //    `
 
         //  <div style='width:100%'>
         //  <h4 style='text-align:center'>welcome to our wonderful investment platform. <br>Sign in with the button below to get started </h4><br>
@@ -93,7 +93,7 @@ function sendmail_suscribe(email) {
         //  `
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
             console.log(error);
         } else {
