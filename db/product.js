@@ -59,7 +59,7 @@ class Db {
      * @property  { String } options.image - image url
      * @returns   { Promise } - A JSON object representing the type, message, and the product
      */
-
+ 
     createProduct(options) {
 <<<<<<< HEAD
         // create color docs then save their ids 
