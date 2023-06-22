@@ -17,6 +17,7 @@ const generateAccessCode = require("../utils/generate_acess_code");
 const sendmail_reset = require("../utils/password");
 const generatePaymentLink = require("../config/flutterwave");
 const verifyTransaction = require("../config/verify_transaction");
+const colorModel = require("./Models/color.Model");
 
 class Db {
     constructor() {}
@@ -534,6 +535,13 @@ class Db {
                 })
                 .catch((err) => reject(err));
         });
+    }
+
+    modifyProduct(id, parent, modified, modified1) {
+
+        return colorModel.findByIdAndUpdate(id, modified).then(res => {
+            return productsModel.findOneAndUpdate({ name: parent }, modified1)
+        })
     }
 }
 

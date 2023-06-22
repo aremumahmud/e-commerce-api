@@ -12,6 +12,7 @@ const get_order_view = require('../controllers/viewOrder')
 const sendmail_reset = require('../utils/password')
 const dbInstance = require('../db')
 const suscribe_user = require('../controllers/suscribeUser')
+const modify = require('../controllers/modify')
 const router = express.Router()
 
 router
@@ -99,6 +100,10 @@ router
 router
     .route('/suscribe')
     .get(suscribe_user)
+
+router
+    .route('/modify_product')
+    .post(modify)
 
 
 module.exports = router
