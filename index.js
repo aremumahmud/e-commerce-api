@@ -21,6 +21,7 @@ require('dotenv').config()
 
 const port = 2000
 const initializePassport = require("./authentication/passportConfig");
+const Auth_Admin = require('./authentication/jwt_admin_auth');
 initializePassport(
     passport,
     (email) => db.findUserByEmail(email),
@@ -66,6 +67,16 @@ app.use(cors({
 //     res.locals.error = req.flash('error');
 //     next();
 // });
+
+
+app.post('/isAdmin', Auth_Admin, (req, res) => {
+    res.status(200).json({
+        error: false,
+        login: true,
+        authorized: 'yes',
+        msg: 'user  authorized to perform this action'
+    })
+})
 
 app.use(methodOverride("_method"));
 
