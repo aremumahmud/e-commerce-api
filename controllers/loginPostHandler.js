@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
             // delete theUser.password
             // delete theUser.orders
             // delete theUser.payments
-            console.log(theUser)
+            console.log(theUser,'lago')
             res.json({
                 errors: false,
                 user: {
