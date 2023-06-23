@@ -20,7 +20,7 @@ function Auth_Admin(req, res, next) {
         //then verify
     jwt.verify(token, JWT_PRIVATE_KEY, function(err, decoded) {
 
-        //  console.log(decoded, err)
+        console.log(decoded, err)
         //if error or decoded is undefined we reject and send an error message
         err || !decoded ? res.status(400).json({
             error: true,
