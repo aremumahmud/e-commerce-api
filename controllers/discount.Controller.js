@@ -12,7 +12,11 @@ function createDiscount(req, res) {
     })
 
     create_discount(value).then((response) => {
-        res.status(200).json(response)
+        res.status(200).json({
+            ...response,
+            success: true,
+            error: false
+        })
     }).catch(err => {
         res.status(400).json(err)
     })
