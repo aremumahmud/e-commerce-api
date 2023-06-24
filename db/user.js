@@ -61,6 +61,10 @@ class User {
         })
     }
 
+
+    delete_user(id) {
+        return UserModel.findByIdAndDelete(id)
+    }
 }
 
 module.exports = new User()

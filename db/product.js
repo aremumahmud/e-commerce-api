@@ -543,6 +543,11 @@ class Db {
             return productsModel.findOneAndUpdate({ name: parent }, modified1)
         })
     }
+
+    deleteProduct(id) {
+        return colorModel.findByIdAndDelete(id)
+
+    }
 }
 
 module.exports = Db;
