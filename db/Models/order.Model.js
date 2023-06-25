@@ -15,7 +15,7 @@ const Order = new Schema({
         type: Number,
         required: true,
         unique: true,
-        default: 0
+        default: 1000
     }
 }, {
     timestamps: true,
