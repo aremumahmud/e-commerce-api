@@ -14,7 +14,8 @@ const Order = new Schema({
     orderId: {
         type: Number,
         required: true,
-        unique: true
+        unique: true,
+        default: 0
     }
 }, {
     timestamps: true,
