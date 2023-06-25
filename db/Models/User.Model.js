@@ -22,6 +22,10 @@ let UserModel = new Schema({
     change_password_token: String
 
 
+}, {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
 
 module.exports = mongoose.model('User', UserModel)

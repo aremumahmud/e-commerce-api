@@ -35,6 +35,10 @@ let colorSchema = new Schema({
         qty: Number
     }],
 
+}, {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
 
 //Before saving the Document check if the inventory is balanced to prevent conflicts

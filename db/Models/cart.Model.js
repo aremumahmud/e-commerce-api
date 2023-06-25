@@ -9,6 +9,10 @@ let cart = new Schema({
         ids: [],
         quantity: []
     }
+}, {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
 
 

@@ -11,6 +11,10 @@ const Order = new Schema({
     address: String,
     products: [],
     status: String
+}, {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
 
 module.exports = mongoose.model('Order', Order)
