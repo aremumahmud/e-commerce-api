@@ -245,6 +245,7 @@ class Db {
 
     attachLocked(user, refId, amount, user_data, products, currency) {
         return new Promise((resolve, reject) => {
+          console.log('userid' , user)
             UserModel.findById(user)
                 .then((res) => {
                     generatePaymentLink(
@@ -252,7 +253,7 @@ class Db {
                         currency,
                         user_data.email_address,
                         user_data.first_name + " " + user_data.last_name,
-                        user._id,
+                        res._id,
                         "user"
                     ).then(
                         (body) => {
@@ -360,7 +361,7 @@ class Db {
                     if (res.meta.role === "guest") {
                         operation = guestOrderModel.findById(res.meta.user_id);
                     } else {
-                        //console.log(res.data)
+                        console.log(res)
                         let userID = res.meta.user_id;
                         operation = UserModel.findById(userID);
                     }

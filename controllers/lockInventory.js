@@ -13,7 +13,7 @@ const { invalidate_discount } = require("../db/discount");
 
 function LockInventory(req, res) {
 
-    let { inventory, price, user_data, discount } = req.body
+    let { inventory, price,currency, user_data, discount } = req.body
     let refId = uuidV4()
         //<<
         // << << < HEAD
