@@ -44,6 +44,7 @@ let end = data => `
 </div>
 <br />
 <div class="topic2">
+<p><b>Order Number : #${data.orderId|| 'no order id'}</b></p>
     <p>Here is/are your order details</p>
     <br />
 </div>
