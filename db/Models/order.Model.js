@@ -10,11 +10,37 @@ const Order = new Schema({
     zip_code: String,
     address: String,
     products: [],
-    status: String
+    status: String,
+    orderId: {
+        type: Number,
+        required: true,
+        unique: true
+    }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 })
+
+Order.pre('save', async function(next) {
+    const Order = this.constructor;
+
+    try {
+        // Retrieve the latest order document
+        const latestOrder = await Order.findOne({}, {}, { sort: { 'orderId': -1 } });
+
+        if (latestOrder) {
+            // Increment the order ID value
+            this.orderId = latestOrder.orderId + 1;
+        } else {
+            // If no previous orders exist, start from 1001
+            this.orderId = 1001;
+        }
+
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = mongoose.model('Order', Order)
