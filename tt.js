@@ -31,15 +31,15 @@ const ids = [
 ];
 require('./db/conn/index')
 const mongoose = require('mongoose');
-const colorModel = require('./db/Models/color.Model');
-const ObjectId = mongoose.Types.ObjectId;
+// const colorModel = require('./db/Models/color.Model');
+// const ObjectId = mongoose.Types.ObjectId;
 
-const objectIds = ids.map(id => new ObjectId(id));
+// const objectIds = ids.map(id => new ObjectId(id));
 
-colorModel.find({ '_id': { $in: objectIds } })
-    .then(results => {
-        console.log(results);
-    })
-    .catch(err => {
-        console.error(err);
-    });
+// colorModel.find({ '_id': { $in: objectIds } })
+//     .then(results => {
+//         console.log(results);
+//     })
+//     .catch(err => {
+//         console.error(err);
+//     });
