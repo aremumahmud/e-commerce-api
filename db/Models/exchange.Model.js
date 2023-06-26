@@ -1,6 +1,6 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const CategoryModel = new Schema({
+const exchangeModel = new Schema({
     USD: Number,
     GBP: Number,
     EUR: Number,
@@ -11,4 +11,4 @@ const CategoryModel = new Schema({
     toObject: { virtuals: true }
 })
 
-module.exports = mongoose.model('Category', CategoryModel)
+module.exports = mongoose.model('Exchange', exchangeModel)
