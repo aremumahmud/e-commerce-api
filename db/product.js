@@ -334,7 +334,7 @@ class Db {
             console.log(reference);
             verifyTransaction(reference)
                 .then((res) => {
-                    // // console.log(res,'dlkx')
+                    console.log(res,'dlkx')
                     // if (res.code === 'ENOTFOUND') return reject({
                     //     error: true,
                     //     msg: 'technical issues at hand'
