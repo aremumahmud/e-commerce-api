@@ -245,7 +245,7 @@ class Db {
 
     attachLocked(user, refId, amount, user_data, products, currency) {
         return new Promise((resolve, reject) => {
-          console.log('userid' , user)
+            console.log('userid', user)
             UserModel.findById(user)
                 .then((res) => {
                     generatePaymentLink(
@@ -365,7 +365,7 @@ class Db {
                         let userID = res.meta.user_id;
                         operation = UserModel.findById(userID);
                     }
-                    // console.log(operation , res.data.metadata.role)
+                    console.log(res)
 
                     operation.then((user) => {
                         if (!user || Object.keys(user).length === 0)
