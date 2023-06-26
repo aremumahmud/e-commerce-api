@@ -334,11 +334,11 @@ class Db {
             console.log(reference);
             verifyTransaction(reference)
                 .then((res) => {
-                    console.log(res,'dlkx')
-                    // if (res.code === 'ENOTFOUND') return reject({
-                    //     error: true,
-                    //     msg: 'technical issues at hand'
-                    // })
+                    console.log(res, 'dlkx')
+                        // if (res.code === 'ENOTFOUND') return reject({
+                        //     error: true,
+                        //     msg: 'technical issues at hand'
+                        // })
 
                     // if (res.status === false) return reject({
                     //     error: true,
@@ -387,6 +387,9 @@ class Db {
                         //lets create a new order model
                         let new_order = {
                             ...order,
+                            payment_method: res.payment_type,
+                            total: res.charged_amount,
+                            currency: res.currency,
                             products: products.map((x, i) => {
                                 //console.log(x)
                                 return {

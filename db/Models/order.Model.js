@@ -16,7 +16,10 @@ const Order = new Schema({
         required: true,
         unique: true,
         default: 1000
-    }
+    },
+    total: Number,
+    currency: String,
+    payment_method: String
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
