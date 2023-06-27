@@ -409,7 +409,7 @@ class Db {
                                 resolve({
                                     error: false,
                                     success: true,
-                                    id,
+                                    resp1,
                                     email_address: resp1.email_address,
                                 });
                             });

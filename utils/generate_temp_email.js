@@ -1,49 +1,26 @@
-const nodemailer = require('nodemailer')
+const exchangeModel = require("../db/Models/exchange.Model")
 
-function sendmail(email, html) {
-    var transporter = nodemailer.createTransport({
-        //host: 'smtp-relay.sendinblue.com',
-        host: 'smtp.zoho.com',
-        port: 465,
-        secure: true, // use SSL
-        auth: {
-            user: process.env.SMTP_USER || 'glitzabellelabel@zohomail.com',
-            pass: process.env.SMTP_PASSWORD || 'R9wJ9M8Z4uDr'
-        }
-    });
-    transporter.verify((error, success) => {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Server is ready to take messages');
-        }
-    });
-    var mailOptions = {
-        from: 'glitzabellelabel@zohomail.com',
-        to: email,
-        subject: 'Order Notification From Glitzabelle Label!',
+let products = []
+    // const currencyTab = {
+    //     USD: {
+    //         symbol: '$',
+    //         price_in_naira: 460
+    //     },
+    //     GBP: {
+    //         symbol: '£',
+    //         price_in_naira: 560
+    //     },
+    //     NGN: {
+    //         symbol: '₦',
+    //         price_in_naira: 1
+    //     },
+    //     EUR: {
+    //         symbol: '€',
+    //         price_in_naira: 500
+    //     }
+    // }
 
-        html: html
-            //    `
-
-        //  <div style='width:100%'>
-        //  <h4 style='text-align:center'>welcome to our wonderful investment platform. <br>Sign in with the button below to get started </h4><br>
-        // <a style='text-align:center;padding:10px;border-radius:10px' href='http://cryptocoinsmart.crypsc.repl.co/pages/login'> Sign in</a> </div>
-        //  `
-    };
-
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    })
-}
-
-
-
-sendmail('aremumahmud2003@gmail.com', `
+let template = (data) => `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,7 +56,7 @@ sendmail('aremumahmud2003@gmail.com', `
 </div>
 <br>
 <div >
-<p>Hi Mahmud</p><br>
+<p>Hi ${data.first_name}</p><br>
 <p>You have sucessfuly placed an order at Glitzabelle stores! We are pleased let you know we are already working on shipping your order to your location.
 </p>
 </div>
@@ -88,7 +65,7 @@ sendmail('aremumahmud2003@gmail.com', `
 <p>In the meantime here's a reminder of what you ordered</p>
 <!-- <p>Here is/are your orders list</p> -->
 </div>
-<h3>[Order #1003] (Tue Jun 27 2023)</h3>
+<h3>[Order #${data.orderId}] (${new Date(data.createdAt).toString().split(' ').filter((x,i)=> i<4).join(' ')})</h3>
 <br>
 <table>
 <tbody>
@@ -99,27 +76,18 @@ sendmail('aremumahmud2003@gmail.com', `
     <th>Price</th>
 </tr>
 
+`
 
-<tr>
-    <td>Beeba</td>
-    <td>8</td>
-    <td>1</td>
-    <td>23500</td>
-</tr>
-
-
-<tr>
-    <td>Beeba</td>
-    <td>8</td>
-    <td>1</td>
-    <td>23500</td>
-</tr>
-
-
+let end = data => `
 <tr>
     <th colspan='3'>Subtotal</th>
     
-    <th>NGN47000</th>
+    <th>${data.currency + String(data.total)}</th>
+</tr>
+<tr>
+    <th colspan='3'>Payment Method</th>
+    
+    <th>${data.payment_method.split('_').join(' ')}</th>
 </tr>
 </tbody>
 </table>
@@ -132,32 +100,32 @@ sendmail('aremumahmud2003@gmail.com', `
 <tbody>
 <tr>
   <td>City:</td>
-  <td>Ilorin </td>
+  <td>${data.city}</td>
   
 </tr>
 <tr>
   <td>Zip Code:</td>
-  <td></td>
+  <td>${data.zip_code}</td>
 </tr>
 <tr>
   <td>First Name:</td>
-  <td>Mahmud</td>
+  <td>${data.first_name}</td>
 </tr>
 <tr>
   <td>Last Name:</td>
-  <td>Aremu234</td>
+  <td>${data.last_name}</td>
 </tr>
 <tr>
   <td>Email Address:</td>
-  <td>aremumahmud2003@gmail.com</td>
+  <td>${data.email_address}</td>
 </tr>
 <tr>
   <td>Phone Number:</td>
-  <td>+2347064552617</td>
+  <td>${data.phone_number}</td>
 </tr>
 <tr>
   <td>Current Address:</td>
-  <td>University road tanke bubu ilorin Kwara state </td>
+  <td>${data.address}</td>
 </tr>
 </tbody>
 
@@ -184,4 +152,52 @@ sendmail('aremumahmud2003@gmail.com', `
 </div>
 </body>
 
-</html>`)
+</html>`
+
+let product = (x, data, currencyTab) => `
+<tr>
+    <td>${x.parent_product}</td>
+    <td>${x.size || '55'}</td>
+    <td>${x.quantity}</td>
+    <td>${data.currency +  String(+(x.price/currencyTab[data.currency].price_in_naira).toFixed(2))}</td>
+</tr>
+
+`
+
+require('../db/conn')
+
+function generate(points) {
+    return new Promise((resolve, reject) => {
+        exchangeModel.findOne().then(doc => {
+            let currencyTab = {
+                USD: {
+                    symbol: "$",
+                    price_in_naira: doc.USD,
+                },
+                GBP: {
+                    symbol: "£",
+                    price_in_naira: doc.GBP,
+                },
+                NGN: {
+                    symbol: "₦",
+                    price_in_naira: doc.NGN,
+                },
+                EUR: {
+                    symbol: "€",
+                    price_in_naira: doc.EUR,
+                },
+            }
+            let prods = points.products.map(x => product(x, points, currencyTab)).join('')
+            let template_final = template(points) + prods + end(points)
+            return resolve(template_final)
+
+        })
+    })
+
+    // return
+
+}
+
+
+//require('fs').writeFileSync('./hh.html', generate(j))
+module.exports = generate
