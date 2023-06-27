@@ -5,6 +5,7 @@ class Exchange {
         return new Promise((resolve, reject) => {
             exchangeModel.findOne().then((doc) => {
                 resolve({
+                    raw: doc,
                     currencyTab: {
                         USD: {
                             symbol: "$",
