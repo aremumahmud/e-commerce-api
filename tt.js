@@ -31,6 +31,7 @@ const ids = [
 ];
 require('./db/conn/index')
 const mongoose = require('mongoose');
+const { modifyExchange } = require('./db/exchange');
 // const colorModel = require('./db/Models/color.Model');
 // const ObjectId = mongoose.Types.ObjectId;
 
@@ -43,3 +44,8 @@ const mongoose = require('mongoose');
 //     .catch(err => {
 //         console.error(err);
 //     });
+modifyExchange({
+    USD: 1000
+}).then(res => {
+    console.log(res)
+})

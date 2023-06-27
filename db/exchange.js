@@ -29,6 +29,11 @@ class Exchange {
             });
         });
     }
+
+    modifyExchange(modified) {
+
+        return exchangeModel.findOneAndUpdate({}, modified)
+    }
 }
 
 module.exports = new Exchange()

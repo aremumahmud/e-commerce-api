@@ -124,7 +124,7 @@ let end = data => `
   <td>${data.phone_number}</td>
 </tr>
 <tr>
-  <td>Current Address:</td>
+  <td>ShippingAddress:</td>
   <td>${data.address}</td>
 </tr>
 </tbody>
