@@ -57,7 +57,7 @@ let template = (data) => `
 <br>
 <div >
 <p>Hi ${data.first_name}</p><br>
-<p>You have sucessfuly placed an order at Glitzabelle stores! We are pleased let you know we are already working on shipping your order to your location.
+<p>You have successfully placed an order at Glitzabelle Label! We are pleased let you know we are already working on shipping your order to your location.
 </p>
 </div>
 <br>
@@ -93,7 +93,7 @@ let end = data => `
 </table>
 <br />
 <div class="topic2">
-    <p>Here is/are your orders details</p>
+    <p>Here are your orders details</p>
     <br />
 </div>
 <table style="font-size:12px">
