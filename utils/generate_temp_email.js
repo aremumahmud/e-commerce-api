@@ -145,7 +145,7 @@ let end = data => `
             </div>
             <div className="other">
                 <div className="copyWright">
-                    <p>&copy; 2023 Shopcart. All rights reserved</p>
+                    <p>&copy; 2023 Glitzabelle Label. All rights reserved</p>
                 </div>
             </div>
         </footer>

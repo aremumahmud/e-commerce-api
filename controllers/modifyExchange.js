@@ -5,8 +5,9 @@ function modify_exchange(req, res) {
     let modified = req.body
 
     dbInstance.modifyExchange(modified).then(resp => {
+      console.log(resp)
         res.status(200).json({
-            sucess: true,
+            success: true,
             error: false
         })
     }).catch(err => {
