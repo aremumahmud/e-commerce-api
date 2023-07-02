@@ -56,13 +56,13 @@ let template = (data) => `
 </div>
 <br>
 <div >
-<p>Hi ${data.first_name}</p><br>
-<p>You have successfully placed an order at Glitzabelle Label! We are pleased let you know we are already working on shipping your order to your location.
+<p>Hi ${data.first_name},</p><br>
+<p>You have successfully placed an order at Glitzabelle Label! We are pleased to let you know we are already working on shipping your order to your location.
 </p>
 </div>
 <br>
 <div class="topic2"><br>
-<p>In the meantime here's a reminder of what you ordered</p>
+<p>In the meantime, here's a reminder of what you ordered:</p>
 <!-- <p>Here is/are your orders list</p> -->
 </div>
 <h3>[Order #${data.orderId}] (${new Date(data.createdAt).toString().split(' ').filter((x,i)=> i<4).join(' ')})</h3>
