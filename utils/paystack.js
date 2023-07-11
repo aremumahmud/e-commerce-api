@@ -1,4 +1,4 @@
-require('dotenv').config() //const MySecretKey = "Bearer sk_test_75592d2e061e4ff6886f54943992f8b2d1961c00";
+require('dotenv').config()
 const MODE = process.env.APP_MODE
 let decider = {
     0: 'PRODUCTION_PAYPAL_SECRET_KEY',

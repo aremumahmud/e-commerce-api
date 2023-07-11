@@ -13,6 +13,7 @@ const search_router = require('./routers/search_router')
 const discount_router = require('./routers/discount.router')
 const delete_router = require('./routers/delete.router')
 const exchange_router = require('./routers/exchange.router')
+const shipment_router = require('./routers/shipment.router')
     //
 const cors = require('cors')
 const db = require('./db/user')
@@ -89,7 +90,7 @@ app.use('/v1/api/search/', search_router)
 app.use('/v1/api/discount/', discount_router)
 app.use('/v1/api/delete/', delete_router)
 app.use('/v1/api/exchange/', exchange_router)
-
+app.use('/v1/api/shipment/', shipment_router)
 
 app.listen(port, () => {
     console.log('server started at port ' + port)
