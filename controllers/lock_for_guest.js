@@ -9,6 +9,7 @@ const dbInstance = require("../db")
 const { v4: uuidV4 } = require("uuid");
 const { invalidate_discount } = require("../db/discount");
 const { currencyTab } = require("../utils/currency copy");
+const { getExchange } = require("../db/exchange");
 // >>>
 //require('../../amqp')
 
@@ -46,51 +47,27 @@ function LockInventoryGuest(req, res) {
                 msg: 'inventory has been depleted'
             })
         }
-        let ourPrice = 0
-        inventory.forEach(element => {
-            if (currency === element.currency) {
-                ourPrice += parseInt(element.price) * parseInt(element.quantity_for_cart)
-            } else if (element.currency === 'NGN' && currency !== 'NGN') {
-                ourPrice += ((parseInt(element.price) * parseInt(element.quantity_for_cart)) / currencyTab[currency].price_in_naira)
-            }
 
-        });
-        ourPrice = +ourPrice.toFixed(2)
-        if (ourPrice === 0) return res.status(400).json({
-            error: true,
-            msg: 'try to tampered with system'
-        })
-        console.log(inventory)
-        let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size, parent_product: x.name, image: x.image }))
-        if (discount.length === 0) {
-            dbInstance.attachLockedGuest(refId, ourPrice, user_data, products, currency).then((response) => {
-                res.status(200).json({
-                    error: false,
-                    msg: 'inventory has been successfully locked',
-                    isBinded: response.isRef,
-                    email_address: response.email_address,
-                    payment_uri: response.payment_uri
-                })
-            }).catch(err => {
-                console.log(err)
-                return res.status(400).json({
-                    error: true,
-                    msg: 'could not attach inventory id'
-                })
+        getExchange().then(res => {
+            let currencyTab = res.currencyTab
+            let ourPrice = 0
+            inventory.forEach(element => {
+                if (currency === element.currency) {
+                    ourPrice += parseInt(element.price) * parseInt(element.quantity_for_cart)
+                } else if (element.currency === 'NGN' && currency !== 'NGN') {
+                    ourPrice += ((parseInt(element.price) * parseInt(element.quantity_for_cart)) / currencyTab[currency].price_in_naira)
+                }
+
+            });
+            ourPrice = +ourPrice.toFixed(2)
+            if (ourPrice === 0) return res.status(400).json({
+                error: true,
+                msg: 'try to tampered with system'
             })
-        } else {
-            Promise.allSettled(discount.map(x => invalidate_discount(x))).then(results => {
-                return results.filter(n => n.status === "fulfilled" ? n.value : false).map(x => x.value.value)
-            }).then(res => {
-                console.log(res)
-                if (res.length === 0) return 0
-                return res.reduce((i, n) => {
-                    return i + n
-                })
-            }).then(resp => {
-                // console.log(res, ourPrice)
-                let updated_price = ourPrice - ((resp * ourPrice) / 100)
-                dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency).then((response) => {
+            console.log(inventory)
+            let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size, parent_product: x.name, image: x.image }))
+            if (discount.length === 0) {
+                dbInstance.attachLockedGuest(refId, ourPrice, user_data, products, currency).then((response) => {
                     res.status(200).json({
                         error: false,
                         msg: 'inventory has been successfully locked',
@@ -105,10 +82,39 @@ function LockInventoryGuest(req, res) {
                         msg: 'could not attach inventory id'
                     })
                 })
+            } else {
+                Promise.allSettled(discount.map(x => invalidate_discount(x))).then(results => {
+                    return results.filter(n => n.status === "fulfilled" ? n.value : false).map(x => x.value.value)
+                }).then(res => {
+                    console.log(res)
+                    if (res.length === 0) return 0
+                    return res.reduce((i, n) => {
+                        return i + n
+                    })
+                }).then(resp => {
+                    // console.log(res, ourPrice)
+                    let updated_price = ourPrice - ((resp * ourPrice) / 100)
+                    dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency).then((response) => {
+                        res.status(200).json({
+                            error: false,
+                            msg: 'inventory has been successfully locked',
+                            isBinded: response.isRef,
+                            email_address: response.email_address,
+                            payment_uri: response.payment_uri
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                        return res.status(400).json({
+                            error: true,
+                            msg: 'could not attach inventory id'
+                        })
+                    })
 
-            })
+                })
 
-        }
+            }
+        })
+
 
     })
 
