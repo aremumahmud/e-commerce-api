@@ -48,8 +48,8 @@ function LockInventoryGuest(req, res) {
             })
         }
 
-        getExchange().then(res => {
-            let currencyTab = res.currencyTab
+        getExchange().then(curr => {
+            let currencyTab = curr.currencyTab
             let ourPrice = 0
             inventory.forEach(element => {
                 if (currency === element.currency) {
