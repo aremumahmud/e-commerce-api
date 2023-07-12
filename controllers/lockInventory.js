@@ -65,7 +65,7 @@ function LockInventory(req, res) {
                 }
 
             });
-            ourPrice = +ourPrice.toFixed(2)
+            ourPrice = +(ourPrice + ((parseInt(price)) / currencyTab[currency].price_in_naira)).toFixed(2)
             if (ourPrice === 0) return res.status(400).json({
                 error: true,
                 msg: 'try to tampered with system'
