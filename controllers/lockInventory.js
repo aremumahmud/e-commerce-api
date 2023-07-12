@@ -9,6 +9,7 @@ const dbInstance = require("../db")
 const { v4: uuidV4 } = require("uuid");
 const validateDiscount = require("./validate_discount");
 const { invalidate_discount } = require("../db/discount");
+const { getExchange } = require("../db/exchange");
 //const amqpServer = require('../../amqp')
 
 function LockInventory(req, res) {
