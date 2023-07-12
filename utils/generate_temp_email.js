@@ -78,7 +78,12 @@ let template = (data) => `
 
 `
 
-let end = data => `
+let end = (data, total) => `
+<tr>
+    <th colspan='3'>Shipping fee</th>
+    
+    <th>${data.currency + String(data.total-total)}</th>
+</tr>
 <tr>
     <th colspan='3'>Subtotal</th>
     
@@ -188,7 +193,11 @@ function generate(points) {
                 },
             }
             let prods = points.products.map(x => product(x, points, currencyTab)).join('')
-            let template_final = template(points) + prods + end(points)
+            let total = 0
+            products.forEach(x => {
+                total += +(x.price / currencyTab[data.currency].price_in_naira).toFixed(2)
+            })
+            let template_final = template(points) + prods + end(points, total)
             return resolve(template_final)
 
         })
