@@ -14,8 +14,9 @@ const { getExchange } = require("../db/exchange");
 
 function LockInventory(req, res) {
 
-    let { inventory, price, currency, user_data, discount } = req.body
+    let { inventory, price, currency, user_data, discount, country } = req.body
     let refId = uuidV4()
+    user_data.address += ',' + country
         //<<
         // << << < HEAD
         // // return console.log(discount)

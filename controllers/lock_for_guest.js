@@ -17,6 +17,7 @@ function LockInventoryGuest(req, res) {
 
     let { inventory, price, user_data, currency, discount } = req.body
     let refId = uuidV4()
+    user_data.address += ',' + country
         //console.log(inventory)
         // return
         //return console.log(discount)
