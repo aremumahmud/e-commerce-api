@@ -193,13 +193,12 @@ function generate(points) {
                 },
             }
             let prods = points.products.map(x => product(x, points, currencyTab)).join('')
-            let clone = [...points.products]
-    clone.forEach(x => {
-        console.log(x.price)
-        console.log(+(x.price / currencyTab[points.currency].price_in_naira).toFixed(2))
-        total += +((x.price / currencyTab[points.currency].price_in_naira) * x.quantity).toFixed(2)
-    })
-          console.log(total ,'yhjnmbzddndkjm,nueuikn d')
+            let total = 0
+            points.products.forEach(x => {
+                console.log(x.price)
+                console.log(+(x.price / currencyTab[points.currency].price_in_naira).toFixed(2))
+                total += +((x.price / currencyTab[points.currency].price_in_naira) * x.quantity).toFixed(2)
+  })
             let template_final = template(points) + prods + end(points, total)
             return resolve(template_final)
 
