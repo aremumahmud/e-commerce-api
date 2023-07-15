@@ -198,7 +198,7 @@ function generate(points) {
                 console.log(x.price)
                 console.log(+(x.price / currencyTab[points.currency].price_in_naira).toFixed(2))
                 total += +((x.price / currencyTab[points.currency].price_in_naira) * x.quantity).toFixed(2)
-            })
+  })
             let template_final = template(points) + prods + end(points, total)
             return resolve(template_final)
 
