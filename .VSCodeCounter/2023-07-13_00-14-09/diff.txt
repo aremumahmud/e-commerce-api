@@ -1,0 +1,91 @@
+Date : 2023-07-13 00:14:09
+Directory : c:\Users\HP\Documents\e-commerce-api\e-commerce-api
+Total : 56 files,  1299 codes, 192 comments, 184 blanks, all 1675 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         53 |      1,213 |        171 |        182 |      1,566 |
+| JSON       |          2 |         49 |          0 |          0 |         49 |
+| HTML       |          1 |         37 |         21 |          2 |         60 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                   | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                      |         56 |      1,299 |        192 |        184 |      1,675 |
+| . (Files)                                                                              |          6 |        268 |         46 |         27 |        341 |
+| authentication                                                                         |          2 |          5 |         -1 |          0 |          4 |
+| config                                                                                 |          2 |         72 |         24 |         17 |        113 |
+| controllers                                                                            |         17 |        305 |         55 |         63 |        423 |
+| db                                                                                     |         17 |        314 |         39 |         11 |        364 |
+| db (Files)                                                                             |          6 |        210 |         36 |         -4 |        242 |
+| db\Models                                                                              |         11 |        104 |          3 |         15 |        122 |
+| routers                                                                                |          5 |         58 |          0 |         21 |         79 |
+| utils                                                                                  |          7 |        277 |         29 |         45 |        351 |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                               | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\authentication\jwt_admin_auth.js   | JavaScript |         28 |          6 |          5 |         39 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\authentication\jwt_false_auth.js   | JavaScript |        -23 |         -7 |         -5 |        -35 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\config\flutterwave.js              | JavaScript |         47 |         12 |          8 |         67 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\config\verify_transaction.js       | JavaScript |         25 |         12 |          9 |         46 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\create_discount.js     | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\deleteProducts.js      | JavaScript |         27 |          1 |          6 |         34 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\deleteUser.js          | JavaScript |         27 |          1 |          6 |         34 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\discount.Controller.js | JavaScript |         18 |          1 |          6 |         25 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\exchange.js            | JavaScript |         16 |          9 |          4 |         29 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\fetchShipment.js       | JavaScript |         13 |          9 |          4 |         26 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\generateEmail.js       | JavaScript |          2 |          0 |         -1 |          1 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\lockInventory.js       | JavaScript |         55 |         21 |          7 |         83 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\lock_for_guest.js      | JavaScript |         50 |          3 |          4 |         57 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\loginPostHandler.js    | JavaScript |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\modify.js              | JavaScript |         29 |          1 |          6 |         36 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\modifyExchange.js      | JavaScript |         18 |          0 |          4 |         22 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\paystack_callback.js   | JavaScript |         -2 |          0 |          2 |          0 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\suscribeUser.js        | JavaScript |         19 |          8 |          4 |         31 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\updateShipment.js      | JavaScript |         18 |          0 |          4 |         22 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\validate_discount.js   | JavaScript |         14 |          1 |          5 |         20 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\controllers\verify_discount.js     | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\User.Model.js            | JavaScript |          4 |          0 |          0 |          4 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\cart.Model.js            | JavaScript |          4 |          0 |          0 |          4 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\category.Model.js        | JavaScript |          4 |          0 |          0 |          4 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\color.Model.js           | JavaScript |         10 |          0 |          0 |         10 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\discount.Model.js        | JavaScript |         17 |          0 |          4 |         21 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\exchange.Model.js        | JavaScript |         12 |          0 |          2 |         14 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\guestOrder.Model.js      | JavaScript |          4 |          0 |          0 |          4 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\order.Model.js           | JavaScript |         27 |          3 |          4 |         34 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\products.Model.js        | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\shipment.Model.js        | JavaScript |         10 |          0 |          2 |         12 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\Models\suscribe.Model.js        | JavaScript |         12 |          0 |          2 |         14 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\discount.js                     | JavaScript |         54 |          0 |         12 |         66 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\exchange.js                     | JavaScript |         35 |          0 |          4 |         39 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\product.js                      | JavaScript |         78 |         23 |        -30 |         71 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\shipment.js                     | JavaScript |         31 |         13 |          6 |         50 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\suscribe.js                     | JavaScript |          9 |          0 |          3 |         12 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\db\user.js                         | JavaScript |          3 |          0 |          1 |          4 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\ede.js                             | JavaScript |        161 |          6 |         20 |        187 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\index.html                         | HTML       |         37 |         21 |          2 |         60 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\index.js                           | JavaScript |         17 |          0 |          2 |         19 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\package-lock.json                  | JSON       |         48 |          0 |          0 |         48 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\package.json                       | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\routers\appRouter.js               | JavaScript |          9 |          0 |          4 |         13 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\routers\delete.router.js           | JavaScript |         13 |          0 |          4 |         17 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\routers\discount.router.js         | JavaScript |         12 |          0 |          5 |         17 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\routers\exchange.router.js         | JavaScript |         12 |          0 |          4 |         16 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\routers\shipment.router.js         | JavaScript |         12 |          0 |          4 |         16 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\tt.js                              | JavaScript |          4 |         19 |          3 |         26 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\utils\404.js                       | JavaScript |          0 |          0 |         -1 |         -1 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\utils\create_discount.js           | JavaScript |         11 |          0 |          6 |         17 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\utils\currency copy.js             | JavaScript |         21 |          0 |          2 |         23 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\utils\generate_temp_email.js       | JavaScript |        172 |         20 |         22 |        214 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\utils\generate_tx_ref.js           | JavaScript |         12 |          2 |          6 |         20 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\utils\sendmail.js                  | JavaScript |        -27 |          0 |         -2 |        -29 |
+| c:\Users\HP\Documents\e-commerce-api\e-commerce-api\utils\suscribeMail.js              | JavaScript |         88 |          7 |         12 |        107 |
+| Total                                                                                  |            |      1,299 |        192 |        184 |      1,675 |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

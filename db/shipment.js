@@ -16,9 +16,8 @@ class Shipment {
 
             }
             //else modify it
-            res.local = shipment.local
-            res.international = shipment.international
-                //then return the results
+            Object.assign(res, shipment);
+            //then return the results
             return res.save()
         })
     }
