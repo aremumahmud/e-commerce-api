@@ -73,7 +73,7 @@ class Db {
                         resolve(res);
                     })
                     .catch((err) => {
-                        conso.log(err);
+                        console.log(err);
                         reject(err);
                     });
             });
