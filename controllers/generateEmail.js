@@ -26,7 +26,7 @@ let template = `
 </a>
 <br>
 <div class="topic">
-    <p>You have successfully placed an order at Glitzabelle Label!</p>
+    <p>THis  successfully placed an order at Glitzabelle Label!</p>
 </div>
 <br>
 <div class="topic2">
