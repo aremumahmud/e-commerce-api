@@ -24,9 +24,6 @@ let template = `
 <a href='https://e-commerce-ui-ruddy.vercel.app/home' class="logo">
 <img src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686347400/DEV/vnfp8ucivmcfyyr8uipo.jpg" alt="" />
 </a>
-<div>
-    <img class="img" src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686142418/DEV/sbog3ukjm1prpggzajv7.svg" alt="">
-</div>
 <br>
 <div class="topic">
     <p>You have successfully placed an order at Glitzabelle Label!</p>

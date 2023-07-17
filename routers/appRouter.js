@@ -107,7 +107,6 @@ router
     .route('/modify_product')
     .post(Auth_Admin, modify)
 
-
 router
     .route('/fetch_all_orders')
     .post(Auth_Admin, fetch_all_orders)

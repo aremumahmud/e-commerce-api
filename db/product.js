@@ -245,7 +245,7 @@ class Db {
 
     attachLocked(user, refId, amount, user_data, products, currency) {
         return new Promise((resolve, reject) => {
-            console.log('userid', user)
+            console.log("userid", user);
             UserModel.findById(user)
                 .then((res) => {
                     generatePaymentLink(
@@ -255,34 +255,31 @@ class Db {
                         user_data.first_name + " " + user_data.last_name,
                         res._id,
                         "user"
-                    ).then(
-                        (body) => {
-                            console.log(body);
-                            res.locks = refId;
-                            res.currentPaymentReference = {
-                                ...user_data,
-                                reference: body.reference,
-                                products,
-                            };
+                    ).then((body) => {
+                        console.log(body);
+                        res.locks = refId;
+                        res.currentPaymentReference = {
+                            ...user_data,
+                            reference: body.reference,
+                            products,
+                        };
 
-                            res
-                                .save()
-                                .then((res) => {
-                                    resolve({
-                                        error: false,
-                                        isRef: body.reference ? true : false,
-                                        email_address: res.email_address,
-                                        payment_uri: body.reference ?
-                                            body.paymentLink : null,
-                                    });
-                                })
-                                .catch((err) => {
-                                    reject({
-                                        error: true,
-                                    });
+                        res
+                            .save()
+                            .then((res) => {
+                                resolve({
+                                    error: false,
+                                    isRef: body.reference ? true : false,
+                                    email_address: res.email_address,
+                                    payment_uri: body.reference ? body.paymentLink : null,
                                 });
-                        }
-                    );
+                            })
+                            .catch((err) => {
+                                reject({
+                                    error: true,
+                                });
+                            });
+                    });
                 })
                 .catch((err) => {
                     reject({
@@ -312,8 +309,8 @@ class Db {
                         "guest"
                     ).then((body) => {
                         console.log(body);
-                        res.currentPaymentReference.reference = body.reference
-                            //res.reference = body.status ? body.data.reference : 'falsey'
+                        res.currentPaymentReference.reference = body.reference;
+                        //res.reference = body.status ? body.data.reference : 'falsey'
                         res.save().catch((err) => {
                             console.log(err);
                         });
@@ -334,11 +331,11 @@ class Db {
             console.log(reference);
             verifyTransaction(reference)
                 .then((res) => {
-                    console.log(res, 'dlkx')
-                        // if (res.code === 'ENOTFOUND') return reject({
-                        //     error: true,
-                        //     msg: 'technical issues at hand'
-                        // })
+                    console.log(res, "dlkx");
+                    // if (res.code === 'ENOTFOUND') return reject({
+                    //     error: true,
+                    //     msg: 'technical issues at hand'
+                    // })
 
                     // if (res.status === false) return reject({
                     //     error: true,
@@ -361,11 +358,11 @@ class Db {
                     if (res.meta.role === "guest") {
                         operation = guestOrderModel.findById(res.meta.user_id);
                     } else {
-                        console.log(res)
+                        console.log(res);
                         let userID = res.meta.user_id;
                         operation = UserModel.findById(userID);
                     }
-                    console.log(res)
+                    console.log(res);
 
                     operation.then((user) => {
                         if (!user || Object.keys(user).length === 0)
@@ -423,13 +420,11 @@ class Db {
 
                     reject({
                         error: true,
-                        msg: 'technical issues at hand'
+                        msg: "technical issues at hand",
                     });
-
                 });
-        })
+        });
     }
-
 
     fetch_orders(id) {
         return new Promise((resolve, reject) => {
@@ -452,7 +447,8 @@ class Db {
 
     fetch_all_orders() {
         return new Promise((resolve, reject) => {
-            orderModel.find()
+            orderModel
+                .find()
                 .then((res) => {
                     resolve({
                         success: true,
@@ -530,6 +526,7 @@ class Db {
                 .catch((err) => reject(err));
         });
     }
+
     changePassword(id, password, token) {
         return new Promise((resolve, reject) => {
             UserModel.findOne({ _id: id, change_password_token: token })
@@ -560,16 +557,14 @@ class Db {
     }
 
     modifyProduct(id, parent, modified, modified1) {
-
-        return colorModel.findByIdAndUpdate(id, modified).then(res => {
-         // console.log(res)
-            return productsModel.findOneAndUpdate({ name: parent }, modified1)
-        })
+        return colorModel.findByIdAndUpdate(id, modified).then((res) => {
+            // console.log(res)
+            return productsModel.findOneAndUpdate({ name: parent }, modified1);
+        });
     }
 
     deleteProduct(id) {
-        return colorModel.findByIdAndDelete(id)
-
+        return colorModel.findByIdAndDelete(id);
     }
 }
 
