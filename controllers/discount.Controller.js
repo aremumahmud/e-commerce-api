@@ -5,13 +5,13 @@ const { create_discount } = require("../db/discount")
 function createDiscount(req, res) {
 
     let value = parseInt(req.body.value)
-
+    let lifespan = parseInt(req.body.lifespan) || 1
     if (!value) return res.status(400).json({
         error: true,
         message: 'cannot accept null values'
     })
 
-    create_discount(value).then((response) => {
+    create_discount(value, lifespan).then((response) => {
         res.status(200).json({
             ...response,
             success: true,

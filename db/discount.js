@@ -1,11 +1,12 @@
 const discountModel = require("./Models/discount.Model")
 let generate = require('../utils/create_discount')
 class Discount {
-    create_discount(value) {
+    create_discount(value, usage = 1) {
         let discount_code = generate(8)
         return new discountModel({
             discount_code,
-            value
+            value,
+            usage
         }).save()
     }
 
@@ -18,6 +19,11 @@ class Discount {
                         message: 'discount_not_found'
                     })
                     if (!res.valid) return reject({
+                        error: true,
+                        message: 'dicount_used'
+                    })
+
+                    if (res.used === res.usage) return reject({
                         error: true,
                         message: 'dicount_used'
                     })
@@ -47,8 +53,12 @@ class Discount {
                     error: true,
                     message: 'dicount_used'
                 })
-
-                res.valid = false
+                if (res.used === res.usage) return reject({
+                    error: true,
+                    message: 'dicount_used'
+                })
+                res.used += 1
+                    //res.valid = false
                 res.save().then(() => {
                     resolve({
                         error: false,
@@ -60,6 +70,14 @@ class Discount {
             })
         })
 
+    }
+
+    fetch_all_discounts() {
+        return discountModel.find()
+    }
+
+    destroy_discount(id) {
+        return discountModel.findByIdAndDelete(id)
     }
 }
 

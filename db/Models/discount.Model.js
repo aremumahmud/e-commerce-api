@@ -7,6 +7,14 @@ const DiscountModel = new Schema({
         unique: true
     },
     value: Number,
+    usage: {
+        type: Number,
+        default: 1
+    },
+    used: {
+        type: Number,
+        default: 0
+    },
     valid: {
         type: Boolean,
         default: true
