@@ -8,7 +8,8 @@ function modify(req, res) {
     let parent = parentProduct
     let modified = {
         sizes,
-        parentProduct
+        parentProduct,
+      quantity
     }
 
     let modified2 = {
@@ -18,8 +19,10 @@ function modify(req, res) {
             quantity
         }
         //  console.log(body)
+ 
 
     dbInstance.modifyProduct(id, parent, modified, modified2).then(resp => {
+      // console.log(resp)
         res.status(200).json({
             sucess: true,
             error: false

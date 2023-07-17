@@ -562,6 +562,7 @@ class Db {
     modifyProduct(id, parent, modified, modified1) {
 
         return colorModel.findByIdAndUpdate(id, modified).then(res => {
+         // console.log(res)
             return productsModel.findOneAndUpdate({ name: parent }, modified1)
         })
     }
