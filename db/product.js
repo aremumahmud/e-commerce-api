@@ -450,6 +450,24 @@ class Db {
         });
     }
 
+    fetch_all_orders() {
+        return new Promise((resolve, reject) => {
+            orderModel.find()
+                .then((res) => {
+                    resolve({
+                        success: true,
+                        orders: res,
+                    });
+                })
+                .catch((err) => {
+                    reject({
+                        error: true,
+                        err,
+                    });
+                });
+        });
+    }
+
     fetch_orders_view(orderId) {
         return new Promise((resolve, reject) => {
             orderModel

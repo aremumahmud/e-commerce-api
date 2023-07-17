@@ -14,6 +14,7 @@ const dbInstance = require('../db')
 const suscribe_user = require('../controllers/suscribeUser')
 const modify = require('../controllers/modify')
 const Auth_Admin = require('../authentication/jwt_admin_auth')
+const fetch_all_orders = require('../controllers/get_all_orders')
 const router = express.Router()
 
 router
@@ -106,5 +107,9 @@ router
     .route('/modify_product')
     .post(Auth_Admin, modify)
 
+
+router
+    .route('/fetch_all_orders')
+    .post(Auth_Admin, fetch_all_orders)
 
 module.exports = router
