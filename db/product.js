@@ -450,10 +450,10 @@ class Db {
         });
     }
 
-    fetch_orders_view(id) {
+    fetch_orders_view(orderId) {
         return new Promise((resolve, reject) => {
             orderModel
-                .findById(id)
+                .findOne({ orderId })
                 .then((res) => {
                     resolve({
                         success: true,

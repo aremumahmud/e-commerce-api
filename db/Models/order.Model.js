@@ -10,7 +10,7 @@ const Order = new Schema({
     zip_code: String,
     address: String,
     products: [],
-    status: String,
+    status: { type: String, default: false },
     orderId: {
         type: Number,
         required: true,
