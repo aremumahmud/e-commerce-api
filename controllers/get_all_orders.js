@@ -11,7 +11,7 @@ const dbInstance = require("../db")
 
 function fetch_all_orders(req, res) {
     // let { email_address, id, quantity } = req.body
-    //  console.log(req.body, req.query)
+    //  console.log(req.body, req.query)o
     dbInstance
         .fetch_all_orders()
         .then(response => {
