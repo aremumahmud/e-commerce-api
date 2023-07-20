@@ -25,13 +25,7 @@ let template = `
 <img src="https://res.cloudinary.com/dvauarkh6/image/upload/v1686347400/DEV/vnfp8ucivmcfyyr8uipo.jpg" alt="" />
 </a>
 <br>
-<div class="topic">
-    <p>This customer  successfully placed an order at Glitzabelle Label!</p>
-</div>
-<br>
-<div class="topic2">
-    <p>Here is/are your orders list</p>
-</div>
+
 <br>
 <div class="tiles">
 
@@ -41,6 +35,7 @@ let end = data => `
 </div>
 <br />
 <div class="topic2">
+<p>${new Date(data.createdAt).toString().split(' ').filter((x,i)=> i<5).join(' ')}</p>
 <p><b>Order Number : #${data.orderId|| 'no order id'}</b></p>
     <p>Here is/are your order details</p>
     <br />

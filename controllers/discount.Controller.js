@@ -6,12 +6,13 @@ function createDiscount(req, res) {
 
     let value = parseInt(req.body.value)
     let lifespan = parseInt(req.body.lifespan) || 1
+    let remark = req.body.remark || 'no remark!'
     if (!value) return res.status(400).json({
         error: true,
         message: 'cannot accept null values'
     })
 
-    create_discount(value, lifespan).then((response) => {
+    create_discount(value, lifespan, remark).then((response) => {
         res.status(200).json({
             ...response,
             success: true,

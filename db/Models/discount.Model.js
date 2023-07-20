@@ -18,7 +18,8 @@ const DiscountModel = new Schema({
     valid: {
         type: Boolean,
         default: true
-    }
+    },
+    remark: String
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

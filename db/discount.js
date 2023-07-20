@@ -1,12 +1,13 @@
 const discountModel = require("./Models/discount.Model")
 let generate = require('../utils/create_discount')
 class Discount {
-    create_discount(value, usage = 1) {
+    create_discount(value, usage = 1, remark) {
         let discount_code = generate(8)
         return new discountModel({
             discount_code,
             value,
-            usage
+            usage,
+            remark
         }).save()
     }
 
