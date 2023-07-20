@@ -11,7 +11,7 @@ function modify(req, res) {
         parentProduct,
       quantity
     }
-
+console.log(price)
     let modified2 = {
             price,
             description,
