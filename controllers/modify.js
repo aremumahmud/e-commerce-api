@@ -22,7 +22,7 @@ console.log(price)
  
 
     dbInstance.modifyProduct(id, parent, modified, modified2).then(resp => {
-      // console.log(resp)
+       console.log(resp)
         res.status(200).json({
             sucess: true,
             error: false

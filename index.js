@@ -95,3 +95,5 @@ app.use('/v1/api/shipment/', shipment_router)
 app.listen(port, () => {
     console.log('server started at port ' + port)
 })
+
+  console.log('hrllo')
