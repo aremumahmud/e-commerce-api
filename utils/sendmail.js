@@ -1,8 +1,8 @@
 var nodemailer = require('nodemailer');
 const generate = require('./generate_temp_email');
 
-function sendmail(email, data) {
-    generate(data).then(resp => {
+function sendmail(email, data, discount) {
+    generate(data, discount).then(resp => {
         var transporter = nodemailer.createTransport({
             //host: 'smtp-relay.sendinblue.com',
             host: 'smtp.zoho.com',

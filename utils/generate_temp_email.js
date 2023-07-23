@@ -78,11 +78,16 @@ let template = (data) => `
 
 `
 
-let end = (data, total) => `
+let end = (data, total, discount) => `
+<tr>
+    <th colspan='3'>Discount</th>
+    
+    <th>${data.currency + String(discount)}</th>
+</tr>
 <tr>
     <th colspan='3'>Shipping fee</th>
     
-    <th>${data.currency + String(data.total-total)}</th>
+    <th>${data.currency + String(data.total-total+discount)}</th>
 </tr>
 <tr>
     <th colspan='3'>Subtotal</th>
@@ -171,7 +176,7 @@ let product = (x, data, currencyTab) => `
 
 require('../db/conn')
 
-function generate(points) {
+function generate(points, discount) {
     return new Promise((resolve, reject) => {
         exchangeModel.findOne().then(doc => {
             let currencyTab = {
@@ -198,8 +203,8 @@ function generate(points) {
                 console.log(x.price)
                 console.log(+(x.price / currencyTab[points.currency].price_in_naira).toFixed(2))
                 total += +((x.price / currencyTab[points.currency].price_in_naira) * x.quantity).toFixed(2)
-  })
-            let template_final = template(points) + prods + end(points, total)
+            })
+            let template_final = template(points) + prods + end(points, total, discount)
             return resolve(template_final)
 
         })

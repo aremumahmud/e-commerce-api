@@ -1,7 +1,7 @@
 const axios = require('axios');
 const generateTransactionReference = require('../utils/generate_tx_ref');
 
-async function generatePaymentLink(amount, currency, customerEmail, customerName, id, role) {
+async function generatePaymentLink(amount, currency, customerEmail, customerName, id, role, discount) {
     const flutterwaveBaseUrl = 'https://api.flutterwave.com';
     const flutterwaveSecretKey = process.env.FLUTTERWAVE_SECRET_KEY;
 
@@ -21,7 +21,8 @@ async function generatePaymentLink(amount, currency, customerEmail, customerName
                 },
                 meta: {
                     user_id: id,
-                    role
+                    role,
+                    discount,
                 }
             }, {
                 headers: {

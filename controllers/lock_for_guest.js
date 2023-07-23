@@ -70,7 +70,7 @@ function LockInventoryGuest(req, res) {
             console.log(inventory)
             let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size, parent_product: x.name, image: x.image }))
             if (discount.length === 0) {
-                dbInstance.attachLockedGuest(refId, ourPrice, user_data, products, currency).then((response) => {
+                dbInstance.attachLockedGuest(refId, ourPrice, user_data, products, currency, 0).then((response) => {
                     res.status(200).json({
                         error: false,
                         msg: 'inventory has been successfully locked',
@@ -95,10 +95,10 @@ function LockInventoryGuest(req, res) {
                         return i + n
                     })
                 }).then(resp => {
-                   let discount = ((resp * ourPrice) / 100)
-                    // console.log(res, ourPrice)
+                    let discount = ((resp * ourPrice) / 100)
+                        // console.log(res, ourPrice)
                     let updated_price = ourPrice - ((resp * ourPrice) / 100)
-                    dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency,discount).then((response) => {
+                    dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency, discount).then((response) => {
                         res.status(200).json({
                             error: false,
                             msg: 'inventory has been successfully locked',

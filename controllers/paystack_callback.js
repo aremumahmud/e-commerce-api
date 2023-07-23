@@ -8,7 +8,7 @@ function verifyTransaction(req, res) {
     if (!id) return res.redirect('https://e-commerce-ui-ruddy.vercel.app/home')
     dbInstance.validate_payment(id).then(response => {
         console.log(response, 'll')
-        sendmail(response.email_address, response.resp1)
+        sendmail(response.email_address, response.resp1, response.discount)
         res.redirect('https://e-commerce-ui-ruddy.vercel.app/success')
     }).catch(err => {
         console.log(err, 'lk')

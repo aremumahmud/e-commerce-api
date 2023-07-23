@@ -243,7 +243,7 @@ class Db {
         });
     }
 
-    attachLocked(user, refId, amount, user_data, products, currency) {
+    attachLocked(user, refId, amount, user_data, products, currency, discount) {
         return new Promise((resolve, reject) => {
             console.log("userid", user);
             UserModel.findById(user)
@@ -254,7 +254,8 @@ class Db {
                         user_data.email_address,
                         user_data.first_name + " " + user_data.last_name,
                         res._id,
-                        "user"
+                        "user",
+                        discount
                     ).then((body) => {
                         console.log(body);
                         res.locks = refId;
@@ -289,7 +290,7 @@ class Db {
         });
     }
 
-    attachLockedGuest(refId, amount, user_data, products, currency) {
+    attachLockedGuest(refId, amount, user_data, products, currency, discount) {
         return new Promise((resolve, reject) => {
             new guestOrderModel({
                     locks: refId,
@@ -306,7 +307,8 @@ class Db {
                         user_data.email_address,
                         user_data.first_name + " " + user_data.last_name,
                         res._id,
-                        "guest"
+                        "guest",
+                        discount
                     ).then((body) => {
                         console.log(body);
                         res.currentPaymentReference.reference = body.reference;
@@ -363,7 +365,7 @@ class Db {
                         operation = UserModel.findById(userID);
                     }
                     console.log(res);
-
+                    let discount = res.meta.discount || 0
                     operation.then((user) => {
                         if (!user || Object.keys(user).length === 0)
                             return reject({
@@ -408,6 +410,7 @@ class Db {
                                     success: true,
                                     resp1,
                                     email_address: resp1.email_address,
+                                    discount
                                 });
                             });
                         });
