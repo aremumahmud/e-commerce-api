@@ -66,6 +66,7 @@ function LockInventory(req, res) {
                 }
 
             });
+            let disc_to_price = ourPrice
             ourPrice = +(ourPrice + ((parseInt(price)) / currencyTab[currency].price_in_naira)).toFixed(2)
             if (ourPrice === 0) return res.status(400).json({
                 error: true,
@@ -118,9 +119,9 @@ function LockInventory(req, res) {
                         return i + n
                     })
                 }).then(resp => {
-                    let discount = ((resp * ourPrice) / 100)
+                    let discount = ((resp * disc_to_price) / 100)
                     console.log(res)
-                    let updated_price = ourPrice - ((resp * ourPrice) / 100)
+                    let updated_price = ourPrice - ((resp * disc_to_price) / 100)
 
                     dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency, discount).then((response) => {
                         res.status(200).json({
