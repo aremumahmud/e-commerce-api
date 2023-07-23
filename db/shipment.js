@@ -15,10 +15,14 @@ class Shipment {
                 return new shipmentModel({...shipment }).save()
 
             }
+          let id = res._id
+         return shipmentModel.findByIdAndUpdate(id,shipment)
             //else modify it
-            Object.assign(res, shipment);
-            //then return the results
-            return res.save()
+          // console.log(shipment)
+          //   Object.assign(res, shipment);
+          //   console.log(res)
+          //   //then return the results
+          //   return res.save()
         })
     }
 

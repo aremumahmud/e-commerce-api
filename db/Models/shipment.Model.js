@@ -39,7 +39,16 @@ const ShipmentModel = new Schema({
     Sokoto_State: { type: Number, default: 0 },
     Taraba_State: { type: Number, default: 0 },
     Yobe_State: { type: Number, default: 0 },
-    Zamfara_State: { type: Number, default: 0 }
+    Zamfara_State: { type: Number, default: 0 },
+   outskirt:{ type: Number, default: 0 },
+  Canada: { type: Number, default: 0 },
+  United_States: { type: Number, default: 0 },
+  United_Kingdom: { type: Number, default: 0 },
+  United_States_Minor_Outlying_Islands: { type: Number, default: 0 },
+  United_States_Virgin_Islands: { type: Number, default: 0 },
+  insland: { type: Number, default: 0 },
+  Lagos_State: { type: Number, default: 0 },
+  mainland: { type: Number, default: 0 }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

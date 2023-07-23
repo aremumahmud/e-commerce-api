@@ -118,9 +118,11 @@ function LockInventory(req, res) {
                         return i + n
                     })
                 }).then(resp => {
+                  let discount = ((resp * ourPrice) / 100)
                     console.log(res)
                     let updated_price = ourPrice - ((resp * ourPrice) / 100)
-                    dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency).then((response) => {
+                  
+                    dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency,discount).then((response) => {
                         res.status(200).json({
                             error: false,
                             msg: 'inventory has been successfully locked',

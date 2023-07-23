@@ -98,7 +98,7 @@ let end = (data, total) => `
 </table>
 <br />
 <div class="topic2">
-    <p>Here are your orders details</p>
+    <p>Here are your order details</p>
     <br />
 </div>
 <table style="font-size:12px">
