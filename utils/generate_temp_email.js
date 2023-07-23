@@ -87,7 +87,7 @@ let end = (data, total, discount) => `
 <tr>
     <th colspan='3'>Shipping fee</th>
     
-    <th>${data.currency + String(data.total-total+discount)}</th>
+    <th>${data.currency + String(parseInt(data.total)-parseInt(total)+parseInt(discount))}</th>
 </tr>
 <tr>
     <th colspan='3'>Subtotal</th>
