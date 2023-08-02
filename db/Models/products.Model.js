@@ -40,7 +40,11 @@ let productSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Color'
     }],
-    category: String
+    category: String,
+    uploadType: {
+        type: 'String',
+        default: 'default'
+    }
 
 }, {
     timestamps: true,

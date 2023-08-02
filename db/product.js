@@ -56,6 +56,7 @@ class Db {
                         // priceAfterDiscount: options.price - options.discount,
                         // priceDiscount: options.discount,
                         //sizes: options.sizes,
+                        uploadType: options.uploadType,
                         varieties: resp.map((res) => res.value._id),
                         category: options.category.trim(),
                     })
