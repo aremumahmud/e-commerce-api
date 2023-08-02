@@ -18,7 +18,7 @@ function get_order_view(req, res) {
     })
 
     let id = req.query.id
-        //console.log(req.body, req.query)
+        ////(req.body, req.query)
     dbInstance.fetch_orders_view(id).then(response => {
 
         response.orders ? res.status(200).send(generate(response.orders)) : res.status(400).send(d)
@@ -27,7 +27,7 @@ function get_order_view(req, res) {
             //     data: generate(response.orders)
             // })
     }).catch(err => {
-        // console.log(err)
+        // //(err)
         res.status(400).send(d)
     })
 }

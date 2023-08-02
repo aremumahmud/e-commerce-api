@@ -7,13 +7,13 @@ function initialize(passport, getUserByEmail, getUserById) {
 
     const authenticateUser = async(email, password, done) => {
         // getUserByEmail(email).then(async(user) => {
-        console.log(email, password)
+        //(email, password)
         let user = getUserByEmail(email).then(async user => {
             if (user) {
                 try {
                     if (await bcrypt.compare(password, user.password)) {
-                        console.log('masha')
-                        console.log(user)
+                        //('masha')
+                        //(user)
                         return process.nextTick(() => done(null, user));
                     } else {
 
@@ -43,14 +43,14 @@ function initialize(passport, getUserByEmail, getUserById) {
     }
     passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
     passport.serializeUser((user, done) => {
-        console.log('serialize user')
+        //('serialize user')
         process.nextTick(() => done(null, user.id));
     })
 
     passport.deserializeUser((id, done) => {
-        console.log('deserialize user')
+        //('deserialize user')
         getUserById(id).then(res => {
-            console.log('deserialize user')
+            //('deserialize user')
             return process.nextTick(() => done(null, res));
         })
 

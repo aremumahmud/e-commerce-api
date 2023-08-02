@@ -30,7 +30,7 @@ class Search {
                     })
 
                 }).catch(err => {
-                    console.log(err)
+                    //(err)
                     return reject({
                         error: true,
                         type: 'full',
@@ -73,7 +73,7 @@ class Search {
 
 
                 }).catch(err => {
-                    console.log(err)
+                    //(err)
                 })
         })
 

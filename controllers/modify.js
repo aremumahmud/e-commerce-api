@@ -2,33 +2,33 @@ const dbInstance = require("../db")
 
 function modify(req, res) {
 
-    let { _id, price, parentProduct, description, sizes, quantity,parent } = req.body
+    let { _id, price, parentProduct, description, sizes, quantity, parent } = req.body
 
     let id = _id
     let parent_name = parentProduct
     let modified = {
-        sizes,
-        parentProduct,
-      quantity
-    }
-console.log(parent)
+            sizes,
+            parentProduct,
+            quantity
+        }
+        //(parent)
     let modified2 = {
             price,
             description,
             name: parentProduct,
             quantity
         }
-        //  console.log(body)
- 
+        //  //(body)
+
 
     dbInstance.modifyProduct(id, parent, modified, modified2).then(resp => {
-       console.log(resp)
+        //(resp)
         res.status(200).json({
             sucess: true,
             error: false
         })
     }).catch(err => {
-        console.log(err)
+        //(err)
         res.status(400).json({
             success: false,
             error: true

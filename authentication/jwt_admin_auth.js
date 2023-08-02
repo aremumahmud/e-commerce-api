@@ -16,11 +16,11 @@ function Auth_Admin(req, res, next) {
     //get the token
 
     let token = req.headers.authentication && req.headers.authentication.split(' ')[1]
-        //console.log(token)
+        ////(token)
         //then verify
     jwt.verify(token, JWT_PRIVATE_KEY, function(err, decoded) {
 
-        console.log(decoded, err)
+        //(decoded, err)
         //if error or decoded is undefined we reject and send an error message
         err || !decoded ? res.status(400).json({
             error: true,

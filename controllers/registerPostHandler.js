@@ -5,7 +5,7 @@ const passport = require("passport");
 module.exports = async(req, res) => {
         try {
             let { email, password, username } = req.body;
-            console.log(req.body);
+            //(req.body);
             if (!(email && password && username)) {
                 return res.json({
                     error: "missing credentials",
@@ -18,14 +18,14 @@ module.exports = async(req, res) => {
                     res.redirect("/users/login");
                 })
                 .catch((e) => {
-                    console.log(e);
+                    //(e);
                     res.redirect("/users/register?error=exist");
                 });
         } catch (e) {
-            console.log(e);
+            //(e);
             res.redirect("/users/register?error=unknown");
         }
 
         // check if the user is successfully added to array
-        // console.log(users);o
-    } // console.log(users);o
+        // //(users);o
+    } // //(users);o

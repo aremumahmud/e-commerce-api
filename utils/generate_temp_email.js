@@ -200,8 +200,8 @@ function generate(points, discount) {
             let prods = points.products.map(x => product(x, points, currencyTab)).join('')
             let total = 0
             points.products.forEach(x => {
-                console.log(x.price)
-                console.log(+(x.price / currencyTab[points.currency].price_in_naira).toFixed(2))
+                //(x.price)
+                //(+(x.price / currencyTab[points.currency].price_in_naira).toFixed(2))
                 total += +((x.price / currencyTab[points.currency].price_in_naira) * x.quantity).toFixed(2)
             })
             let template_final = template(points) + prods + end(points, total, discount)

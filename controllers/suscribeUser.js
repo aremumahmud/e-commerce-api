@@ -10,7 +10,7 @@ const dbInstance = require('../db/suscribe')
 const sendmail_suscribe = require('../utils/suscribeMail')
 
 function suscribe_user(req, res) {
-    //console.log(req.body, req.query)
+    ////(req.body, req.query)
     const { email } = req.query
 
     dbInstance.suscribe_user(email).then(response => {

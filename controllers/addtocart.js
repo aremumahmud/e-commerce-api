@@ -10,7 +10,7 @@ const dbInstance = require('../db/cart')
 
 function add_to_cart(req, res) {
     let { email_address, id, quantity } = req.body
-        //  console.log(req.body, req.query)
+        //  //(req.body, req.query)
     dbInstance.addToCart(email_address, id, quantity).then(response => {
         res.status(200).json({
             success: true,

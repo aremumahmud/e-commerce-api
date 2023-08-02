@@ -20,9 +20,9 @@ function LockInventoryGuest(req, res) {
 
     let refId = uuidV4()
     user_data.address += ',' + country
-        //console.log(inventory)
+        ////(inventory)
         // return
-        //return console.log(discount)
+        //return //(discount)
 
     //we then have to lock these inventories in parallel
     let operation = inventory.map(product => dbInstance.lockInventory(product._id, product.quantity_for_cart, product.size, refId, true))
@@ -32,7 +32,7 @@ function LockInventoryGuest(req, res) {
     Promise.allSettled(operation).then(results => {
         //filter the results for the rejected inventory
         //this means either an error occured or inventory has been depleted
-        console.log(results)
+        //(results)
         return results.filter(n => n.status === "fulfilled" ? n.value : false)
     }).then(results => {
 
@@ -65,10 +65,10 @@ function LockInventoryGuest(req, res) {
             let disc_to_price = ourPrice
             ourPrice = +(ourPrice + ((parseInt(price)) / currencyTab[currency].price_in_naira)).toFixed(2)
             if (ourPrice === 0) return res.status(400).json({
-                error: true,
-                msg: 'try to tampered with system'
-            })
-            console.log(inventory)
+                    error: true,
+                    msg: 'try to tampered with system'
+                })
+                //(inventory)
             let products = inventory.map(x => ({ _id: x._id, quantity: x.quantity_for_cart, price: x.price, size: x.size, parent_product: x.name, image: x.image }))
             if (discount.length === 0) {
                 dbInstance.attachLockedGuest(refId, ourPrice, user_data, products, currency, 0).then((response) => {
@@ -80,7 +80,7 @@ function LockInventoryGuest(req, res) {
                         payment_uri: response.payment_uri
                     })
                 }).catch(err => {
-                    console.log(err)
+                    //(err)
                     return res.status(400).json({
                         error: true,
                         msg: 'could not attach inventory id'
@@ -90,14 +90,14 @@ function LockInventoryGuest(req, res) {
                 Promise.allSettled(discount.map(x => invalidate_discount(x))).then(results => {
                     return results.filter(n => n.status === "fulfilled" ? n.value : false).map(x => x.value.value)
                 }).then(res => {
-                    console.log(res)
+                    //(res)
                     if (res.length === 0) return 0
                     return res.reduce((i, n) => {
                         return i + n
                     })
                 }).then(resp => {
                     let discount = ((resp * disc_to_price) / 100)
-                        // console.log(res, ourPrice)
+                        // //(res, ourPrice)
                     let updated_price = ourPrice - ((resp * disc_to_price) / 100)
                     dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency, discount).then((response) => {
                         res.status(200).json({
@@ -108,7 +108,7 @@ function LockInventoryGuest(req, res) {
                             payment_uri: response.payment_uri
                         })
                     }).catch(err => {
-                        console.log(err)
+                        //(err)
                         return res.status(400).json({
                             error: true,
                             msg: 'could not attach inventory id'

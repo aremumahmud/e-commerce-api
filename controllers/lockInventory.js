@@ -19,11 +19,11 @@ function LockInventory(req, res) {
     user_data.address += ',' + country
         //<<
         // << << < HEAD
-        // // return console.log(discount)
+        // // return //(discount)
         // // return
         // ===
         // === =
-        // return console.log(discount)
+        // return //(discount)
         // return
         // 9b94a92 (added som)
 
@@ -35,7 +35,7 @@ function LockInventory(req, res) {
     Promise.allSettled(operation).then(results => {
         //filter the results for the rejected inventory
         //this means either an error occured or inventory has been depleted
-        console.log(results)
+        //(results)
         return results.filter(n => n.status === "fulfilled" ? n.value : false)
     }).then(results => {
 
@@ -80,7 +80,7 @@ function LockInventory(req, res) {
             //     ===
             //     ===
             //     =
-            //     console.log(inventory)
+            //     //(inventory)
 
             // >>>
             // >>>
@@ -120,7 +120,7 @@ function LockInventory(req, res) {
                     })
                 }).then(resp => {
                     let discount = ((resp * disc_to_price) / 100)
-                    console.log(res)
+                        //(res)
                     let updated_price = ourPrice - ((resp * disc_to_price) / 100)
 
                     dbInstance.attachLockedGuest(refId, updated_price, user_data, products, currency, discount).then((response) => {
@@ -132,7 +132,7 @@ function LockInventory(req, res) {
                             payment_uri: response.payment_uri
                         })
                     }).catch(err => {
-                        console.log(err)
+                        //(err)
                         return res.status(400).json({
                             error: true,
                             msg: 'could not attach inventory id'

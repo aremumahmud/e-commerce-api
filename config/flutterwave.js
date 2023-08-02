@@ -61,7 +61,7 @@ module.exports = generatePaymentLink
 
 // generatePaymentLink(amount, currency, redirectUrl, customerEmail, customerName, 'dhukh73uhdxox')
 //     .then(paymentLink => {
-//         console.log('Payment Link:', paymentLink);
+//         //('Payment Link:', paymentLink);
 //     })
 //     .catch(error => {
 //         console.error('Error:', error);

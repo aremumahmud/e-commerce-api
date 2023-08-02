@@ -1,6 +1,6 @@
 // only authenticated user should enter index page
 function checkAuthenticated(req, res, next) {
-    console.log('req.body', req.isAuthenticated())
+    //('req.body', req.isAuthenticated())
     if (req.isAuthenticated()) {
         return next();
     } else {
@@ -10,7 +10,7 @@ function checkAuthenticated(req, res, next) {
 
 // unauthenticated user should not enter index page 
 function checkNotAuthenticated(req, res, next) {
-    // console.log(req.body)
+    // //(req.body)
     if (req.isAuthenticated()) {
         return res.redirect("/users/dashboard");
     }

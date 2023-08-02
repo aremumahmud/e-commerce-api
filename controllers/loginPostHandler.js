@@ -4,8 +4,8 @@ const JWT_PRIVATE_KEY = process.env.JWT_SECRET || 'fjvghbftygbv hb,k kj';
 
 
 module.exports = (req, res, next) => {
-    // console.log("kz,mjmxn xn xk ikxn xm");
-    console.log(req.body)
+    // //("kz,mjmxn xn xk ikxn xm");
+    //(req.body)
     passport.authenticate("local", (err, theUser, failure) => {
         if (err) {
             return res.json({
@@ -23,13 +23,13 @@ module.exports = (req, res, next) => {
                     errors: err,
                 });
             }
-            console.log(req.isAuthenticated());
-            // console.log(req.isAuthenticated());
+            //(req.isAuthenticated());
+            // //(req.isAuthenticated());
             // delete theUser._id
             // delete theUser.password
             // delete theUser.orders
             // delete theUser.payments
-            console.log(theUser,'lago')
+            //(theUser,'lago')
             res.json({
                 errors: false,
                 user: {

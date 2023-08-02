@@ -9,7 +9,7 @@ function search_controller(req, res) {
         })
         //let search = search
     Promise.allSettled([search.full_text_search(searchString), search.partial_search(searchString)]).then(response => {
-        console.log(response)
+        //(response)
         RefineSearch(response).then(response0 => {
             res.status(200).json(response0)
         })

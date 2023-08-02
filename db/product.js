@@ -47,7 +47,7 @@ class Db {
                 })
                 .map((color) => new Color(color).save())
             ).then((resp) => {
-                console.log(resp);
+                //(resp);
                 new productsModel({
                         name: options.product_name,
                         mainImage: options.image,
@@ -74,7 +74,7 @@ class Db {
                         resolve(res);
                     })
                     .catch((err) => {
-                        console.log(err);
+                        //(err);
                         reject(err);
                     });
             });
@@ -96,7 +96,7 @@ class Db {
      */
 
     lockInventory(inventoryId, product_quantity, size, refId, trim = false) {
-        console.log(inventoryId);
+        //(inventoryId);
         return new Promise((resolve, reject) => {
             Color.findById(inventoryId) // get the product inventory
                 .then((doc) => {
@@ -127,11 +127,11 @@ class Db {
 
                     doc.quantity = quantity - product_quantity; // remove the quantity from the product
                     doc.locked = locked + product_quantity; //add ythe quantity to the locked
-                    console.log(doc.sizes);
+                    //(doc.sizes);
                     doc.sizes[index].qty =
                         parseInt(doc.sizes[index].qty) - product_quantity;
                     let sizesd = [...doc.sizes];
-                    console.log(sizesd);
+                    //(sizesd);
                     doc.sizes = sizesd;
                     doc
                         .save()
@@ -162,7 +162,7 @@ class Db {
                                         });
                                 })
                                 .catch((err) => {
-                                    console.log(err);
+                                    //(err);
                                     reject({
                                         err,
                                         error: true,
@@ -210,7 +210,7 @@ class Db {
         //let g = category ? ({ f: 'f' }) : null
         return new Promise((resolve, reject) => {
             let query = category !== "all" && category ? { category } : null;
-            // console.log(query,'k' , category)
+            // //(query,'k' , category)
             productsModel
                 .find(query)
                 .populate("varieties")
@@ -246,7 +246,7 @@ class Db {
 
     attachLocked(user, refId, amount, user_data, products, currency, discount) {
         return new Promise((resolve, reject) => {
-            console.log("userid", user);
+            //("userid", user);
             UserModel.findById(user)
                 .then((res) => {
                     generatePaymentLink(
@@ -258,7 +258,7 @@ class Db {
                         "user",
                         discount
                     ).then((body) => {
-                        console.log(body);
+                        //(body);
                         res.locks = refId;
                         res.currentPaymentReference = {
                             ...user_data,
@@ -311,11 +311,11 @@ class Db {
                         "guest",
                         discount
                     ).then((body) => {
-                        console.log(body);
+                        //(body);
                         res.currentPaymentReference.reference = body.reference;
                         //res.reference = body.status ? body.data.reference : 'falsey'
                         res.save().catch((err) => {
-                            console.log(err);
+                            //(err);
                         });
 
                         resolve({
@@ -331,10 +331,10 @@ class Db {
 
     validate_payment(reference) {
         return new Promise((resolve, reject) => {
-            console.log(reference);
+            //(reference);
             verifyTransaction(reference)
                 .then((res) => {
-                    console.log(res, "dlkx");
+                    //(res, "dlkx");
                     // if (res.code === 'ENOTFOUND') return reject({
                     //     error: true,
                     //     msg: 'technical issues at hand'
@@ -361,11 +361,11 @@ class Db {
                     if (res.meta.role === "guest") {
                         operation = guestOrderModel.findById(res.meta.user_id);
                     } else {
-                        console.log(res);
+                        //(res);
                         let userID = res.meta.user_id;
                         operation = UserModel.findById(userID);
                     }
-                    console.log(res);
+                    //(res);
                     let discount = res.meta.discount || 0
                     operation.then((user) => {
                         if (!user || Object.keys(user).length === 0)
@@ -376,14 +376,14 @@ class Db {
                         let order = user.currentPaymentReference;
                         let products = order.products;
                         order.reference = reference;
-                        console.log(products);
+                        //(products);
                         // const filters = ids.map(id => ({ '_id': id }));
                         // let ids = products.map(x => (x._id))
 
-                        // // console.log(ids, 'ccc')
+                        // // //(ids, 'ccc')
                         // Color.find({ $or: ids.map(id => ({ _id: id })) })
                         //     .then(resp => {
-                        //         console.log(resp, 'mdjd')
+                        //         //(resp, 'mdjd')
                         //lets create a new order model
                         let new_order = {
                             ...order,
@@ -391,7 +391,7 @@ class Db {
                             total: res.charged_amount,
                             currency: res.currency,
                             products: products.map((x, i) => {
-                                //console.log(x)
+                                ////(x)
                                 return {
                                     image: x.image,
                                     id: x._id,
@@ -420,7 +420,7 @@ class Db {
                     });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    //(err);
 
                     reject({
                         error: true,
@@ -543,11 +543,11 @@ class Db {
 
                     bcrypt.hash(password, 10).then((hashed) => {
                         res.password = hashed;
-                        console.log(hashed);
+                        //(hashed);
                         res
                             .save()
                             .then((f) => {
-                                console.log(f);
+                                //(f);
                                 resolve({
                                     success: true,
                                     error: false,
@@ -562,7 +562,7 @@ class Db {
 
     modifyProduct(id, parent, modified, modified1) {
         return colorModel.findByIdAndUpdate(id, modified).then((res) => {
-            // console.log(res)
+            // //(res)
             return productsModel.findByIdAndUpdate(parent, modified1);
         });
     }
@@ -575,7 +575,7 @@ class Db {
 module.exports = Db;
 
 // Color.find().then(res => {
-//     console.log(res)
+//     //(res)
 // })
 
 // let color = new Color({
@@ -588,9 +588,9 @@ module.exports = Db;
 // })
 
 // color.save().then(doc => {
-//     console.log(doc)
+//     //(doc)
 // }).catch(err => {
-//     console.log(err)
+//     //(err)
 // })
 
 // let Product = new productsModel({
@@ -604,14 +604,14 @@ module.exports = Db;
 // })
 
 // Product.save().then(docs => {
-//     console.log(docs)
+//     //(docs)
 // }).catch(err => {
-//     console.log(err.errors.description.properties.message)
+//     //(err.errors.description.properties.message)
 // }).catch(err => {
-//     console.log(err.errors.description.properties.message)
-// })  console.log(err.errors.description.properties.message)
-// })  console.log(err.errors.description.properties.message)
-// })  console.log(err.errors.description.properties.message)
+//     //(err.errors.description.properties.message)
+// })  //(err.errors.description.properties.message)
+// })  //(err.errors.description.properties.message)
+// })  //(err.errors.description.properties.message)
 // }).description.properties.message)
 // }).description.properties.message)
 // }).description.properties.message)

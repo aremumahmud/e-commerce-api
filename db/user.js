@@ -36,10 +36,10 @@ class User {
 
             UserModel.findById(userId)
                 .then(result => {
-                    // console.log(result)
+                    // //(result)
                     res(result)
                 }).catch(err => {
-                    // console.log(err)
+                    // //(err)
                     rej()
                 })
 
@@ -51,10 +51,10 @@ class User {
 
             UserModel.findOne({ email_address: email })
                 .then(result => {
-                    // console.log(result)
+                    // //(result)
                     res(result)
                 }).catch(err => {
-                    console.log(err)
+                    //(err)
                     rej()
                 })
 

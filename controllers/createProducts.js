@@ -9,7 +9,7 @@
 const dbInstance = require('../db')
 
 function add_products(req, res) {
-    console.log(req.body, req.query)
+    //(req.body, req.query)
     dbInstance.createProduct(req.body).then(response => {
         res.status(200).json({
             success: true,

@@ -1,7 +1,7 @@
 const Paystack = require('../utils/paystack')
 
 function initialize(email, amount, id, currency) {
-    //console.log((Number(amount) * 100).toFixed(2))
+    ////((Number(amount) * 100).toFixed(2))
 
     return typeof id === 'string' ?
         Paystack.transaction.initialize({
@@ -35,16 +35,16 @@ module.exports = initialize
  * let d = {}
 let f = {
     status: () => {
-        console.log('duisjkh')
+        //('duisjkh')
         return {
             json: () => {
-                console.log(',msjshzn')
+                //(',msjshzn')
             }
         }
     }
 }
 initialize(d, f).then(d => {
-    console.log(d)
+    //(d)
 })
  * 
  */
