@@ -16,6 +16,11 @@ let template = `
 .logo img {
     width: 200px
 }
+button{
+  padding: 10px;
+  border-radius:10px;
+  background:green
+}
     </style>
 </head>
 
@@ -40,6 +45,8 @@ let end = data => `
     <p>Here is/are your order details</p>
     <br />
 </div>
+<input id="orderId" type="hidden"  value="${data.orderId|| 0}"/>
+<button id="sendMail">Send delivery email</button>
 <table style="font-size:12px">
 <tbody>
 <tr>
@@ -97,7 +104,21 @@ let end = data => `
         </footer>
 </div>
 </body>
+<script>
+let $ = (e)=> document.getElementById(e)
 
+$('sendMail').onclick = ()=>{
+    let id  = $('orderId').value
+    fetch('/v1/api/send_delivery_email?id='+ id).then(res=>{
+        return res.json()
+    }).then(res=>{
+        alert('sent delivery email successfully')
+    }).catch(err=>{
+        alert('sorry an unexpected error occured!')
+    })
+
+}
+</script>
 </html>`
 
 let product = (x) => `
