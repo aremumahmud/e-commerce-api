@@ -15,6 +15,7 @@ const suscribe_user = require('../controllers/suscribeUser')
 const modify = require('../controllers/modify')
 const Auth_Admin = require('../authentication/jwt_admin_auth')
 const fetch_all_orders = require('../controllers/get_all_orders')
+const send_delivery_email = require('../controllers/send_delivery_email_to_user')
 const router = express.Router()
 
 router
@@ -49,6 +50,9 @@ router
     .route('/fetch_order_view')
     .get(get_order_view)
 
+router
+    .route('/send_delivery_email')
+    .get(send_delivery_email)
 
 router
     .route('/send_otp')

@@ -11,6 +11,10 @@ const Order = new Schema({
     address: String,
     products: [],
     status: { type: String, default: false },
+    discount: {
+        type: Number,
+        default: 0
+    },
     orderId: {
         type: Number,
         required: true,

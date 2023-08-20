@@ -390,6 +390,7 @@ class Db {
                             payment_method: res.payment_type,
                             total: res.charged_amount,
                             currency: res.currency,
+                            discount,
                             products: products.map((x, i) => {
                                 ////(x)
                                 return {
