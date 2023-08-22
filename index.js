@@ -5,7 +5,11 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override")
 
-//
+
+//plugins
+
+require('./cron-jobs/schedule')
+    //
 const router = require('./routers/router')
 const appRouter = require('./routers/appRouter')
 const paystack_router = require('./routers/paystack.router')
@@ -96,4 +100,4 @@ app.listen(port, () => {
     console.log('server started at port ' + port)
 })
 
-  console.log('hrllo')
+console.log('hrllo')
