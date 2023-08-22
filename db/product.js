@@ -215,6 +215,7 @@ class Db {
                 .find(query)
                 .populate("varieties")
                 .then((res) => {
+                  //console.log(res)
                     resolve({
                         data: res,
                     });
