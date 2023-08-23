@@ -40,6 +40,12 @@ let productSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Color'
     }],
+    weight: {
+        type: Number,
+        required: true,
+        default: 1
+    },
+
     category: String,
     uploadType: {
         type: 'String',

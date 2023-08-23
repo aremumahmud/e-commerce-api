@@ -56,6 +56,7 @@ class Db {
                         // priceAfterDiscount: options.price - options.discount,
                         // priceDiscount: options.discount,
                         //sizes: options.sizes,
+                        weight: options.weight,
                         uploadType: options.uploadType,
                         varieties: resp.map((res) => res.value._id),
                         category: options.category.trim(),
@@ -215,7 +216,7 @@ class Db {
                 .find(query)
                 .populate("varieties")
                 .then((res) => {
-                  //console.log(res)
+                    //console.log(res)
                     resolve({
                         data: res,
                     });
