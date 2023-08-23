@@ -2,21 +2,23 @@ const dbInstance = require("../db")
 
 function modify(req, res) {
 
-    let { _id, price, parentProduct, description, sizes, quantity, parent } = req.body
+    let { _id, price, parentProduct, description, sizes, quantity, parent, weight } = req.body
 
     let id = _id
     let parent_name = parentProduct
     let modified = {
             sizes,
             parentProduct,
-            quantity
+            quantity,
+            weight
         }
         //(parent)
     let modified2 = {
             price,
             description,
             name: parentProduct,
-            quantity
+            quantity,
+            weight
         }
         //  //(body)
 
