@@ -52,6 +52,7 @@ const ShipmentModel = new Schema({
     north_america: { type: Number, default: 0 },
     europe: { type: Number, default: 0 },
     rest_of_africa: { type: Number, default: 0 },
+
     agege: { type: Number, default: 0 },
     ajeromi_ifelodun: { type: Number, default: 0 },
     alimosho: { type: Number, default: 0 },

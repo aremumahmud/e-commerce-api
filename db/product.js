@@ -48,6 +48,7 @@ class Db {
                 .map((color) => new Color(color).save())
             ).then((resp) => {
                 //(resp);
+                let category = options.category.trim()
                 new productsModel({
                         name: options.product_name,
                         mainImage: options.image,
@@ -59,7 +60,7 @@ class Db {
                         weight: options.weight,
                         uploadType: options.uploadType,
                         varieties: resp.map((res) => res.value._id),
-                        category: options.category.trim(),
+                        category,
                     })
                     .save()
                     .then((res) => {
@@ -67,8 +68,8 @@ class Db {
                             if (res.length == 0 && !res) {
                                 return;
                             }
-                            if (res.categories.indexOf(options.category) === -1) {
-                                res.categories.push(options.category);
+                            if (res.categories.indexOf(category) === -1) {
+                                res.categories.push(category);
                                 res.save();
                             }
                         });
