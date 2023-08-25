@@ -62,6 +62,9 @@ class Db {
                         uploadType: options.uploadType,
                         varieties: resp.map((res) => res.value._id),
                         category,
+                        USD: options.USD,
+                        GBP: options.GBP,
+                        EUR: options.EUR
                     })
                     .save()
                     .then((res) => {
@@ -617,6 +620,7 @@ module.exports = Db;
 // })  //(err.errors.description.properties.message)
 // })  //(err.errors.description.properties.message)
 // })  //(err.errors.description.properties.message)
+// }).description.properties.message)
 // }).description.properties.message)
 // }).description.properties.message)
 // }).description.properties.message)

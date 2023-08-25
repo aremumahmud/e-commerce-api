@@ -53,8 +53,19 @@ let productSchema = new Schema({
     uploadType: {
         type: String,
         default: 'default'
-    }
-
+    },
+    USD: {
+        type: Number,
+        default: 0
+    },
+    GBP: {
+        type: Number,
+        default: 0
+    },
+    EUR: {
+        type: Number,
+        default: 0
+    },
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
