@@ -45,10 +45,13 @@ let productSchema = new Schema({
         required: true,
         default: 1
     },
-
+    virtual_discount: {
+        type: Number,
+        default: 'default'
+    },
     category: String,
     uploadType: {
-        type: 'String',
+        type: String,
         default: 'default'
     }
 
