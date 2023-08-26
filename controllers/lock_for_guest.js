@@ -61,15 +61,17 @@ function LockInventoryGuest(req, res) {
                 let currencyTab = curr.currencyTab;
                 let ourPrice = 0;
                 inventory.forEach((element) => {
-                    ourPrice += element[currency === 'NGN' ? 'price' : currency]
-                        // if (currency === element.currency) {
-                        //     ourPrice +=
-                        //         parseInt(element.price) * parseInt(element.quantity_for_cart);
-                        // } else if (element.currency === "NGN" && currency !== "NGN") {
-                        //     ourPrice +=
-                        //         (parseInt(element.price) * parseInt(element.quantity_for_cart)) /
-                        //         currencyTab[currency].price_in_naira;
-                        // }
+                    ourPrice +=
+                        element[currency === "NGN" ? "price" : currency] *
+                        parseInt(element.quantity_for_cart);
+                    // if (currency === element.currency) {
+                    //     ourPrice +=
+                    //         parseInt(element.price) * parseInt(element.quantity_for_cart);
+                    // } else if (element.currency === "NGN" && currency !== "NGN") {
+                    //     ourPrice +=
+                    //         (parseInt(element.price) * parseInt(element.quantity_for_cart)) /
+                    //         currencyTab[currency].price_in_naira;
+                    // }
                 });
                 let disc_to_price = ourPrice;
                 ourPrice = +(
