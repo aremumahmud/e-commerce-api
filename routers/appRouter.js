@@ -16,6 +16,7 @@ const modify = require('../controllers/modify')
 const Auth_Admin = require('../authentication/jwt_admin_auth')
 const fetch_all_orders = require('../controllers/get_all_orders')
 const send_delivery_email = require('../controllers/send_delivery_email_to_user')
+const get_updated_version = require('../controllers/getUpdatedVersion')
 const router = express.Router()
 
 router
@@ -114,5 +115,9 @@ router
 router
     .route('/fetch_all_orders')
     .post(Auth_Admin, fetch_all_orders)
+
+router
+    .route('/get_updated_version')
+    .post(get_updated_version)
 
 module.exports = router

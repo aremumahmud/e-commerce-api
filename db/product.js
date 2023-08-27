@@ -578,6 +578,18 @@ class Db {
     deleteProduct(id) {
         return colorModel.findByIdAndDelete(id);
     }
+
+    async getUpdatedVersion(ids) {
+        try {
+            const records = await Users.find().where('_id').in(ids).exec();
+            const populatedRecords = await Users.populate(records, { path: 'varieties' }); // Replace 'someFieldToPopulate' with the actual field you want to populate
+
+            return populatedRecords;
+        } catch (err) {
+            // console.error('Error fetching users:', err);
+            return [];
+        }
+    }
 }
 
 module.exports = Db;
