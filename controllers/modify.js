@@ -13,7 +13,8 @@ function modify(req, res) {
         virtual_discount,
         USD,
         GBP,
-        EUR
+        EUR,
+        uploadType
     } = req.body;
 
     let id = _id;
@@ -21,7 +22,7 @@ function modify(req, res) {
     let modified = {
         sizes,
         parentProduct,
-        quantity,
+        quantity
     };
     //(parent)
     let modified2 = {
@@ -33,7 +34,8 @@ function modify(req, res) {
         virtual_discount,
         USD,
         GBP,
-        EUR
+        EUR,
+        uploadType
     };
     //  //(body)
 
