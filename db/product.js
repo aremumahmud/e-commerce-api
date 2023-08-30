@@ -581,12 +581,12 @@ class Db {
 
     async getUpdatedVersion(ids) {
         try {
-            const records = await Users.find().where('_id').in(ids).exec();
-            const populatedRecords = await Users.populate(records, { path: 'varieties' }); // Replace 'someFieldToPopulate' with the actual field you want to populate
+            const records = await productsModel.find().where('_id').in(ids).exec();
+            const populatedRecords = await productsModel.populate(records, { path: 'varieties' }); // Replace 'someFieldToPopulate' with the actual field you want to populate
 
             return populatedRecords;
         } catch (err) {
-            // console.error('Error fetching users:', err);
+             console.error('Error fetching users:', err);
             return [];
         }
     }

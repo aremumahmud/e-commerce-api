@@ -10,7 +10,7 @@ const dbInstance = require('../db')
 
 function get_updated_version(req, res) {
 
-    // console.log(req.body, req.query)
+    console.log(req.body)
     dbInstance.getUpdatedVersion(req.body.parent_ids).then(response => {
         res.status(200).json({
             success: true,
