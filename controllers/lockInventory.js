@@ -10,6 +10,7 @@ const { v4: uuidV4 } = require("uuid");
 const validateDiscount = require("./validate_discount");
 const { invalidate_discount } = require("../db/discount");
 const { getExchange } = require("../db/exchange");
+const calculate_virtual_discount = require("../utils/virtual_discount");
 //const amqpServer = require('../../amqp')
 
 function LockInventory(req, res) {
@@ -67,8 +68,10 @@ function LockInventory(req, res) {
                 let ourPrice = 0;
                 inventory.forEach((element) => {
                     ourPrice +=
-                        element[currency === "NGN" ? "price" : currency] *
-                        parseInt(element.quantity_for_cart);
+                        calculate_virtual_discount(
+                            element.virtual_discount,
+                            element[currency === "NGN" ? "price" : currency]
+                        ) * parseInt(element.quantity_for_cart);
                     // if (currency === element.currency) {
                     //     ourPrice +=
                     //         parseInt(element.price) * parseInt(element.quantity_for_cart);
