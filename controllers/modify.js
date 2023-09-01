@@ -14,7 +14,8 @@ function modify(req, res) {
         USD,
         GBP,
         EUR,
-        uploadType
+        uploadType,
+        category
     } = req.body;
 
     let id = _id;
@@ -35,7 +36,8 @@ function modify(req, res) {
         USD,
         GBP,
         EUR,
-        uploadType
+        uploadType,
+        category
     };
     //  //(body)
 
