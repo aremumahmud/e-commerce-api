@@ -33,14 +33,14 @@ async function fetchAndLogExchangeRates() {
     } catch (error) {
         // console.log('ff')
         const timestamp = new Date().toISOString();
-        console.log(error)
+        //console.log(error)
         fs.appendFileSync('./error.log', timestamp + JSON.stringify(error))
     }
 }
 
 // Schedule the cron job to run every 10 hours
 cron.schedule('0 */1 * * *', () => {
-    console.log('Fetching and logging exchange rates...');
+   // console.log('Fetching and logging exchange rates...');
     fetchAndLogExchangeRates();
 });
 fetchAndLogExchangeRates();
