@@ -170,7 +170,7 @@ let product = (x, data, currencyTab) => `
     <td>${x.parent_product}</td>
     <td>${x.size || '55'}</td>
     <td>${x.quantity}</td>
-    <td>${data.currency +  String(+(x.price/currencyTab[data.currency].price_in_naira).toFixed(2))}</td>
+    <td>${data.currency +  String(+(calculate_discount(x[data.currency === 'NGN' ? 'price' : data.currency], x.virtual_discount)).toFixed(2))}</td>
 </tr>
 
 `
