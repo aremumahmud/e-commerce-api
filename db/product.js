@@ -72,7 +72,9 @@ class Db {
                             if (res.length == 0 && !res) {
                                 return;
                             }
-                            if (res.categories.indexOf(category) === -1) {
+
+
+                            if (res.categories.indexOf(category) === -1 && category !== '') {
                                 res.categories.push(category);
                                 res.save();
                             }
@@ -383,15 +385,7 @@ class Db {
                         let order = user.currentPaymentReference;
                         let products = order.products;
                         order.reference = reference;
-                        //(products);
-                        // const filters = ids.map(id => ({ '_id': id }));
-                        // let ids = products.map(x => (x._id))
 
-                        // // //(ids, 'ccc')
-                        // Color.find({ $or: ids.map(id => ({ _id: id })) })
-                        //     .then(resp => {
-                        //         //(resp, 'mdjd')
-                        //lets create a new order model
                         let new_order = {
                             ...order,
                             payment_method: res.payment_type,
@@ -407,6 +401,11 @@ class Db {
                                     quantity: x.quantity,
                                     price: x.price,
                                     size: x.size,
+                                    virtual_discount: x.virtual_discount,
+                                    USD: x.USD,
+                                    GBP: x.GBP,
+                                    EUR: x.EUR
+
                                 };
                             }),
                         };
@@ -575,8 +574,18 @@ class Db {
         });
     }
 
-    deleteProduct(id) {
-        return colorModel.findByIdAndDelete(id);
+    deleteProduct(id, parent) {
+        return productsModel
+            .findById(parent)
+            .populate('varieties')
+            .then(prod => {
+                let variety_count = prod.varieties.length
+                if (variety_count < 2) {
+                    return productsModel.findByIdAndDelete(parent)
+                }
+                return colorModel.findByIdAndDelete(id);
+            })
+
     }
 
     async getUpdatedVersion(ids) {
@@ -586,7 +595,7 @@ class Db {
 
             return populatedRecords;
         } catch (err) {
-             console.error('Error fetching users:', err);
+            console.error('Error fetching users:', err);
             return [];
         }
     }

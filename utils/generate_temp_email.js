@@ -1,4 +1,5 @@
 const exchangeModel = require("../db/Models/exchange.Model")
+const calculate_discount = require("./calculate_discount")
 
 let products = []
     // const currencyTab = {
@@ -202,7 +203,7 @@ function generate(points, discount) {
             points.products.forEach(x => {
                 //(x.price)
                 //(+(x.price / currencyTab[points.currency].price_in_naira).toFixed(2))
-                total += +((x.price / currencyTab[points.currency].price_in_naira) * x.quantity).toFixed(2)
+                total += +(calculate_discount(x[points.currency === 'NGN' ? 'price' : points.currency], x.virtual_discount) * x.quantity).toFixed(2)
             })
             let template_final = template(points) + prods + end(points, total, discount)
             return resolve(template_final)
