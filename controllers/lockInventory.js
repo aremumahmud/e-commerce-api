@@ -113,6 +113,9 @@ function LockInventory(req, res) {
                     size: x.size,
                     parent_product: x.name,
                     image: x.image,
+                    USD: x.USD,
+                    GBP: x.GBP,
+                    EUR: x.EUR
                 }));
 
                 if (discount.length === 0) {
