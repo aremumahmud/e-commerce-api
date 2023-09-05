@@ -115,7 +115,8 @@ function LockInventory(req, res) {
                     image: x.image,
                     USD: x.USD,
                     GBP: x.GBP,
-                    EUR: x.EUR
+                    EUR: x.EUR,
+                    virtual_discount: x.virtual_discount
                 }));
 
                 if (discount.length === 0) {
