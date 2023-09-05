@@ -8,7 +8,7 @@ function modify(req, res) {
         description,
         sizes,
         quantity,
-        parent,
+        parent_id,
         weight,
         virtual_discount,
         USD,
@@ -42,7 +42,7 @@ function modify(req, res) {
     //  //(body)
 
     dbInstance
-        .modifyProduct(id, parent, modified, modified2)
+        .modifyProduct(id, parent_id, modified, modified2)
         .then((resp) => {
             //(resp)
             res.status(200).json({
