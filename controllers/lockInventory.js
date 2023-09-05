@@ -16,7 +16,11 @@ const calculate_virtual_discount = require("../utils/virtual_discount");
 function LockInventory(req, res) {
     let { inventory, price, currency, user_data, discount, country } = req.body;
     let refId = uuidV4();
-    user_data.address += "," + country;
+   if (user_data.delivery_type == 'delivery') {
+        user_data.address += "," + country;
+    } else {
+        user_data.address = ''
+    }
     //<<
     // << << < HEAD
     // // return //(discount)
