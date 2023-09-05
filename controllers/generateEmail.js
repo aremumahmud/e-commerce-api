@@ -1,5 +1,7 @@
 //let products = []
 
+const { pickup_adress } = require("../config")
+
 let template = `
 <!DOCTYPE html>
 <html lang="en">
@@ -55,8 +57,8 @@ let end = data => `
   
 </tr>
 <tr>
-  <td>Zip Code:</td>
-  <td>${data.zip_code}</td>
+  <td>${data.address?'Zip Code:':''}</td>
+  <td>${data.address?data.zip_code:''}</td>
 </tr>
 <tr>
   <td>First Name:</td>
@@ -75,8 +77,8 @@ let end = data => `
   <td>${data.phone_number}</td>
 </tr>
 <tr>
-  <td>Current Address:</td>
-  <td>${data.address}</td>
+  <td>${data.address?'Shipping Address':'Pickup Address'}:</td>
+  <td>${data.address?data.address:pickup_adress}</td>
 </tr>
 </tbody>
 
@@ -121,7 +123,7 @@ $('sendMail').onclick = ()=>{
 </script>
 </html>`
 
-let product = (x) => `
+let product = (x, data) => `
 <div class="view_tile">
 <div class="grp">
     <div class="imageDs">
@@ -134,7 +136,7 @@ let product = (x) => `
     </div>
 </div>
 <div class='info22'>
-    <p class='topic1'>${x.price}</p>
+<td>${data.currency +  String(+(calculate_discount(x[data.currency === 'NGN' ? 'price' : data.currency], x.virtual_discount)).toFixed(2))}</td>
     <p>price</p>
 </div>
 
@@ -145,7 +147,7 @@ let product = (x) => `
 
 function generate(points) {
 
-    let prods = points.products.map(x => product(x)).join('')
+    let prods = points.products.map(x => product(x, points)).join('')
     let template_final = template + prods + end(points)
     return template_final
 

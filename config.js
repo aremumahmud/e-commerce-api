@@ -6,5 +6,5 @@
 
 module.exports = {
     exp: 2,
-    pickup_adress: 'this is the pickup address ooo'
+    pickup_adress: '16, Oremeji Avenue, off Bamishile Street, Egbeda, Lagos State, Nigeria. \n Postcode: 102213'
 }
