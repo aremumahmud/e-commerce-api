@@ -1,3 +1,4 @@
+const { pickup_adress } = require("../config")
 const exchangeModel = require("../db/Models/exchange.Model")
 const calculate_discount = require("./calculate_discount")
 
@@ -58,8 +59,13 @@ let template = (data) => `
 <br>
 <div >
 <p>Hi ${data.first_name},</p><br>
-<p>Your order at Glitzabelle Label has been shipped! We are pleased to let you know your package is already on its way to your location.
+<p>${
+    data.address?'Your order at Glitzabelle Label has been shipped! We are pleased to let you know your package is already on its way to your location.':"Your order with Glitzabelle Label has been successfully processed! We're delighted to inform you that your package is now available for pickup at our location."
+}
 </p>
+<p>${
+    !data.address?('Pick up Location: ' + pickup_adress):''
+}</p>
 </div>
 <br>
 <div class="topic2"><br>
@@ -115,8 +121,8 @@ let end = (data, total, discount) => `
   
 </tr>
 <tr>
-  <td>Zip Code:</td>
-  <td>${data.zip_code}</td>
+  <td>${data.address?'Zip Code:':''}</td>
+  <td>${data.address?data.zip_code:''}</td>
 </tr>
 <tr>
   <td>First Name:</td>
@@ -135,8 +141,8 @@ let end = (data, total, discount) => `
   <td>${data.phone_number}</td>
 </tr>
 <tr>
-  <td>ShippingAddress:</td>
-  <td>${data.address}</td>
+  <td>${data.address?'Shipping Address':'Pickup Address'}:</td>
+  <td>${data.address?data.address:pickup_adress}</td>
 </tr>
 </tbody>
 

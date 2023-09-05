@@ -5,5 +5,6 @@
 // })
 
 module.exports = {
-    exp: 2
+    exp: 2,
+    pickup_adress: 'this is the pickup address ooo'
 }

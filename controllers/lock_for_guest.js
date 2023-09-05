@@ -17,7 +17,12 @@ function LockInventoryGuest(req, res) {
     let { inventory, price, user_data, currency, discount, country } = req.body;
 
     let refId = uuidV4();
-    user_data.address += "," + country;
+    if (user_data.delivery_type == 'delivery') {
+        user_data.address += "," + country;
+    } else {
+        user_data.address = ''
+    }
+
     ////(inventory)
     // return
     //return //(discount)
@@ -173,4 +178,5 @@ function LockInventoryGuest(req, res) {
         });
 }
 
+module.exports = LockInventoryGuest;
 module.exports = LockInventoryGuest;
