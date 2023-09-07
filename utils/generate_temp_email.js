@@ -61,12 +61,10 @@ let template = (data) => `
 <p>Hi ${data.first_name},</p><br>
 
 <p>${
-    data.address?'You have successfully placed an order at Glitzabelle Label! We are pleased to let you know we are already working on shipping your order to your location.':"Your order with Glitzabelle Label has been successfully processed! We're delighted to inform you that your package is now available for pickup at our location."
+    data.address?'You have successfully placed an order at Glitzabelle Label! We are pleased to let you know we are already working on shipping your order to your location.':
+    "You have successfully placed an order at Glitzabelle Label! We're pleased to inform you that we are already processing your order. We will notify you when it's ready to be picked up at our location."
 }
 </p>
-<p>${
-    !data.address?('Pick up Location: ' + pickup_adress):''
-}</p>
 </div>
 <br>
 <div class="topic2"><br>
