@@ -2,8 +2,8 @@
 const dbInstance = require('../db')
 
 function delete_product(req, res) {
-    let id = req.body.id
-    dbInstance.deleteProduct(id)
+    let { id, parent } = req.body
+    dbInstance.deleteProduct(id, parent)
         .then((deletedDocument) => {
             if (deletedDocument) {
                 return res.status(200).json({
