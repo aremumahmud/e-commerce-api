@@ -21,6 +21,7 @@ function delete_product(req, res) {
             })
         })
         .catch((error) => {
+          //console.log(error)
             res.status(200).json({
                 success: false,
                 error: true,
