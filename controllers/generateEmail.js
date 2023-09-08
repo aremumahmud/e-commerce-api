@@ -124,8 +124,10 @@ $('sendMail').onclick = ()=>{
         return res.json()
     }).then(res=>{
         alert('sent delivery email successfully')
+        location.reload()
     }).catch(err=>{
         alert('sorry an unexpected error occured!')
+        location.reload()
     })
 
 }
