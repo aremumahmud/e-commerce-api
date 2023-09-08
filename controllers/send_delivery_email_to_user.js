@@ -31,7 +31,7 @@ function send_delivery_email(req, res) {
                     error: false
                 })
             })
-
+return
         }
 
         return res.status(400).send(d)
