@@ -47,7 +47,7 @@ let productSchema = new Schema({
     },
     virtual_discount: {
         type: Number,
-        default: 30
+        default: 0
     },
     category: String,
     uploadType: {
