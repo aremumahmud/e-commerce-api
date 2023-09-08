@@ -23,6 +23,10 @@ const Order = new Schema({
     },
     total: Number,
     currency: String,
+    delivery_sent: {
+        type: Boolean,
+        default: false
+    },
     payment_method: String
 }, {
     timestamps: true,

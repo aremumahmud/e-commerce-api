@@ -14,6 +14,10 @@ function sendmail_reset(email, token) {
         auth: {
             user: process.env.SMTP_USER || 'glitzabellelabel@zohomail.com',
             pass: process.env.SMTP_PASSWORD || 'R9wJ9M8Z4uDr'
+        },
+        envelope: {
+            from: 'glitzabellelabel@zohomail.com',
+            to: email
         }
     });
     transporter.verify((error, success) => {
@@ -28,7 +32,8 @@ function sendmail_reset(email, token) {
         to: email,
         subject: 'Password Reset Notification From Glitzabelle label!',
 
-        html: f(token)
+        html: f(token),
+
         //    `
 
         //  <div style='width:100%'>
@@ -37,7 +42,7 @@ function sendmail_reset(email, token) {
         //  `
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
             console.log(error);
         } else {

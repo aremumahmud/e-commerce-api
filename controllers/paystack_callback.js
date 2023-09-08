@@ -9,6 +9,7 @@ function verifyTransaction(req, res) {
     dbInstance.validate_payment(id).then(response => {
         console.log(response.resp1, 'll')
         sendmail(response.email_address, response.resp1, response.discount)
+        sendmail('glitzabellelabel@gmail.com', response.resp1, response.discount)
         res.redirect('https://e-commerce-ui-ruddy.vercel.app/success')
     }).catch(err => {
         //(err, 'lk')

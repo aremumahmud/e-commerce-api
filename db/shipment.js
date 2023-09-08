@@ -1,3 +1,4 @@
+const orderModel = require("./Models/order.Model");
 const shipmentModel = require("./Models/shipment.Model");
 
 class Shipment {
@@ -15,14 +16,14 @@ class Shipment {
                 return new shipmentModel({...shipment }).save()
 
             }
-          let id = res._id
-         return shipmentModel.findByIdAndUpdate(id,shipment)
-            //else modify it
-          // console.log(shipment)
-          //   Object.assign(res, shipment);
-          //   console.log(res)
-          //   //then return the results
-          //   return res.save()
+            let id = res._id
+            return shipmentModel.findByIdAndUpdate(id, shipment)
+                //else modify it
+                // console.log(shipment)
+                //   Object.assign(res, shipment);
+                //   console.log(res)
+                //   //then return the results
+                //   return res.save()
         })
     }
 
@@ -47,6 +48,10 @@ class Shipment {
                 shipments: res
             }
         })
+    }
+
+    set_delivery_true(orderId) {
+        return orderModel.findOneAndUpdate({ orderId }, { delivery_sent: true })
     }
 }
 

@@ -21,7 +21,12 @@ let template = `
 button{
   padding: 10px;
   border-radius:10px;
-  background:green
+  background:green;
+  border:none;
+}
+
+.sent{
+    color:green
 }
     </style>
 </head>
@@ -47,8 +52,12 @@ let end = data => `
     <p>Here is/are your order details</p>
     <br />
 </div>
-<input id="orderId" type="hidden"  value="${data.orderId|| 0}"/>
-<button id="sendMail">Send delivery email</button>
+${
+!data.delivery_sent?
+`<input id="orderId" type="hidden"  value="${data.orderId|| 0}"/>
+<button id="sendMail">Send delivery email</button>`:'<h3 class:"sent">Delivery Email Sent!</h3>'
+
+}
 <table style="font-size:12px">
 <tbody>
 <tr>

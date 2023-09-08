@@ -22,7 +22,7 @@ function sendmail(email, data, discount) {
         });
         var mailOptions = {
             from: 'glitzabellelabel@zohomail.com',
-            to: [email, 'glitzabellelabel@gmail.com'],
+            to: email,
             subject: 'Order Notification From Glitzabelle Label!',
 
             html: resp
