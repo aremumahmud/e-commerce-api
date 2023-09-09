@@ -2,8 +2,8 @@
 const dbInstance = require('../db')
 
 function delete_product(req, res) {
-    let { id, parent } = req.body
-    dbInstance.deleteProduct(id, parent)
+    let { id, parent, mode } = req.body
+    dbInstance.deleteProduct(id, parent, mode)
         .then((deletedDocument) => {
             if (deletedDocument) {
                 return res.status(200).json({
@@ -21,7 +21,7 @@ function delete_product(req, res) {
             })
         })
         .catch((error) => {
-          //console.log(error)
+            //console.log(error)
             res.status(200).json({
                 success: false,
                 error: true,

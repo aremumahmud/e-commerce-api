@@ -1,0 +1,138 @@
+Date : 2023-09-08 19:31:19
+Directory : c:\Users\HP\Desktop\jj\e-commerce-api
+Total : 98 files,  6328 codes, 736 comments, 657 blanks, all 7721 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         93 |      3,761 |        715 |        635 |      5,111 |
+| JSON       |          3 |      2,482 |          0 |          2 |      2,484 |
+| HTML       |          1 |         54 |         21 |          6 |         81 |
+| Markdown   |          1 |         31 |          0 |         14 |         45 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                             | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                |         98 |      6,328 |        736 |        657 |      7,721 |
+| . (Files)                                                                        |          8 |      2,837 |         50 |         73 |      2,960 |
+| authentication                                                                   |          4 |        106 |         31 |         25 |        162 |
+| config                                                                           |          2 |         73 |         24 |         17 |        114 |
+| controllers                                                                      |         33 |        997 |        270 |        162 |      1,429 |
+| cron-jobs                                                                        |          1 |         28 |         12 |          7 |         47 |
+| db                                                                               |         22 |      1,211 |        176 |        166 |      1,553 |
+| db (Files)                                                                       |          9 |        821 |        170 |        120 |      1,111 |
+| db\Models                                                                        |         12 |        382 |          6 |         44 |        432 |
+| db\conn                                                                          |          1 |          8 |          0 |          2 |         10 |
+| interface                                                                        |          4 |        127 |         85 |         46 |        258 |
+| interface\amqp                                                                   |          4 |        127 |         85 |         46 |        258 |
+| routers                                                                          |          8 |        234 |          7 |         51 |        292 |
+| utils                                                                            |         16 |        715 |         81 |        110 |        906 |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                         | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\HP\Desktop\jj\e-commerce-api\README.md                                  | Markdown   |         31 |          0 |         14 |         45 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\authentication\jwt_admin_auth.js           | JavaScript |         27 |          7 |          5 |         39 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\authentication\jwt_auth.js                 | JavaScript |         27 |          7 |          5 |         39 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\authentication\passportConfig.js           | JavaScript |         37 |         13 |         13 |         63 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\authentication\utils.js                    | JavaScript |         15 |          4 |          2 |         21 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\config.js                                  | JavaScript |          4 |          4 |          2 |         10 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\config\flutterwave.js                      | JavaScript |         48 |         12 |          8 |         68 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\config\verify_transaction.js               | JavaScript |         25 |         12 |          9 |         46 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\Untitled-1.js                  | JavaScript |         11 |          0 |          2 |         13 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\addtocart.js                   | JavaScript |         17 |          8 |          3 |         28 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\createProducts.js              | JavaScript |         16 |          8 |          3 |         27 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\create_discount.js             | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\deleteProducts.js              | JavaScript |         27 |          2 |          6 |         35 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\deleteUser.js                  | JavaScript |         27 |          1 |          6 |         34 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\destroy_discount.js            | JavaScript |         17 |          7 |          3 |         27 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\discount.Controller.js         | JavaScript |         20 |          1 |          5 |         26 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\exchange.js                    | JavaScript |         16 |          9 |          4 |         29 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\fetchShipment.js               | JavaScript |         13 |          9 |          4 |         26 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\fetch_orders.js                | JavaScript |         22 |          8 |          4 |         34 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\generateEmail.js               | JavaScript |        145 |          2 |         24 |        171 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\getCategories.js               | JavaScript |         16 |          9 |          4 |         29 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\getProducts.js                 | JavaScript |         16 |          8 |          3 |         27 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\getUpdatedVersion.js           | JavaScript |         16 |          8 |          4 |         28 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\getUserInfo.js                 | JavaScript |         29 |          9 |          8 |         46 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\get_all_discounts.js           | JavaScript |         16 |          7 |          4 |         27 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\get_all_orders.js              | JavaScript |         15 |          9 |          4 |         28 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\lockInventory.js               | JavaScript |        139 |         50 |         11 |        200 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\lock_for_guest.js              | JavaScript |        139 |         34 |          9 |        182 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\loginPostHandler.js            | JavaScript |         38 |          9 |          2 |         49 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\modify.js                      | JavaScript |         54 |          4 |          4 |         62 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\modifyExchange.js              | JavaScript |         16 |          2 |          4 |         22 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\paystack_callback.js           | JavaScript |         15 |          1 |          4 |         20 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\paystack_pay.js                | JavaScript |         24 |         22 |          4 |         50 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\registerPostHandler.js         | JavaScript |         23 |          5 |          3 |         31 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\search.js                      | JavaScript |         15 |          2 |          3 |         20 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\send_delivery_email_to_user.js | JavaScript |         28 |         13 |          7 |         48 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\suscribeUser.js                | JavaScript |         19 |          8 |          4 |         31 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\updateShipment.js              | JavaScript |         16 |          2 |          4 |         22 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\validate_discount.js           | JavaScript |         14 |          1 |          5 |         20 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\verify_discount.js             | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\controllers\viewOrder.js                   | JavaScript |         18 |         12 |          5 |         35 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\cron-jobs\schedule.js                      | JavaScript |         28 |         12 |          7 |         47 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\User.Model.js                    | JavaScript |         27 |          1 |          4 |         32 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\cart.Model.js                    | JavaScript |         16 |          0 |          3 |         19 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\category.Model.js                | JavaScript |          9 |          0 |          2 |         11 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\color.Model.js                   | JavaScript |         50 |          1 |          6 |         57 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\discount.Model.js                | JavaScript |         26 |          0 |          4 |         30 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\exchange.Model.js                | JavaScript |         12 |          0 |          2 |         14 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\guestOrder.Model.js              | JavaScript |         11 |          0 |          2 |         13 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\locked.Model.js                  | JavaScript |         21 |          0 |          5 |         26 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\order.Model.js                   | JavaScript |         49 |          3 |          6 |         58 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\products.Model.js                | JavaScript |         71 |          1 |          5 |         77 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\shipment.Model.js                | JavaScript |         78 |          0 |          3 |         81 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\Models\suscribe.Model.js                | JavaScript |         12 |          0 |          2 |         14 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\cart.js                                 | JavaScript |         75 |         20 |         13 |        108 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\conn\index.js                           | JavaScript |          8 |          0 |          2 |         10 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\discount.js                             | JavaScript |         70 |          1 |         14 |         85 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\exchange.js                             | JavaScript |         35 |          0 |          4 |         39 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\index.js                                | JavaScript |          3 |          0 |          3 |          6 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\product.js                              | JavaScript |        486 |        115 |         49 |        650 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\search.js                               | JavaScript |         66 |          3 |         14 |         83 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\shipment.js                             | JavaScript |         34 |         17 |          7 |         58 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\suscribe.js                             | JavaScript |          9 |          0 |          3 |         12 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\db\user.js                                 | JavaScript |         43 |         14 |         13 |         70 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\ede.js                                     | JavaScript |        161 |          6 |         20 |        187 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\index.html                                 | HTML       |         54 |         21 |          6 |         81 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\index.js                                   | JavaScript |         71 |         12 |         20 |        103 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\interface\amqp\amqp.interface.js           | JavaScript |        113 |         82 |         38 |        233 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\interface\amqp\index.js                    | JavaScript |          6 |          0 |          5 |         11 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\interface\amqp\queue.offline.json          | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\interface\amqp\test.js                     | JavaScript |          7 |          3 |          3 |         13 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\package-lock.json                          | JSON       |      2,449 |          0 |          1 |      2,450 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\package.json                               | JSON       |         32 |          0 |          1 |         33 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\passport-config.js                         | JavaScript |         35 |          7 |          9 |         51 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\appRouter.js                       | JavaScript |        109 |          2 |         17 |        128 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\delete.router.js                   | JavaScript |         13 |          0 |          4 |         17 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\discount.router.js                 | JavaScript |         20 |          1 |          5 |         26 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\exchange.router.js                 | JavaScript |         12 |          0 |          4 |         16 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\paystack.router.js                 | JavaScript |         17 |          0 |          4 |         21 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\router.js                          | JavaScript |         44 |          4 |          7 |         55 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\search_router.js                   | JavaScript |          7 |          0 |          6 |         13 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\routers\shipment.router.js                 | JavaScript |         12 |          0 |          4 |         16 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\404.js                               | JavaScript |         57 |          0 |          7 |         64 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\calculate_discount.js                | JavaScript |          5 |          0 |          2 |          7 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\create_discount.js                   | JavaScript |         11 |          0 |          6 |         17 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\currency copy.js                     | JavaScript |         21 |          0 |          2 |         23 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\currency.js                          | JavaScript |          4 |          0 |          0 |          4 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\generate_acess_code.js               | JavaScript |          6 |          0 |          0 |          6 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\generate_delivery_email.js           | JavaScript |        181 |         22 |         23 |        226 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\generate_temp_email.js               | JavaScript |        179 |         22 |         24 |        225 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\generate_tx_ref.js                   | JavaScript |         12 |          2 |          6 |         20 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\password.js                          | JavaScript |         42 |          6 |          6 |         54 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\paystack.js                          | JavaScript |          9 |          1 |          2 |         12 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\refineSearch.js                      | JavaScript |         23 |          7 |          4 |         34 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\send_delivery_mail.js                | JavaScript |         36 |          7 |          7 |         50 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\sendmail.js                          | JavaScript |         36 |          7 |          7 |         50 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\suscribeMail.js                      | JavaScript |         88 |          7 |         12 |        107 |
+| c:\Users\HP\Desktop\jj\e-commerce-api\utils\virtual_discount.js                  | JavaScript |          5 |          0 |          2 |          7 |
+| Total                                                                            |            |      6,328 |        736 |        657 |      7,721 |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

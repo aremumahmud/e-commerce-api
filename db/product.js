@@ -574,7 +574,8 @@ class Db {
         });
     }
 
-    deleteProduct(id, parent) {
+    deleteProduct(id, parent, mode) {
+        if (mode === 'ruler') return productsModel.findByIdAndDelete(parent)
         return productsModel
             .findById(parent)
             .populate('varieties')
