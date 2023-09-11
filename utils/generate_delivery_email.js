@@ -77,8 +77,8 @@ let template = (data) => `
 <table>
 <tbody>
 <tr>
-    <th>Product name</th>
-    <th>size</th>
+    <th>Product Name</th>
+    <th>Size</th>
     <th>Quantity</th>
     <th>Price</th>
 </tr>
@@ -92,7 +92,7 @@ let end = (data, total, discount) => `
     <th>${data.currency + String(discount)}</th>
 </tr>
 <tr>
-    <th colspan='3'>Shipping fee</th>
+    <th colspan='3'>Shipping Fee</th>
     
     <th>${data.currency + String(parseInt(data.total)-parseInt(total)+parseInt(discount))}</th>
 </tr>
@@ -116,9 +116,8 @@ let end = (data, total, discount) => `
 <table style="font-size:12px">
 <tbody>
 <tr>
-  <td>City:</td>
-  <td>${data.city}</td>
-  
+  <td>${data.address?'City:':''}</td>
+  <td>${data.address?data.city:''}</td>
 </tr>
 <tr>
   <td>${data.address?'Zip Code:':''}</td>
@@ -163,7 +162,7 @@ let end = (data, total, discount) => `
             <div>
             <h3>contact info:</h3>
             <p>Phone: +234 8025 926 292 </p>
-            <p>Email: support@glitzabellelabelcom</p>
+            <p>Email: support@glitzabellelabel.com</p>
             </div>
             <div className="other">
                 <div className="copyWright">
