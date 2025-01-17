@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 
 module.exports = async(req, res) => {
+    console.log(req.body)
         try {
             let { email, password, username } = req.body;
             //(req.body);
