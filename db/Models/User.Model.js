@@ -19,7 +19,8 @@ let UserModel = new Schema({
     }],
     payments: [],
     currentPaymentReference: {},
-    change_password_token: String
+    change_password_token: String,
+    verified: Boolean
 
 
 }, {

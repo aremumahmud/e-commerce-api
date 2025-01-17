@@ -20,7 +20,7 @@ const verifyTransaction = require("../config/verify_transaction");
 const colorModel = require("./Models/color.Model");
 
 class Db {
-    constructor() {}
+    constructor() { }
 
     /**
      * @desc      Create a new Product Parent
@@ -39,33 +39,33 @@ class Db {
         return new Promise((resolve, reject) => {
             Promise.allSettled(
                 options.varieties
-                .filter((x) => {
-                    if (x.image) {
-                        return true;
-                    }
-                    return false;
-                })
-                .map((color) => new Color(color).save())
+                    .filter((x) => {
+                        if (x.image) {
+                            return true;
+                        }
+                        return false;
+                    })
+                    .map((color) => new Color(color).save())
             ).then((resp) => {
                 //(resp);
                 let category = options.category.trim()
                 new productsModel({
-                        name: options.product_name,
-                        mainImage: options.image,
-                        description: options.description,
-                        price: options.price,
-                        // priceAfterDiscount: options.price - options.discount,
-                        // priceDiscount: options.discount,
-                        //sizes: options.sizes,
-                        virtual_discount: options.virtual_discount,
-                        weight: options.weight,
-                        uploadType: options.uploadType,
-                        varieties: resp.map((res) => res.value._id),
-                        category,
-                        USD: options.USD,
-                        GBP: options.GBP,
-                        EUR: options.EUR
-                    })
+                    name: options.product_name,
+                    mainImage: options.image,
+                    description: options.description,
+                    price: options.price,
+                    // priceAfterDiscount: options.price - options.discount,
+                    // priceDiscount: options.discount,
+                    //sizes: options.sizes,
+                    virtual_discount: options.virtual_discount,
+                    weight: options.weight,
+                    uploadType: options.uploadType,
+                    varieties: resp.map((res) => res.value._id),
+                    category,
+                    USD: options.USD,
+                    GBP: options.GBP,
+                    EUR: options.EUR
+                })
                     .save()
                     .then((res) => {
                         categoryModel.findOne().then((res) => {
@@ -145,12 +145,12 @@ class Db {
                         .save()
                         .then((res) => {
                             new lockedModel({
-                                    //then we create a lock model for it
-                                    quantity: product_quantity,
-                                    product: doc._id,
-                                    refId,
-                                    expires: Number(Date.now()) + expiresIn.exp * 60 * 60 * 1000,
-                                })
+                                //then we create a lock model for it
+                                quantity: product_quantity,
+                                product: doc._id,
+                                refId,
+                                expires: Number(Date.now()) + expiresIn.exp * 60 * 60 * 1000,
+                            })
                                 .save()
                                 .then((res) => {
                                     //if the trim variable is true
@@ -303,12 +303,12 @@ class Db {
     attachLockedGuest(refId, amount, user_data, products, currency, discount) {
         return new Promise((resolve, reject) => {
             new guestOrderModel({
-                    locks: refId,
-                    currentPaymentReference: {
-                        ...user_data,
-                        products,
-                    },
-                })
+                locks: refId,
+                currentPaymentReference: {
+                    ...user_data,
+                    products,
+                },
+            })
                 .save()
                 .then((res) => {
                     generatePaymentLink(
@@ -518,7 +518,7 @@ class Db {
                     reject(err);
                 });
         });
-    } 
+    }
 
     verify_otp(email, token) {
         return new Promise((resolve, reject) => {
@@ -529,10 +529,14 @@ class Db {
                             error: true,
                             mesage: "failed validation",
                         });
-                    
-                    resolve({
-                        userID: res._id,
-                    });
+
+                    res.verified = true
+                    res.save().then(() => {
+                        resolve({
+                            userID: res._id,
+                        });
+                    })
+
                 })
                 .catch((err) => reject(err));
         });
