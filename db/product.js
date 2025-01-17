@@ -519,7 +519,7 @@ class Db {
                 });
         });
     } 
-#fheuikjfn ujgkn
+
     verify_otp(email, token) {
         return new Promise((resolve, reject) => {
             UserModel.findOne({ email_address: email, change_password_token: token })
