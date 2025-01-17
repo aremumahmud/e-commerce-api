@@ -1,6 +1,6 @@
 let f = (token) => `
-<h1>Request for change of password</h1>
-<p>Do not disclose, use this otp to verify yourself and  reset your password</p>
+<h1>Verify your account</h1>
+<p>Do not disclose, use this otp to verify yourself</p>
 token: ${token}
 `
 var nodemailer = require('nodemailer');
@@ -30,7 +30,7 @@ function sendmail_reset(email, token) {
     var mailOptions = {
         from: 'glitzabellelabel@zohomail.com',
         to: email,
-        subject: 'Password Reset Notification From Glitzabelle label!',
+        subject: 'Account Verification Notification From Unique Collections',
 
         html: f(token),
 
