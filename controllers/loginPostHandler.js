@@ -6,6 +6,7 @@ const JWT_PRIVATE_KEY = process.env.JWT_SECRET || 'fjvghbftygbv hb,k kj';
 module.exports = (req, res, next) => {
     // //("kz,mjmxn xn xk ikxn xm");
     //(req.body)
+    console.log(req.body)
     passport.authenticate("local", (err, theUser, failure) => {
         if (err) {
             return res.json({
