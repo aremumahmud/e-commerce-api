@@ -9,22 +9,22 @@ class Exchange {
                     currencyTab: {
                         USD: {
                             symbol: "$",
-                            price_in_naira: doc.USD,
+                            price_in_naira: doc?.USD || 1200,
                         },
                         GBP: {
                             symbol: "£",
-                            price_in_naira: doc.GBP,
+                            price_in_naira: doc?.GBP || 2000,
                         },
                         NGN: {
                             symbol: "₦",
-                            price_in_naira: doc.NGN,
+                            price_in_naira: doc?.NGN || 1,
                         },
                         EUR: {
                             symbol: "€",
-                            price_in_naira: doc.EUR,
+                            price_in_naira: doc?.EUR || 1600,
                         },
                     },
-                    symbolTab: { "₦": doc.NGN, "€": doc.EUR, $: doc.USD, "£": doc.GBP },
+                    symbolTab: { "₦": doc?.NGN || 1, "€": doc?.EUR || 1600, $: doc?.USD || 1200, "£": doc?.GBP || 2000 },
                 });
             });
         });
