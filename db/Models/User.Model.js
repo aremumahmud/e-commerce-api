@@ -20,7 +20,11 @@ let UserModel = new Schema({
     payments: [],
     currentPaymentReference: {},
     change_password_token: String,
-    verified: Boolean
+    verified: Boolean,
+    phone_number: String,
+    full_name: String,
+    gender: String,
+    uploadedImage: String
 
 
 }, {
