@@ -523,7 +523,7 @@ class Db {
     verify_otp(email, token) {
         console.log(`'${email}'` , token)
         return new Promise((resolve, reject) => {
-            UserModel.findOne({ email_address: email, change_password_token: token })
+            UserModel.findOne({ email_address: email.trim(), change_password_token: token })
                 .then((res) => {
                     console.log(res)
                     if (!res || Object.keys(res).length === 0)
