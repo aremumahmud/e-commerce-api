@@ -542,6 +542,22 @@ class Db {
         });
     }
 
+    updateProfile(id, update) {
+        return new Promise((resolve, reject) => {
+            UserModel.findByIdAndUpdate(id , update)
+                .then((res) => {
+                    
+                   
+                        resolve({
+                            userID: res._id,
+                            success: true
+                    })
+
+                })
+                .catch((err) => reject(err));
+        });
+    }
+
     changePassword(id, password, token) {
         return new Promise((resolve, reject) => {
             UserModel.findOne({ _id: id, change_password_token: token })

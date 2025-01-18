@@ -48,6 +48,19 @@ router
 router
     .route('/fetch_orders')
     .post(Auth, get_orders)
+
+router
+    .route('/update_profile')
+    .post(Auth, (req, res)=>{
+
+        let id = req.user._id
+        let update = req.body.update
+        dbInstance.updateProfile(id, update).then(resp => {
+            res.send(resp)
+        }).catch(err => {
+            res.send(err)
+        })
+    })
 router
     .route('/fetch_order_view')
     .get(get_order_view)
