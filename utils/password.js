@@ -16,7 +16,7 @@ function sendmail_reset(email, token) {
             pass: process.env.SMTP_PASSWORD || 'R9wJ9M8Z4uDr'
         },
         envelope: {
-            from: 'glitzabellelabel@zohomail.com',
+            from: 'uniquecollections@zohomail.com',
             to: email
         }
     });
@@ -28,7 +28,7 @@ function sendmail_reset(email, token) {
         }
     });
     var mailOptions = {
-        from: 'glitzabellelabel@zohomail.com',
+        from: 'uniquecollections@zohomail.com',
         to: email,
         subject: 'Account Verification Notification From Unique Collections',
 
