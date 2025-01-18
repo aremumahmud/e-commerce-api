@@ -51,9 +51,9 @@ router
 
 router
     .route('/update_profile')
-    .post(Auth, (req, res)=>{
+    .post((req, res)=>{
 
-        let id = req.user._id
+        let id = req.body.id
         let update = req.body.update
         dbInstance.updateProfile(id, update).then(resp => {
             res.send(resp)
