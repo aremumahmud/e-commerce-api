@@ -68,15 +68,15 @@ class Db {
                 })
                     .save()
                     .then((res) => {
-                        categoryModel.findOne().then((res) => {
-                            if (res.length == 0 && !res) {
+                        categoryModel.findOne().then((res1) => {
+                            if (res1.length == 0 && !res1) {
                                 return;
                             }
 
 
-                            if (res.categories.indexOf(category) === -1 && category !== '') {
-                                res.categories.push(category);
-                                res.save();
+                            if (res1.categories.indexOf(category) === -1 && category !== '') {
+                                res1.categories.push(category);
+                                res1.save();
                             }
                         });
                         resolve(res);
@@ -217,7 +217,7 @@ class Db {
     getInventory(category) {
         //let g = category ? ({ f: 'f' }) : null
         return new Promise((resolve, reject) => {
-            let query = category !== "all" && category ? { category } : null;
+            let query = (category !== "all" && category) ? { category } : null;
             // //(query,'k' , category)
             productsModel
                 .find(query)

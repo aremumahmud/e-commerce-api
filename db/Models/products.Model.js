@@ -9,7 +9,7 @@ let productSchema = new Schema({
     mainImage: {
         type: String,
         required: [true, 'A product must have a main image']
-    },
+    }, 
 
     description: {
         type: String,

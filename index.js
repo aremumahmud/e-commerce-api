@@ -64,7 +64,7 @@ app.use(passport.session());
 app.use(flash())
 app.use(cors({
     credentials: true,
-    origin: ['https://e-commerce-ui-ruddy.vercel.app', 'http://localhost:3000']
+    origin: ['https://e-commerce-ui-ruddy.vercel.app', 'http://localhost:3000', 'http://localhost:8081']
 
 }))
 
