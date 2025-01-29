@@ -9,6 +9,7 @@ const dbInstance = require("../db");
 const { v4: uuidV4 } = require("uuid");
 const { invalidate_discount } = require("../db/discount");
 const { currencyTab } = require("../utils/currency copy");
+const calculate_virtual_discount = require("../utils/virtual_discount");
 const { getExchange } = require("../db/exchange");
 // >>>
 //require('../../amqp')
