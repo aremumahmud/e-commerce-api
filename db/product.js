@@ -272,7 +272,7 @@ for (let i = 0; i < sizes.length; i++) {
                         amount,
                         currency,
                         user_data.email_address,
-                        user_data.first_name + " " + user_data.last_name,
+                        user_data.name || (user_data.first_name + " " + user_data.last_name),
                         res._id,
                         "user",
                         discount
@@ -325,7 +325,7 @@ for (let i = 0; i < sizes.length; i++) {
                         amount,
                         currency,
                         user_data.email_address,
-                        user_data.first_name + " " + user_data.last_name,
+                        user_data.name || (user_data.first_name + " " + user_data.last_name),
                         res._id,
                         "guest",
                         discount
