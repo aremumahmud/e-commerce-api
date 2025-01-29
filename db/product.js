@@ -115,19 +115,25 @@ class Db {
                         });
                     let { quantity, locked, sizes } = doc; // get the quantity and the locked products
                     let index;
-                    for (let i = 0; i < sizes.length; i++) {
+                    if (size){
+
+for (let i = 0; i < sizes.length; i++) {
                         if (sizes[i].size == size) {
                             index = i;
                             break;
                         }
                     }
-                    if (index === null)
+                         if (index === null)
                         return reject({
                             error: true,
                             msg: "not enough stock in the inventory2",
-                        });
+                    });
+                    }
+                   
+                    
+                   
                     // check if the product is not more than whats in stock
-                    if (parseInt(doc.sizes[index].qty) < product_quantity)
+                    if (parseInt(size?doc.sizes[index].qty:doc.quantity) < product_quantity)
                         return reject({
                             error: true,
                             msg: "not enough stock in the inventory2",
@@ -136,11 +142,15 @@ class Db {
                     doc.quantity = quantity - product_quantity; // remove the quantity from the product
                     doc.locked = locked + product_quantity; //add ythe quantity to the locked
                     //(doc.sizes);
-                    doc.sizes[index].qty =
+                    if(size){
+
+                         doc.sizes[index].qty =
                         parseInt(doc.sizes[index].qty) - product_quantity;
                     let sizesd = [...doc.sizes];
                     //(sizesd);
                     doc.sizes = sizesd;
+                    }
+                   
                     doc
                         .save()
                         .then((res) => {
