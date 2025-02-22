@@ -11,7 +11,7 @@ async function generatePaymentLink(amount, currency, customerEmail, customerName
             `${flutterwaveBaseUrl}/v3/payments`, {
                 amount,
                 currency,
-                redirect_url: 'https://e-commerce-api.aremzy.repl.co/v1/api/pay/verify_payment',
+                redirect_url: 'https://e-commerce-api-jc2x.onrender.com/v1/api/pay/verify_payment',
                 tx_ref,
                 customer: {
                     email: customerEmail,
