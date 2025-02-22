@@ -5,15 +5,15 @@ function verifyTransaction(req, res) {
 
     let id = req.query.transaction_id
 
-    if (!id) return res.redirect('unique_collections://malformed')
+    if (!id) return res.redirect('https://e-commerce-ui-ruddy.vercel.app/home')
     dbInstance.validate_payment(id).then(response => {
         console.log(response.resp1, 'll')
         sendmail(response.email_address, response.resp1, response.discount)
-        sendmail('aremumahmud2003@gmail.com', response.resp1, response.discount)
-        res.redirect('unique_collections://success')
+        sendmail('glitzabellelabel@gmail.com', response.resp1, response.discount)
+        res.redirect('https://e-commerce-ui-ruddy.vercel.app/success')
     }).catch(err => {
         //(err, 'lk')
-        res.redirect('unique_collections://failed')
+        res.redirect('https://e-commerce-ui-ruddy.vercel.app/home')
     })
 }
 
