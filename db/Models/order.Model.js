@@ -1,58 +1,84 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const Order = new Schema({
-    reference: String,
-    first_name: String,
-    last_name: String,
-    phone_number: String,
-    email_address: String,
-    city: String,
-    zip_code: String,
-    address: String,
-    products: [],
-    status: { type: String, default: false },
-    discount: {
-        type: Number,
-        default: 0
+const OrderModel = new Schema({
+    // orderId: { type: String, required: true, unique: true },
+    // userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    items: [{
+        productId: {
+            type: Schema.Types.ObjectId,
+            ref: "Product",
+            required: true,
+        },
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true },
+    }, ],
+    // totalAmount: { type: Number, required: true },
+    address: {
+        type: String
     },
-    orderId: {
-        type: Number,
-        required: true,
-        unique: true,
-        default: 1000
+    status: {
+        type: String,
+        enum: [
+            "pending",
+            "processing",
+            "assigned",
+            "in_transit",
+            "delivered",
+            "cancelled",
+        ],
+        default: "processing",
     },
-    total: Number,
-    currency: String,
-    delivery_sent: {
-        type: Boolean,
-        default: false
+    rider: {
+        riderId: { type: Schema.Types.ObjectId, ref: "Rider" },
+        assignedAt: { type: Date },
+        acceptedAt: { type: Date },
     },
-    payment_method: String
+    deliveryConfirmation: {
+        riderConfirmed: { type: Boolean, default: false },
+        userConfirmed: { type: Boolean, default: false },
+        confirmedAt: { type: Date },
+    },
+    paymentStatus: {
+        type: String,
+        enum: ["pending", "paid", "failed", "refunded"],
+        default: "pending",
+    },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-})
-
-Order.pre('save', async function(next) {
-    const Order = this.constructor;
-
-    try {
-        // Retrieve the latest order document
-        const latestOrder = await Order.findOne({}, {}, { sort: { 'orderId': -1 } });
-
-        if (latestOrder) {
-            // Increment the order ID value
-            this.orderId = latestOrder.orderId + 1;
-        } else {
-            // If no previous orders exist, start from 1001
-            this.orderId = 1001;
-        }
-
-        next();
-    } catch (error) {
-        next(error);
-    }
+    toObject: { virtuals: true },
 });
 
-module.exports = mongoose.model('Order', Order)
+// Method to check if delivery is confirmed by both parties
+OrderModel.methods.isDeliveryConfirmed = function() {
+    return (
+        this.deliveryConfirmation.riderConfirmed &&
+        this.deliveryConfirmation.userConfirmed
+    );
+};
+
+// Method to update delivery confirmation
+OrderModel.methods.updateDeliveryConfirmation = async function(
+    confirmedBy,
+    isConfirmed
+) {
+
+    console.log("started")
+    console.log(this)
+    if (confirmedBy === "rider") {
+        this.deliveryConfirmation.riderConfirmed = isConfirmed;
+    } else if (confirmedBy === "user") {
+        this.deliveryConfirmation.userConfirmed = isConfirmed;
+    }
+
+    if (this.isDeliveryConfirmed()) {
+        this.status = "delivered";
+        this.deliveryConfirmation.confirmedAt = new Date();
+    }
+
+    return this.save();
+};
+
+module.exports = mongoose.model("Order", OrderModel);
